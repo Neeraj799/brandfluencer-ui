@@ -1,15 +1,18 @@
 "use client";
 
-import { loginValidationSchema } from "@/utils/validationSchema";
+import { loginValidationSchema } from "@utils/validationSchema";
 import { useFormik } from "formik";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ArrowLeft, Eye, EyeOff } from "react-feather";
 import { toast } from "react-toastify";
 
 const Login = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState<Boolean>(false);
+  const [loading, setLoading] = useState<Boolean>(false);
+  const router = useRouter();
 
   const formik = useFormik({
     initialValues: {
@@ -20,25 +23,32 @@ const Login = () => {
     validationSchema: loginValidationSchema,
 
     onSubmit: async (values) => {
-      // try {
-      //     setLoading(true)
-      //     const { data } = await userLogin(values)
-      //     if (data?.login) {
-      //     } else {
-      //         toast.error(data?.message, {
-      //             position: "top-center"
-      //         })
-      //     }
-      // } catch (error) {
-      //     console.log(error)
-      //     toast.error('Internal server error', {
-      //         position: 'top-center'
-      //     })
-      // } finally {
-      //     setTimeout(() => {
-      //         setLoading(false)
-      //     }, 4000);
-      // }
+      try {
+        setLoading(true);
+        const res = await signIn("credentials", {
+          email: values.email,
+          password: values.password,
+          redirect: false,
+        });
+        console.log(res, "res");
+        if (res?.error) {
+          console.log('failed');
+          toast.error("Authentication Failed", {
+            position: "top-center",
+          });
+        } else {
+          router.push('/')
+        }
+      } catch (error) {
+        console.log(error);
+        toast.error("Internal server error", {
+          position: "top-center",
+        });
+      } finally {
+        setTimeout(() => {
+          setLoading(false);
+        }, 4000);
+      }
     },
   });
 
@@ -84,12 +94,11 @@ const Login = () => {
                   required
                 />
                 <button type="button" onClick={handleTogglePassword}>
-                  {" "}
                   {!showPassword ? (
                     <Eye className="w-5 absolute top-1 right-3 translate-y-1/2 h-4" />
                   ) : (
                     <EyeOff className="w-5 absolute top-1 right-3 translate-y-1/2 h-4" />
-                  )}{" "}
+                  )}
                 </button>
               </div>
               {formik.touched.password && formik.errors.password ? (

@@ -1,6 +1,6 @@
 "use client"
 
-import { loginValidationSchema } from "@/utils/validationSchema";
+import { loginValidationSchema } from "@utils/validationSchema";
 import { useFormik } from "formik";
 import Link from "next/link"
 import { useState } from "react";
@@ -9,8 +9,8 @@ import { toast } from "react-toastify";
 
 
 const Login = () => {
-  const [showPassword, setShowPassword] = useState(false)
-    const [loading, setLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState<Boolean>(false)
+    const [loading, setLoading] = useState<Boolean>(false)
 
 
     const formik = useFormik({

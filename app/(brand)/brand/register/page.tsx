@@ -1,17 +1,18 @@
 "use client";
 
-import { isValidFileUploaded } from "@/helpers/imageValidation";
-import { signupSchemaInfluencer } from "@/utils/validationSchema";
+import { isValidFileUploaded } from "@helpers/imageValidation";
+import { signupSchema } from "@utils/validationSchema";
 import { useFormik } from "formik";
 import Link from "next/link";
 import React, { useState } from "react";
-import { Eye, EyeOff } from "react-feather";
+import { ArrowUpLeft, Eye, EyeOff } from "react-feather";
+import { toast } from "react-toastify";
 
 const Register = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [image, setImage] = useState();
-  const [selectedImage, setselectedImage] = useState();
+  const [showPassword, setShowPassword] = useState<Boolean>(false);
+  const [loading, setLoading] = useState<Boolean>(false);
+  const [image, setImage] = useState<File | null>(null);
+  const [selectedImage, setselectedImage] = useState<String>("");
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
@@ -21,43 +22,57 @@ const Register = () => {
     initialValues: {
       brand: "",
       email: "",
-      instaID: "",
+      companyRep: "",
       mobile: "",
       password: "",
-      confirmpassword: "",
+      confirmPassword: "",
     },
 
-    validationSchema: signupSchemaInfluencer,
+    validationSchema: signupSchema,
 
     onSubmit: async (values) => {
-      // try {
-      //     setLoading(true)
-      //     if (data.status) {
-      //         toast.success(data.message, {
-      //             position: "top-center"
-      //         })
-      //     } else {
-      //         toast.error(data.message, {
-      //             position: "top-center"
-      //         })
-      //     }
-      // } catch (error) {
-      //     toast.error("Internal Server Error", {
-      //         position: "top-center",
-      //     })
-      //     console.log(error)
-      // }finally{
-      //     setLoading(false)
-      // }
+      try {
+        console.log(values,"values");
+        console.log(image,'img');
+        
+          setLoading(true)
+          const res = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/api/brand/auth/sign-up`,
+            {
+              method: "POST",
+              body: (JSON.stringify({ ...values }), image),
+              headers: { "Content-Type": "application/json"},
+            }
+          );    
+          const data = await res.json()
+          console.log(data);
+          
+          // if (data.status) {
+          //     toast.success(data.message, {
+          //         position: "top-center"
+          //     })
+          // } else {
+          //     toast.error(data.message, {
+          //         position: "top-center"
+          //     })
+          // }
+      } catch (error) {
+          toast.error("Internal Server Error", {
+              position: "top-center",
+          })
+          console.log(error)
+      }finally{
+          setLoading(false)
+      }
     },
   });
 
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    formik.errors.image = null;
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0] ?? null;
+    formik.setFieldError("image", " ");
 
     const isValidImages = isValidFileUploaded(file);
-    const image = URL.createObjectURL(file);
+    const image = file ? URL.createObjectURL(file) : "";
     setselectedImage(image);
     if (!isValidImages) {
       formik.setFieldError(
@@ -66,13 +81,12 @@ const Register = () => {
       );
       return;
     }
-    setImage(file);
+    setImage(file)
   };
 
   return (
     <section className="bg-gray-50 min-h-screen flex items-center p-8 justify-center">
       <div className="bg-gray-100 flex rounded-2xl shadow-lg max-w-5xl p-6 items-center">
-        {/* <span className='self-center'> <Link href={'/'}> <ArrowUpLeft size={22} /></Link></span> */}
         <div className="md:w-1/2  px-16">
           <h2 className="font-bold text-3xl text-[#002D74]">Register Here..</h2>
           <p className="text-sm mt-4 text-[#002D74]">
@@ -120,9 +134,9 @@ const Register = () => {
             <input
               className="p-2 rounded-xl border"
               type="text"
-              name="instaID"
-              placeholder="Instagram Profile link"
-              id="instaID"
+              name="companyRep"
+              placeholder="Company Representative Name"
+              id="companyRep"
               onChange={formik.handleChange}
               required
             />
@@ -155,8 +169,8 @@ const Register = () => {
               <input
                 className="p-2  rounded-xl border w-full"
                 type={showPassword ? "text" : "password"}
-                name="confirmpassword"
-                id="confirmpassword"
+                name="confirmPassword"
+                id="confirmPassword"
                 placeholder="Confirm Password"
                 onChange={formik.handleChange}
                 required
@@ -169,10 +183,10 @@ const Register = () => {
                   <EyeOff className="w-5 absolute top-1 right-3 translate-y-1/2 h-4" />
                 )}{" "}
               </button>
-              {formik.touched.confirmpassword &&
-              formik.errors.confirmpassword ? (
+              {formik.touched.confirmPassword &&
+              formik.errors.confirmPassword ? (
                 <div className="text-red-500">
-                  {formik.errors.confirmpassword}
+                  {formik.errors.confirmPassword}
                 </div>
               ) : null}
             </div>
@@ -200,7 +214,7 @@ const Register = () => {
             </div>
             <label className="cursor-pointer label mt-3">
               <span className="label-text">
-              I agree to provide my personal data for registering on the website
+                I agree to the terms & conditions
               </span>
               <input
                 type="checkbox"
@@ -213,7 +227,7 @@ const Register = () => {
                 className="bg-[#002D74] rounded-xl py-2 text-center text-white"
                 disabled
               >
-                {/* <BeatLoader color="#36d7b7" /> */}Loading..
+                {/* <BeatLoader color="#36d7b7" /> */} Loading..
               </button>
             ) : (
               <button
@@ -227,19 +241,18 @@ const Register = () => {
 
           <div className="mt-3 text-xs flex justify-between items-center">
             <p>Already a member !?</p>
-            <Link href={"/brandfluencer/login"}>
+            <Link href={"/brand/login"}>
               <p className="hover:scale-105 duration-300 py-2 px-5 bg-white border rounded-xl">
                 Log in
               </p>
             </Link>
           </div>
         </div>
-
         <div className="w-1/2 h-fit md:block hidden">
           <img
             className="rounded-2xl"
             loading="lazy"
-            src={"https://source.unsplash.com/60GsdOMRFGc"}
+            src={"https://source.unsplash.com/42gFAgdIUC8"}
             alt=""
           />
         </div>
