@@ -1,5 +1,5 @@
-import Contact from "@/components/Contact";
-import Hero from "@/components/Hero";
+import Contact from "@/components/Home/Contact";
+import Hero from "@/components/Home/Hero";
 import Banner from "@/components/Home/Banner";
 import Category from "@/components/Home/Category";
 import Intro from "@/components/Home/Intro";

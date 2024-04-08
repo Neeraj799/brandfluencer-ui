@@ -47,7 +47,7 @@ const Navbar = () => {
               </li>
             </ul>
           </div>
-          <Link href={'/'}>
+          <Link href={'/en/'}>
           <Image
             src="/logo/logo.svg"
             alt="Brandfluencer"

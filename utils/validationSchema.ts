@@ -40,9 +40,9 @@ const signupSchema = Yup.object({
 });
 
 const signupSchemaInfluencer = Yup.object({
-    brand: Yup.string()
+    name: Yup.string()
       .max(15, "Must be 15 characters or less")
-      .required("Brand Name Required"),
+      .required("Full Name Required"),
     email: Yup.string()
       .email("invalid email address")
       .required("Email is required"),
@@ -50,7 +50,7 @@ const signupSchemaInfluencer = Yup.object({
       .max(12, "Mobile number not valid")
       .min(10, "Mobile number not valid")
       .required("Mobile is required"),
-    instaID: Yup.string().required("Profile is required"),
+    instaID: Yup.string().required("Insta Profile is required"),
     password: Yup.string()
       .min(6, "password must be at least 6 charecters")
       .required("Password is required")
@@ -58,7 +58,7 @@ const signupSchemaInfluencer = Yup.object({
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
         "Must contain at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character"
       ),
-    confirmpassword: Yup.string()
+    confirmPassword: Yup.string()
       .oneOf([Yup.ref("password")], "Passwords must match")
       .required("Confirm Password is Required"),
   });

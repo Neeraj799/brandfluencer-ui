@@ -2,7 +2,9 @@
 
 import { loginValidationSchema } from "@utils/validationSchema";
 import { useFormik } from "formik";
+import { signIn, useSession } from "next-auth/react";
 import Link from "next/link"
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ArrowLeft, Eye, EyeOff } from "react-feather"
 import { toast } from "react-toastify";
@@ -11,7 +13,9 @@ import { toast } from "react-toastify";
 const Login = () => {
   const [showPassword, setShowPassword] = useState<Boolean>(false)
     const [loading, setLoading] = useState<Boolean>(false)
-
+    const router = useRouter();
+    const {data:session} = useSession();
+    console.log({session});
 
     const formik = useFormik({
 
@@ -23,27 +27,33 @@ const Login = () => {
       validationSchema: loginValidationSchema,
 
       onSubmit: async (values) => {
-          // try {
-          //     setLoading(true)
-          //     const { data } = await userLogin(values)
-          //     if (data?.login) {
-  
-          //     } else {
-          //         toast.error(data?.message, {
-          //             position: "top-center"
-          //         })
-          //     }
-          // } catch (error) {
-          //     console.log(error)
-          //     toast.error('Internal server error', {
-          //         position: 'top-center'
-          //     })
-          // } finally {
-          //     setTimeout(() => {
-          //         setLoading(false)
-          //     }, 4000);
-          // }
-
+        try {
+          setLoading(true);
+          const res = await signIn("credentials", {
+            email: values.email,
+            password: values.password,
+            redirect: false,
+          });
+          console.log(res, "res");
+          if (res?.error) {
+            console.log('failed');
+            toast.error("Authentication Failed", {
+              position: "top-center",
+            });
+          } else {
+          console.log(res, "res");
+            router.push('/')
+          }
+        } catch (error) {
+          console.log(error);
+          toast.error("Internal server error", {
+            position: "top-center",
+          });
+        } finally {
+          setTimeout(() => {
+            setLoading(false);
+          }, 4000);
+        }
       },
   })
 
@@ -120,7 +130,7 @@ const Login = () => {
 
                         <div className='mt-3 text-xs flex justify-between items-center'>
                             <p>Not a member yet !?</p>
-                            <Link href={'/brandfluencer/register'}><p className='hover:scale-105 duration-300 py-2 px-5 bg-white border rounded-xl'>Register</p></Link>
+                            <Link href={'/en/brandfluencer/register'}><p className='hover:scale-105 duration-300 py-2 px-5 bg-white border rounded-xl'>Register</p></Link>
                         </div>
 
                     </div>

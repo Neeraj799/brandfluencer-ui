@@ -1,75 +1,94 @@
 "use client";
 
 import { isValidFileUploaded } from "@helpers/imageValidation";
-import { signupSchema } from "@utils/validationSchema";
+import { signupSchemaInfluencer } from "@utils/validationSchema";
 import { useFormik } from "formik";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import { ArrowUpLeft, Eye, EyeOff } from "react-feather";
+import { Eye, EyeOff } from "react-feather";
+import { BeatLoader } from "react-spinners";
 import { toast } from "react-toastify";
+
+interface FormValues {
+  name: string;
+  email: string;
+  instaID: string;
+  mobile: string;
+  password: string;
+  confirmPassword: string;
+  image?: File;
+}
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState<Boolean>(false);
   const [loading, setLoading] = useState<Boolean>(false);
-  const [image, setImage] = useState<File | null>(null);
-  const [selectedImage, setselectedImage] = useState<String>("");
-
+  const [image, setImage] = useState<File | undefined>(undefined);
+  const [selectedImage, setselectedImage] = useState<String>();
+  const router = useRouter();
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
 
-  const formik = useFormik({
+  const formik = useFormik<FormValues>({
     initialValues: {
-      brand: "",
+      name: "",
       email: "",
-      companyRep: "",
+      instaID: "",
       mobile: "",
       password: "",
       confirmPassword: "",
     },
 
-    validationSchema: signupSchema,
+    validationSchema: signupSchemaInfluencer,
 
     onSubmit: async (values) => {
       try {
-        console.log(values,"values");
-        console.log(image,'img');
-        
-          setLoading(true)
-          const res = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/brand/auth/sign-up`,
-            {
-              method: "POST",
-              body: (JSON.stringify({ ...values }), image),
-              headers: { "Content-Type": "application/json"},
-            }
-          );    
-          const data = await res.json()
-          console.log(data);
-          
-          // if (data.status) {
-          //     toast.success(data.message, {
-          //         position: "top-center"
-          //     })
-          // } else {
-          //     toast.error(data.message, {
-          //         position: "top-center"
-          //     })
-          // }
+        setLoading(true);
+
+        const formData = new FormData();
+        formData.append("name", values.name);
+        formData.append("email", values.email);
+        formData.append("instaID", values.instaID);
+        formData.append("mobile", values.mobile);
+        formData.append("password", values.password);
+        formData.append("confirmPassword", values.confirmPassword);
+        formData.append("image", image as File);
+
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_URL}/api/brandfluencer/auth/sign-up`,
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+
+        const data = await res.json();
+
+        if (data.error) {
+          toast.error(data.error, {
+            position: "top-center",
+          });
+        } else if (data.success) {
+          router.push("/brandfluencer/login");
+          toast.success(data.message, {
+            position: "top-center",
+          });
+        }
       } catch (error) {
-          toast.error("Internal Server Error", {
-              position: "top-center",
-          })
-          console.log(error)
-      }finally{
-          setLoading(false)
+        toast.error("Internal Server Error", {
+          position: "top-center",
+        });
+        console.log(error);
+      } finally {
+        setLoading(false);
       }
     },
   });
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0] ?? null;
-    formik.setFieldError("image", " ");
+    const file = event.target.files?.[0];
+    formik.setFieldError("image", "");
 
     const isValidImages = isValidFileUploaded(file);
     const image = file ? URL.createObjectURL(file) : "";
@@ -81,12 +100,13 @@ const Register = () => {
       );
       return;
     }
-    setImage(file)
+    setImage(file);
   };
 
   return (
     <section className="bg-gray-50 min-h-screen flex items-center p-8 justify-center">
       <div className="bg-gray-100 flex rounded-2xl shadow-lg max-w-5xl p-6 items-center">
+        {/* <span className='self-center'> <Link href={'/'}> <ArrowUpLeft size={22} /></Link></span> */}
         <div className="md:w-1/2  px-16">
           <h2 className="font-bold text-3xl text-[#002D74]">Register Here..</h2>
           <p className="text-sm mt-4 text-[#002D74]">
@@ -96,16 +116,14 @@ const Register = () => {
             <input
               className="p-2 mt-8 rounded-xl border"
               type="text"
-              name="brand"
-              placeholder="Brand name"
-              id="brand"
+              name="name"
+              placeholder="Full Name"
+              id="name"
               onChange={formik.handleChange}
               required
             />
-            {formik.touched.brand && formik.errors.brand ? (
-              <p className="text-red-500 gap-0 p-0 m-0">
-                {formik.errors.brand}
-              </p>
+            {formik.touched.name && formik.errors.name ? (
+              <p className="text-red-500 gap-0 p-0 m-0">{formik.errors.name}</p>
             ) : null}
             <input
               className="p-2 rounded-xl border"
@@ -134,14 +152,14 @@ const Register = () => {
             <input
               className="p-2 rounded-xl border"
               type="text"
-              name="companyRep"
-              placeholder="Company Representative Name"
-              id="companyRep"
+              name="instaID"
+              placeholder="Instagram Profile link"
+              id="instaID"
               onChange={formik.handleChange}
               required
             />
-            {formik.touched.companyRep && formik.errors.companyRep ? (
-              <div className="text-red-500"> {formik.errors.companyRep} </div>
+            {formik.touched.instaID && formik.errors.instaID ? (
+              <div className="text-red-500"> {formik.errors.instaID} </div>
             ) : null}
             <div className="relative">
               <input
@@ -214,7 +232,8 @@ const Register = () => {
             </div>
             <label className="cursor-pointer label mt-3">
               <span className="label-text">
-                I agree to the terms & conditions
+                I agree to provide my personal data for registering on the
+                website
               </span>
               <input
                 type="checkbox"
@@ -227,7 +246,7 @@ const Register = () => {
                 className="bg-[#002D74] rounded-xl py-2 text-center text-white"
                 disabled
               >
-                {/* <BeatLoader color="#36d7b7" /> */} Loading..
+                <BeatLoader color="#36d7b7" />
               </button>
             ) : (
               <button
@@ -241,18 +260,19 @@ const Register = () => {
 
           <div className="mt-3 text-xs flex justify-between items-center">
             <p>Already a member !?</p>
-            <Link href={"/brand/login"}>
+            <Link href={"/en/brandfluencer/login"}>
               <p className="hover:scale-105 duration-300 py-2 px-5 bg-white border rounded-xl">
                 Log in
               </p>
             </Link>
           </div>
         </div>
+
         <div className="w-1/2 h-fit md:block hidden">
           <img
             className="rounded-2xl"
             loading="lazy"
-            src={"https://source.unsplash.com/42gFAgdIUC8"}
+            src={"https://source.unsplash.com/60GsdOMRFGc"}
             alt=""
           />
         </div>
