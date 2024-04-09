@@ -14,7 +14,8 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState<Boolean>(false);
   const [loading, setLoading] = useState<Boolean>(false);
   const router = useRouter();
-  const {data:session} = useSession();
+
+  
   
   const formik = useFormik({
     initialValues: {
@@ -40,7 +41,7 @@ const Login = () => {
           });
         } else {
         console.log(res, "res");
-          router.push('/')
+          router.push('/en/brand/experiences')
         }
       } catch (error) {
         console.log(error);

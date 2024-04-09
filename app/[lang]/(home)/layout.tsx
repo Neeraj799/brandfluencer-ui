@@ -17,10 +17,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <body className={inter.className}>
+    <div className={inter.className}>
       <Navbar />
       {children}
       <Footer />
-    </body>
+    </div>
   );
 }

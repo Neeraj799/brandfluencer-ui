@@ -15,7 +15,7 @@ export const authOptions: NextAuthOptions = {
         const { email, password } = credentials;
 
         const res = await fetch(
-          `${process.env.NEXTAUTH_URL}/api/brand/auth/sign-in`,
+          `${process.env.NEXT_PUBLIC_URL}/api/brand/auth/sign-in`,
           {
             method: "POST",
             body: JSON.stringify({ email, password }),

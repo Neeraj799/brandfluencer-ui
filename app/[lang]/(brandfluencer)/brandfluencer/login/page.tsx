@@ -42,7 +42,7 @@ const Login = () => {
             });
           } else {
           console.log(res, "res");
-            router.push('/')
+            router.push('/en')
           }
         } catch (error) {
           console.log(error);
