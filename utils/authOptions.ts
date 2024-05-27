@@ -8,29 +8,61 @@ export const authOptions: NextAuthOptions = {
       credentials: {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
+        role: { label: "Role", type: "text" },
       },
       authorize: async (credentials) => {
         if (!credentials || !credentials.email || !credentials.password)
           return null;
-        const { email, password } = credentials;
+        const { email, password, role } = credentials;
 
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_URL}/api/brand/auth/sign-in`,
-          {
-            method: "POST",
-            body: JSON.stringify({ email, password }),
-            headers: { "Content-Type": "application/json" },
+        if (role === "brandfluencer") {
+          const res = await fetch(
+            `${process.env.NEXT_PUBLIC_URL}/api/brandfluencer/auth/sign-in`,
+            {
+              method: "POST",
+              body: JSON.stringify({ email, password }),
+              headers: { "Content-Type": "application/json" },
+            }
+          );
+
+          if (!res.ok) {
+            const errorData = await res.json();
+            throw new Error(errorData.error || "Login failed");
           }
-        );
-        const data = await res.json();
-        console.log("Logged In: ", data);
-        
-      // If no error and we have user data, return it
-      if (res.ok && data) {
-        return data
-      }
-      // Return null if user data could not be retrieved
-      return null
+
+          const user = await res.json();
+          console.log("Logged In: ", user);
+
+          // If no error and we have user data, return it
+          if (res.ok && user) {
+            return user;
+          }
+          // Return null if user data could not be retrieved
+          return null;
+        } else if (role === "brand") {
+          const res = await fetch(
+            `${process.env.NEXT_PUBLIC_URL}/api/brand/auth/sign-in`,
+            {
+              method: "POST",
+              body: JSON.stringify({ email, password }),
+              headers: { "Content-Type": "application/json" },
+            }
+          );
+
+          if (!res.ok) {
+            const errorData = await res.json();
+            throw new Error(errorData.error || "Login failed");
+          }
+
+          const user  = await res.json();
+          console.log("Logged In: ", user);
+          // If no error and we have user data, return it
+          if (res.ok && user) {
+            return user;
+          }
+          // Return null if user data could not be retrieved
+          return null;
+        }
       },
     }),
   ],
@@ -39,17 +71,16 @@ export const authOptions: NextAuthOptions = {
 
   callbacks: {
     async jwt({ token, user }) {
-      // Persist the OAuth access_token to the token right after signin
-      return {...token, ...user}
+      if (user) return { ...token, ...user };
+      return token;
     },
-    async session({ session, token, user }) {
-      // Send properties to the client, like an access_token from a provider.
-      session.user = token
-      return session
-    }
+    async session({ session, token }) {
+      session.user = token.user;
+      session.token = token.token;
+      return session;
+    },
   },
-  // pages: {
-  //   signIn: "/login",
-  // },
-  // Add other NextAuth.js options as needed
+  pages: {
+    signIn: "/login",
+  },
 };

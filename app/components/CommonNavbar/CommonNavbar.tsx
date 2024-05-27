@@ -2,10 +2,18 @@
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const CommonNavbar = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+  const [user, setUser] = useState<any>();
+
+useEffect(() => {
+  if (session && session.user) {
+    setUser(session.user);
+  }
+}, [session]);
+  
 
   return (
     <div className="navbar px-5  bg-base-100">
@@ -20,11 +28,7 @@ const CommonNavbar = () => {
         </Link>
       </div>
       <div className="flex-none">
-        {!session ? (
-          <div className="navbar-end">
-            <a className="btn btn-sm btn-accent text-white">Login</a>
-          </div>
-        ) : (
+        {status === "authenticated" ? (
           <div className="dropdown dropdown-end">
             <div
               tabIndex={0}
@@ -34,7 +38,7 @@ const CommonNavbar = () => {
               <div className="w-10 rounded-full">
                 <img
                   alt="Tailwind CSS Navbar component"
-                  src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                  src={user?.image ?? ''}
                 />
               </div>
             </div>
@@ -43,13 +47,30 @@ const CommonNavbar = () => {
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
               <li>
-                <a className="justify-between">
-                  Profile
-                  <span className="badge">New</span>
-                </a>
+                {
+                  user?.role === "brand" ? (
+                    <Link href="/en/brand/profile">
+                      <p>Profile</p>
+                    </Link>
+                  ) : (
+                    <Link href="/en/brandfluencer/profile">
+                      <p>Profile</p>
+                    </Link>
+                  )
+                }
               </li>
               <li>
-                <a>Settings</a>
+                {
+                  user?.role === "brand" ? (
+                    <Link href="/en/brand/requests">
+                      <p>Requests</p>
+                    </Link>
+                  ) : (
+                    <Link href="/en/brandfluencer/myExperiences">
+                      <p>My Experiences</p>
+                    </Link>
+                  )
+                }
               </li>
               <li>
                 <button
@@ -62,6 +83,11 @@ const CommonNavbar = () => {
               </li>
             </ul>
           </div>
+        ) : (
+          // <div className="navbar-end">
+          //   <a className="btn btn-sm btn-accent text-white">Login</a>
+          // </div>
+          " "
         )}
       </div>
     </div>

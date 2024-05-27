@@ -1,18 +1,20 @@
-"use client"
+"use client";
 
 import { SessionProvider } from "next-auth/react";
 import { ReactNode } from "react";
+import { I18nProviderClient } from "@locales/client";
 
-interface props {
+interface Props {
   children: ReactNode;
+  locale: string;
 }
 
-export default function Provider({children}: props) {
+export default function Provider({ children,locale }: Props) {
   return (
     <>
-    <SessionProvider>
-        {children}
-    </SessionProvider>
+      <I18nProviderClient locale={locale}>
+        <SessionProvider>{children}</SessionProvider>
+      </I18nProviderClient>
     </>
-  )
+  );
 }
