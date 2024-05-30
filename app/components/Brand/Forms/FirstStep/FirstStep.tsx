@@ -63,7 +63,6 @@ const FirstStep = ({ onNextStep }: { onNextStep: () => void }) => {
         const file = new File([blob], filename);
 
         // Now `file` contains the original file object
-        console.log(file);
       });
 
     // localStorage.setItem('temporaryImage', JSON.stringify(file));
@@ -237,7 +236,12 @@ const FirstStep = ({ onNextStep }: { onNextStep: () => void }) => {
                           Pick a Category
                         </option>
                         {categories.map((category) => (
-                          <option key={category.name.toLowerCase()} value={category.name.toLowerCase()}>{category.name}</option>
+                          <option
+                            key={category.name.toLowerCase()}
+                            value={category.name.toLowerCase()}
+                          >
+                            {category.name}
+                          </option>
                         ))}
                       </select>
                       {formik.touched.experienceCategory &&
@@ -281,7 +285,10 @@ const FirstStep = ({ onNextStep }: { onNextStep: () => void }) => {
                   <label
                     htmlFor="file-upload"
                     className="block relative w-96 h-40 group border border-dashed border-gray-400 mb-2 opacity-60 rounded flex justify-center items-center cursor-pointer transition duration-500"
-                    style={{ backgroundImage: `url('${selectedImage}')` }}
+                    style={{
+                      backgroundImage: `url('${selectedImage}')`,
+                      backgroundSize: "cover",
+                    }}
                   >
                     <img
                       className=" group-hover:block w-12 mb-2"

@@ -15,7 +15,6 @@ const Login = () => {
   const [loading, setLoading] = useState<Boolean>(false);
   const router = useRouter();
   const { data: session, status } = useSession();
-  console.log(session, "session");
 
   useEffect(() => {
     if (session && session.user.role === "brand") {
@@ -40,7 +39,6 @@ const Login = () => {
           role: "brand",
           redirect: false,
         });
-        console.log(res, "res");
         if (!res?.ok && res?.error) {
           toast.error(res.error, {
             position: "top-center",
@@ -49,6 +47,7 @@ const Login = () => {
           router.push(" /brand/experiences");
         }
       } catch (error) {
+        console.error(error);
         toast.error("Internal server error", {
           position: "top-center",
         });

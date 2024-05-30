@@ -2,9 +2,10 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import Modal from "../Brand/Modal/Modal";
 import { useSession } from "next-auth/react";
 import type { Profile } from "./types";
+import BrandModal from "../Brand/BrandModal/BrandModal";
+import Modal from "../Brandfluencer/Modal/Modal";
 
 const Profile = () => {
   const path = usePathname();
@@ -33,12 +34,15 @@ const Profile = () => {
     authorization: `${token}`,
   };
 
-  console.log("profile", user);
 
   return (
     profile && (
       <main className="profile-page  md:m-0 mb-20">
-        <Modal profile={user} />
+        {session?.user?.role === "brand" ? (
+          <BrandModal profile={user} />
+        ) : (
+          <Modal profile={user}/>
+        )}
         <section className="relative block">
           <div>
             <img

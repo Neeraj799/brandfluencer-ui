@@ -88,7 +88,6 @@ useEffect(() => {
       console.error(error);
     }
   };
-  console.log(experiences,'experiences');
   
   return (
     <>
@@ -111,12 +110,12 @@ useEffect(() => {
         experiences?.map((expData: any, index: number) => {
           return (
             <div key={index} className="hero mt-16 mb-28 cursor-auto">
-              <div className="hero-content drop-shadow-xl flex-col lg:flex-row">
+              <div className="hero-content drop-shadow-xl flex-col w-screen lg:flex-row">
                 <img
                   src={expData?.image?.[0]}
                   alt="image"
                   loading="lazy"
-                  className="max-w-xs h-fit rounded-lg drop-shadow-2xl"
+                  className="max-w-xs h-64  w-72 rounded-lg drop-shadow-2xl"
                 />
                 <div className="drop-shadow-xl ml-4 rounded-xl bg-base-100 p-16">
                   <span>

@@ -39,7 +39,6 @@ const Experiences = () => {
           }
         );
         const data = await res.json();
-        console.log(data);
         setExperiences(data?.experiences);
         setApprovedExperiences(data?.experiences.filter((e: any) => e.status === 'Approved'));
         setPendingExperiences(data?.experiences.filter((e: any) => e.status === 'Pending'));

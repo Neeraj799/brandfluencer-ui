@@ -52,7 +52,6 @@ const MyExperiencesTable = () => {
             }
           );
           const data = await res.json();
-          console.log(data);
           Swal.fire({
             title: "Completed",
             text: "Your experience has been completed.",
@@ -138,7 +137,7 @@ const MyExperiencesTable = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={4} className="text-center">
+                  <td colSpan={6} className="text-center font-semibold">
                     No Experiences found
                   </td>
                 </tr>

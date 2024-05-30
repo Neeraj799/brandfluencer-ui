@@ -52,7 +52,6 @@ const ConfirmStep = ({ onPreviousStep }: { onPreviousStep: () => void }) => {
     }
   }, [values]); // Run whenever values changes
 
-  console.log(values, "uuuy");
 
   const handleSubmit = async () => {
     try {
@@ -86,7 +85,6 @@ const ConfirmStep = ({ onPreviousStep }: { onPreviousStep: () => void }) => {
         }
       );
       const data = await res.json();
-      console.log(data);
       if (data.error) {
         toast.error(data.error, {
           position: "top-center",

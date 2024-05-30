@@ -54,8 +54,7 @@ export const authOptions: NextAuthOptions = {
             throw new Error(errorData.error || "Login failed");
           }
 
-          const user  = await res.json();
-          console.log("Logged In: ", user);
+          const user = await res.json();
           // If no error and we have user data, return it
           if (res.ok && user) {
             return user;
@@ -70,8 +69,11 @@ export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
 
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
       if (user) return { ...token, ...user };
+      if (trigger === "update" && session) {
+        token.name = session.name;
+      }
       return token;
     },
     async session({ session, token }) {

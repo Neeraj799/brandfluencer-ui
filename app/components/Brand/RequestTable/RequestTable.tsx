@@ -7,6 +7,7 @@ const RequestTable = () => {
   const [myRequest, setRequests] = useState([]);
   const { data: session, status } = useSession();
   const [token, setToken] = useState<string | null>(null);
+  const [refresh, setRefresh] = useState<Boolean>(false)
   const headers: any = {
     "Content-Type": "application/json",
     authorization: `${token}`,
@@ -15,7 +16,7 @@ const RequestTable = () => {
     if (session && session.user && session.token) {
       setToken(session.token);
     }
-  }, [session]);
+  }, [session,refresh]);
   useEffect(() => {
     if (!token) return;
     (async () => {
@@ -26,7 +27,6 @@ const RequestTable = () => {
         }
       );
       const data = await res.json();
-      console.log(data, "data");
 
       setRequests(data.experiences);
     })();
@@ -53,12 +53,12 @@ const RequestTable = () => {
             }
           );
           const data = await res.json();
-          console.log(data);
           Swal.fire({
             title: "Completed",
             text: "Successfully Approved the Request.",
             icon: "success",
           });
+          setRefresh(!refresh)
         }
       });
     } catch (error) {
@@ -86,7 +86,6 @@ const RequestTable = () => {
             }
           );
           const data = await res.json();
-          console.log(data);
           Swal.fire({
             title: "Completed",
             text: "Successfully Approved the Request.",
@@ -162,7 +161,8 @@ const RequestTable = () => {
                         onClick={() => handleReject(val?._id)}
                         className={`${
                           val?.status !== "Pending" ? `btn-disabled ` : ""
-                        }btn mr-3 btn-error text-white btn-sm`}                      >
+                        }btn mr-3 btn-error text-white btn-sm`}
+                      >
                         Reject
                       </button>
                     </td>
@@ -173,7 +173,7 @@ const RequestTable = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={4} className="text-center">
+                  <td colSpan={6} className="text-center font-semibold">
                     No requests found
                   </td>
                 </tr>

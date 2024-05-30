@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../globals.css";
 import Provider from "../components/Provider";
+import { ToastContainer } from "react-toastify";
 
 export const metadata: Metadata = {
   title: "Brandfluencer",

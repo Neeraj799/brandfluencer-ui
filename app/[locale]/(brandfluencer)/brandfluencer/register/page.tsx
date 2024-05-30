@@ -212,7 +212,10 @@ const Register = () => {
               <label
                 htmlFor="file-upload"
                 className="block relative w-40 h-40 group bg-gray-200 opacity-60 rounded-full flex justify-center items-center cursor-pointer transition duration-500"
-                style={{ backgroundImage: `url('${selectedImage}')` }}
+                style={{
+                  backgroundImage: `url('${selectedImage}')`,
+                  backgroundSize: "cover",
+                }}
               >
                 <img
                   className=" group-hover:block w-12"
@@ -232,14 +235,13 @@ const Register = () => {
             </div>
             <label className="cursor-pointer label mt-3">
               <span className="label-text">
-                I agree to provide my personal data for registering on the
-                website
+              I agree to the terms & conditions
               </span>
               <input
                 type="checkbox"
                 className="checkbox checkbox-accent"
                 required
-              />
+                />
             </label>
             {loading ? (
               <button

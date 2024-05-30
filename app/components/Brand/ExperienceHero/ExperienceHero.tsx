@@ -3,9 +3,9 @@
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
-const ExperienceHero = ({ experiences }) => {
+const ExperienceHero = ({ experiences }: any) => {
   const [isOpen, setIsOpen] = useState(false);
-const toggleModal = (expData) => {
+const toggleModal = (expData: any) => {
   Swal.fire({
   title: `<h2 style="color: #333; text-align: center;">${expData.experienceName}</h2>`,
   html: `
@@ -38,7 +38,7 @@ const toggleModal = (expData) => {
 };
   return (
     <>
-      {experiences?.map((expData, index) => (
+      {experiences?.map((expData: any, index:number) => (
         <div key={index} className="hero mt-2 mb-28 cursor-auto">
           <div className="hero-content drop-shadow-xl flex-col lg:flex-row">
             <img
@@ -67,8 +67,8 @@ const toggleModal = (expData) => {
                 </button>
                 <button className="btn btn-accent text-white btn-sm">
                   Archive
-                </button>
-                <button className="btn btn-error text-white btn-sm">End</button> */}
+                </button>*/}
+                <button className="btn btn-error text-white btn-sm">End</button> 
               </div>
             </div>
           </div>

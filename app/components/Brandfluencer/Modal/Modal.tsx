@@ -14,7 +14,7 @@ const Modal = ({ profile }: { profile: Profile }) => {
   const [selectedImage, setselectedImage] = useState<String>("");
   const router = useRouter();
   const [token, setToken] = useState<string | null>(null);
-  const { data: session, status } = useSession();
+  const { data: session, status, update } = useSession();
 
   useEffect(() => {
     try {
@@ -26,53 +26,49 @@ const Modal = ({ profile }: { profile: Profile }) => {
     }
   }, [session]);
   const headers: any = {
-    "Content-Type": "application/json",
     authorization: `${token}`,
   };
-console.log(session?.user.role);
 
   const formik = useFormik({
     initialValues: {
-      brand: profile?.brand || "",
+      name: profile?.name || "",
       email: profile?.email || "",
-      companyRep: profile?.companyRep || "",
+      instaID: profile?.instaID || "",
       mobile: profile?.mobile || "",
       image: profile?.image?.[0] || "",
     },
     enableReinitialize: true,
-    // validationSchema: signupSchema,
     onSubmit: async (values) => {
       try {
-        
         setLoading(true);
 
         const formData = new FormData();
-        formData.append("brand", values.brand);
+        formData.append("name", values.name);
         formData.append("email", values.email);
-        formData.append("companyRep", values.companyRep);
+        formData.append("instaID", values.instaID);
         formData.append("mobile", values.mobile);
-        formData.append("image", image as File);
+        formData.append("image", image as File || values.image);
 
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_URL}/api/brand/experience/update-profile`,
+          `${process.env.NEXT_PUBLIC_URL}/api/brandfluencer/request/update-profile`,
           {
             method: "PATCH",
             body: formData,
-            headers:headers
+            headers: headers,
           }
         );
 
         const data = await res.json();
-
         if (data.error) {
           toast.error(data.error, {
             position: "top-center",
           });
         } else if (data.success) {
-          router.push(" /brand/login");
+          update()
           toast.success(data.message, {
             position: "top-center",
           });
+          router.push("/brandfluencer/profile");
         }
       } catch (error) {
         toast.error("Internal Server Error", {
@@ -84,7 +80,6 @@ console.log(session?.user.role);
       }
     },
   });
-console.log(formik.values);
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] ?? null;
@@ -102,6 +97,7 @@ console.log(formik.values);
     }
     setImage(file);
   };
+
   return (
     <div>
       <input type="checkbox" id="my_modal_7" className="modal-toggle" />
@@ -119,18 +115,13 @@ console.log(formik.values);
               <input
                 className="p-2 mt-8 rounded-xl border"
                 type="text"
-                name="brand"
-                placeholder="Brand name"
-                id="brand"
+                name="name"
+                placeholder="Name"
+                id="name"
                 onChange={formik.handleChange}
-                value={formik?.values?.brand}
+                value={formik?.values?.name}
                 required
               />
-              {formik.touched.brand && formik.errors.brand ? (
-                <p className="text-red-500 gap-0 p-0 m-0">
-                  {formik.errors.brand}
-                </p>
-              ) : null}
               <input
                 className="p-2 rounded-xl border"
                 type="email"
@@ -141,9 +132,16 @@ console.log(formik.values);
                 value={formik.values.email}
                 required
               />
-              {formik.touched.email && formik.errors.email ? (
-                <div className="text-red-500 p-0">{formik.errors.email}</div>
-              ) : null}
+              <input
+                className="p-2 rounded-xl border"
+                type="text"
+                name="instaID"
+                placeholder="Instagram ID"
+                id="instaID"
+                onChange={formik.handleChange}
+                value={formik.values.instaID}
+                required
+              />
               <input
                 className="p-2 rounded-xl border"
                 type="number"
@@ -154,22 +152,6 @@ console.log(formik.values);
                 value={formik.values.mobile}
                 required
               />
-              {formik.touched.mobile && formik.errors.mobile ? (
-                <div className="text-red-500"> {formik.errors.mobile} </div>
-              ) : null}
-              <input
-                className="p-2 rounded-xl border"
-                type="text"
-                name="companyRep"
-                placeholder="Company Representative Name"
-                id="companyRep"
-                onChange={formik.handleChange}
-                value={formik.values.companyRep}
-                required
-              />
-              {formik.touched.companyRep && formik.errors.companyRep ? (
-                <div className="text-red-500"> {formik.errors.companyRep} </div>
-              ) : null}
               <div className="mx-auto w-40 mt-3 text-center">
                 <label
                   htmlFor="file-upload"

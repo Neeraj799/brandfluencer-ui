@@ -8,7 +8,7 @@ import React, { useEffect, useState } from "react";
 import { BeatLoader } from "react-spinners";
 import { toast } from "react-toastify";
 
-const Modal = ({ profile }: { profile: Profile }) => {
+const BrandModal = ({ profile }: { profile: Profile }) => {
   const [showPassword, setShowPassword] = useState<Boolean>(false);
   const [loading, setLoading] = useState<Boolean>(false);
   const [image, setImage] = useState<File | null>(null);
@@ -16,6 +16,7 @@ const Modal = ({ profile }: { profile: Profile }) => {
   const router = useRouter();
   const [token, setToken] = useState<string | null>(null);
   const { data: session, status } = useSession();
+  const [refresh, setRefresh] = useState<boolean>(false);
 
   useEffect(() => {
     try {
@@ -27,10 +28,8 @@ const Modal = ({ profile }: { profile: Profile }) => {
     }
   }, [session]);
   const headers: any = {
-    "Content-Type": "application/json",
     authorization: `${token}`,
   };
-console.log(session?.user.role);
 
   const formik = useFormik({
     initialValues: {
@@ -44,7 +43,6 @@ console.log(session?.user.role);
     // validationSchema: signupSchema,
     onSubmit: async (values) => {
       try {
-        
         setLoading(true);
 
         const formData = new FormData();
@@ -52,14 +50,14 @@ console.log(session?.user.role);
         formData.append("email", values.email);
         formData.append("companyRep", values.companyRep);
         formData.append("mobile", values.mobile);
-        formData.append("image", image as File);
+        formData.append("image", image as File || values.image);
 
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_URL}/api/brand/experience/update-profile`,
           {
             method: "PATCH",
             body: formData,
-            headers:headers
+            headers: headers,
           }
         );
 
@@ -70,7 +68,8 @@ console.log(session?.user.role);
             position: "top-center",
           });
         } else if (data.success) {
-          router.push(" /brand/login");
+          router.push(" /brand/profile");
+          setRefresh(!refresh)
           toast.success(data.message, {
             position: "top-center",
           });
@@ -85,7 +84,6 @@ console.log(session?.user.role);
       }
     },
   });
-console.log(formik.values);
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] ?? null;
@@ -224,4 +222,4 @@ console.log(formik.values);
   );
 };
 
-export default Modal;
+export default BrandModal;
