@@ -17,7 +17,7 @@ const Login = () => {
   const { data: session } = useSession();
   useEffect(() => {
     if (session && session.user.role === "brandfluencer") {
-      router.push("/en/brandfluencer/categories");
+      router.push(" /brandfluencer/categories");
     }
   }, [session]);
   
@@ -43,7 +43,7 @@ const Login = () => {
             position: "top-center",
           });
         } else {
-          router.push("/en/brandfluencer/categories");
+          router.push(" /brandfluencer/categories");
         }
       } catch (error) {
         toast.error("Internal server error", {
@@ -164,7 +164,7 @@ const Login = () => {
 
             <div className="mt-3 text-xs flex justify-between items-center">
               <p>Not a member yet !?</p>
-              <Link href={"/en/brandfluencer/register"}>
+              <Link href={" /brandfluencer/register"}>
                 <p className="hover:scale-105 duration-300 py-2 px-5 bg-white border rounded-xl">
                   Register
                 </p>

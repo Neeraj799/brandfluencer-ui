@@ -7,6 +7,7 @@ const MyExperiencesTable = () => {
   const [myExperiences, setExperiences] = useState([]);
   const { data: session, status } = useSession();
   const [token, setToken] = useState<string | null>(null);
+  const [refresh, setRefresh] = useState(false);
   const headers: any = {
     "Content-Type": "application/json",
     authorization: `${token}`,
@@ -28,9 +29,9 @@ const MyExperiencesTable = () => {
       const data = await res.json();
       setExperiences(data);
     })();
-  }, [token]);
+  }, [token,refresh]);
 
-  const handleComplete = async (id) => {
+  const handleComplete = async (id: any) => {
     try {
       Swal.fire({
         title: "Are you sure?",
@@ -57,10 +58,16 @@ const MyExperiencesTable = () => {
             text: "Your experience has been completed.",
             icon: "success",
           });
+          setRefresh(!refresh);
         }
       });
     } catch (error) {
       console.error(error);
+      Swal.fire({
+        title: "Something went Wrong",
+        text: "Try again or Contact our team.",
+        icon: "error",
+      });
     }
   };
 
@@ -71,27 +78,32 @@ const MyExperiencesTable = () => {
           <table className="table text-base">
             <thead>
               <tr className="text-base">
+                <th>Avatar</th>
                 <th>Brand</th>
                 <th>Experience</th>
                 <th>Request Date</th>
                 <th>Status</th>
-                {/* <th className="text-center">Action</th> */}
+                <th className="text-center">Action</th>
                 {/* <th></th> */}
               </tr>
             </thead>
             <tbody>
-              {myExperiences?.map((val, index) => (
-                <tr key={index}>
-                  <td>
-                    <div className="flex items-center gap-3">
-                      <div className="avatar">
-                        <div className="mask mask-squircle w-12 h-12">
-                          <img
-                            src={val?.experience?.brand?.image[0]}
-                            alt="Avatar Tailwind CSS Component"
-                          />
+              {myExperiences.length > 0 ? (
+                myExperiences?.map((val: any, index) => (
+                  <tr key={index}>
+                    <td>
+                      <div className="flex items-center gap-3">
+                        <div className="avatar">
+                          <div className="mask mask-squircle w-12 h-12">
+                            <img
+                              src={val?.experience?.brand?.image[0]}
+                              alt="Avatar Tailwind CSS Component"
+                            />
+                          </div>
                         </div>
                       </div>
+                    </td>
+                    <td>
                       <div>
                         <div className="font-bold">
                           {val?.experience?.brand.brand}
@@ -100,30 +112,37 @@ const MyExperiencesTable = () => {
                           {val?.experience?.brand?.companyRep}
                         </div>
                       </div>
-                    </div>
-                  </td>
-                  <td>
-                    {val?.experience?.experienceName}
-                    <br />
-                    <span className="badge badge-ghost badge-sm">
-                      {val?.experience?.experienceCategory}
-                    </span>
-                  </td>
-                  <td>{new Date(val?.created_at).toLocaleDateString()}</td>
-                  <td>{val?.status}</td>
-                  {/* <td className="text-center">
-                    <button
-                      onClick={() => handleComplete(val?._id)}
-                      className="btn btn-success text-white btn-sm"
-                    >
-                      Mark Completed
-                    </button>
-                  </td> */}
-                  {/* <th>
+                    </td>
+                    <td>
+                      {val?.experience?.experienceName}
+                      <br />
+                      <span className="badge badge-ghost badge-sm">
+                        {val?.experience?.experienceCategory}
+                      </span>
+                    </td>
+                    <td>{new Date(val?.created_at).toLocaleDateString()}</td>
+                    <td>{val?.status}</td>
+                    <td className="text-center">
+                      <button
+                        onClick={() => handleComplete(val?._id)}
+                        className={`${
+                          val?.status !== "Approved" ? `btn-disabled ` : ""
+                        }btn mr-3 btn-success text-white btn-sm`}                      >
+                        Mark Completed
+                      </button>
+                    </td>
+                    {/* <th>
                     <button className="btn btn-ghost btn-xs">details</button>
                   </th> */}
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={4} className="text-center">
+                    No Experiences found
+                  </td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>

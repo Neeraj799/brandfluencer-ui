@@ -7,8 +7,8 @@ import Swal from "sweetalert2";
 const Experience = ({}) => {
   const searchParams = useSearchParams();
   const category = searchParams.get("category");
-  const [experiences, setExperiences] = useState([]);
-  const [requestedIds, setRequests] = useState([]);
+  const [experiences, setExperiences] = useState<any>([]);
+  const [requestedIds, setRequests] = useState<any>([]);
   const [user, setUser] = useState<any>();
   const { data: session, status } = useSession();
   const [token, setToken] = useState<string | null>(null);
@@ -58,7 +58,7 @@ useEffect(() => {
   })();
 }, [token, refresh]);
 
-  const handleRequest = async (id) => {
+  const handleRequest = async (id: string) => {
     try {
       const headers: any = {
         "Content-Type": "application/json",
@@ -71,7 +71,7 @@ useEffect(() => {
           headers: headers,
         }
       );
-      const data = await res.json();
+      const data: { error?: string } = await res.json();
       if (data.error) {
         console.error(data.error);
       } else {
@@ -108,12 +108,12 @@ useEffect(() => {
         </div>
       </div>
       {experiences?.length > 0 ? (
-        experiences?.map((expData, index) => {
+        experiences?.map((expData: any, index: number) => {
           return (
             <div key={index} className="hero mt-16 mb-28 cursor-auto">
               <div className="hero-content drop-shadow-xl flex-col lg:flex-row">
                 <img
-                  src="https://themakeoverz.com/images/gallery/gallery1481715089_66.jpg"
+                  src={expData?.image?.[0]}
                   alt="image"
                   loading="lazy"
                   className="max-w-xs h-fit rounded-lg drop-shadow-2xl"
@@ -143,7 +143,7 @@ useEffect(() => {
           );
         })
       ) : (
-        <div className="text-3xl mt-28 mb-8 text-center font-bold tracking-wider antialiased text-accent ">
+        <div className="text-3xl mt-28 mb-28 text-center font-bold tracking-wider antialiased text-accent ">
           NO EXPERIENCES
         </div>
       )}

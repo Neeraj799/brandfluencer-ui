@@ -21,12 +21,12 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      <body className={inter.className}>
+      <div className={inter.className}>
         <ToastContainer />
         <CommonNavbar />
         {children}
-      <Footer />
-      </body>
+        <Footer />
+      </div>
     </>
   );
 }

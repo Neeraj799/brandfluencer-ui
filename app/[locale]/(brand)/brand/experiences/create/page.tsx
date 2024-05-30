@@ -12,7 +12,7 @@ const page = () => {
   const { data: session, status } = useSession();
 
   if(!session){
-    redirect("/en/brand/login");
+    redirect(" /brand/login");
   }
   const handleNextStep = () => {
     setCurrentStep(currentStep + 1);

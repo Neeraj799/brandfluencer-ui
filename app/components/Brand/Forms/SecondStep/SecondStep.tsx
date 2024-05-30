@@ -2,8 +2,9 @@ import { secondStepSchema } from "@utils/validationSchema";
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { ExperienceData } from "../types";
 
-const SecondStep = ({ onNextStep, onPreviousStep }) => {
+const SecondStep = ({ onNextStep, onPreviousStep }: { onNextStep: () => void, onPreviousStep: () => void }) => {
   const [loading, setLoading] = useState<Boolean>(false);
   const [experience, setExperience] = useState<ExperienceData>();
 

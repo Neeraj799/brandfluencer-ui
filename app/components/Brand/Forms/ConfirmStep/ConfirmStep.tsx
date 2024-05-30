@@ -5,25 +5,11 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
+import { ExperienceData } from "../types";
 
-type ExperienceData = {
-  experienceName: string;
-  description: string;
-  startDate: string;
-  endDate: string;
-  link: string;
-  experienceCategory: string;
-  searchTags: string;
-  offerDescription: string;
-  contentDescription: string;
-  welcomeMessage: string;
-  preferredGender: string;
-  minimumFollowers: number;
-  image: string;
-};
 
-const ConfirmStep = ({ onPreviousStep }) => {
-  const [values, setValues] = useState<ExperienceData>();
+const ConfirmStep = ({ onPreviousStep }: { onPreviousStep: () => void }) => {
+  const [values, setValues] = useState<any>();
   const [image, setImage] = useState<File>();
   const router = useRouter();
   const { data: session, status } = useSession();
@@ -113,7 +99,7 @@ const ConfirmStep = ({ onPreviousStep }) => {
           cancelButtonColor: "#d33",
           confirmButtonText: "Ok",
         });
-        router.push("/en/brand/experiences");
+        router.push(" /brand/experiences");
       }
     } catch (error) {
       console.error(error);

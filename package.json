@@ -12,6 +12,7 @@
     "formik": "^2.4.5",
     "next": "14.1.4",
     "next-auth": "^4.24.7",
+    "next-easy-middlewares": "^1.0.10",
     "next-international": "^1.2.4",
     "react": "^18",
     "react-dom": "^18",

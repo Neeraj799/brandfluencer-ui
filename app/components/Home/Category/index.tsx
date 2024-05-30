@@ -12,7 +12,7 @@ const Category = () => {
         </h1>
         <div className="grid md:grid-cols-2">
           <div className="bg-accent flex pe-6 justify-end">
-            <Link href={"/en/brand/login"}>
+            <Link href={" brand/login"}>
               <Image
                 width={300}
                 height={447}
@@ -23,7 +23,7 @@ const Category = () => {
             </Link>
           </div>
           <div className="bg-error pl-4">
-            <Link href={"/en/brandfluencer/login"}>
+            <Link href={" /brandfluencer/login"}>
               <Image
                 width={450}
                 height={350}

@@ -1,41 +1,50 @@
 "use client";
 import { Profile } from "@/components/Profile/types";
 import { isValidFileUploaded } from "@helpers/imageValidation";
-import { signupSchema } from "@utils/validationSchema";
 import { useFormik } from "formik";
-import Link from "next/link";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { BeatLoader } from "react-spinners";
 import { toast } from "react-toastify";
 
 const Modal = ({ profile }: { profile: Profile }) => {
-    const [showPassword, setShowPassword] = useState<Boolean>(false);
+  const [showPassword, setShowPassword] = useState<Boolean>(false);
   const [loading, setLoading] = useState<Boolean>(false);
   const [image, setImage] = useState<File | null>(null);
   const [selectedImage, setselectedImage] = useState<String>("");
   const router = useRouter();
-  const [profileData, setProfile] = useState<Profile>(profile);
+  const [token, setToken] = useState<string | null>(null);
+  const { data: session, status } = useSession();
 
   useEffect(() => {
-    if (profile) {
-      setProfile(profile);
+    try {
+      if (session && session.user && session.token) {
+        setToken(session.token);
+      }
+    } catch (error) {
+      console.error(error);
     }
-  }, [profile]);
+  }, [session]);
+  const headers: any = {
+    "Content-Type": "application/json",
+    authorization: `${token}`,
+  };
+console.log(session?.user.role);
 
   const formik = useFormik({
     initialValues: {
-      brand: profileData?.brand || "",
-      email: profileData?.email || "",
-      companyRep: profileData?.companyRep || "",
-      mobile:profileData?.mobile || "",
-      image: profileData?.image?.[0] || "",
+      brand: profile?.brand || "",
+      email: profile?.email || "",
+      companyRep: profile?.companyRep || "",
+      mobile: profile?.mobile || "",
+      image: profile?.image?.[0] || "",
     },
-
-    validationSchema: signupSchema,
-
+    enableReinitialize: true,
+    // validationSchema: signupSchema,
     onSubmit: async (values) => {
       try {
+        
         setLoading(true);
 
         const formData = new FormData();
@@ -46,10 +55,11 @@ const Modal = ({ profile }: { profile: Profile }) => {
         formData.append("image", image as File);
 
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_URL}/api/brand/auth/sign-up`,
+          `${process.env.NEXT_PUBLIC_URL}/api/brand/experience/update-profile`,
           {
-            method: "POST",
+            method: "PATCH",
             body: formData,
+            headers:headers
           }
         );
 
@@ -60,7 +70,7 @@ const Modal = ({ profile }: { profile: Profile }) => {
             position: "top-center",
           });
         } else if (data.success) {
-          router.push("/en/brand/login");
+          router.push(" /brand/login");
           toast.success(data.message, {
             position: "top-center",
           });
@@ -75,7 +85,8 @@ const Modal = ({ profile }: { profile: Profile }) => {
       }
     },
   });
-  
+console.log(formik.values);
+
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] ?? null;
     formik.setFieldError("image", " ");
@@ -98,11 +109,9 @@ const Modal = ({ profile }: { profile: Profile }) => {
       <div className="modal" role="dialog">
         <div className="modal-box">
           <div className="  px-16">
-            <h2 className="font-bold text-3xl text-[#002D74]">
-              Edit Profile
-            </h2>
+            <h2 className="font-bold text-3xl text-[#002D74]">Edit Profile</h2>
             <p className="text-sm mt-4 text-[#002D74]">
-             Update required details
+              Update required details
             </p>
             <form
               onSubmit={formik.handleSubmit}
@@ -162,18 +171,22 @@ const Modal = ({ profile }: { profile: Profile }) => {
               {formik.touched.companyRep && formik.errors.companyRep ? (
                 <div className="text-red-500"> {formik.errors.companyRep} </div>
               ) : null}
-             
               <div className="mx-auto w-40 mt-3 text-center">
                 <label
                   htmlFor="file-upload"
                   className="block relative w-40 h-40 group bg-gray-200 opacity-60 rounded-full flex justify-center items-center cursor-pointer transition duration-500"
-                  style={{ backgroundImage: `url('${selectedImage || formik?.values?.image}')`, backgroundSize: 'cover' }}
+                  style={{
+                    backgroundImage: `url('${
+                      selectedImage || formik?.values?.image?.[0]
+                    }')`,
+                    backgroundSize: "cover",
+                  }}
                 >
-                    <img
-                      className=" group-hover:block w-12"
-                      src="https://www.svgrepo.com/show/33565/upload.svg"
-                      alt=""
-                    />
+                  <img
+                    className=" group-hover:block w-12"
+                    src="https://www.svgrepo.com/show/33565/upload.svg"
+                    alt=""
+                  />
                   <input
                     id="file-upload"
                     type="file"

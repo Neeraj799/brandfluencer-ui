@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import Modal from "../Brand/Modal/Modal";
 import { useSession } from "next-auth/react";
 import type { Profile } from "./types";
-import { log } from "util";
 
 const Profile = () => {
   const path = usePathname();

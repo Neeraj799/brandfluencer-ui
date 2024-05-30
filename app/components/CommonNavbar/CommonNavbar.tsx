@@ -8,17 +8,16 @@ const CommonNavbar = () => {
   const { data: session, status } = useSession();
   const [user, setUser] = useState<any>();
 
-useEffect(() => {
-  if (session && session.user) {
-    setUser(session.user);
-  }
-}, [session]);
-  
+  useEffect(() => {
+    if (session && session.user) {
+      setUser(session.user);
+    }
+  }, [session]);
 
   return (
     <div className="navbar px-5  bg-base-100">
       <div className="flex-1">
-        <Link href={"/en/"}>
+        <Link href={" /"}>
           <Image
             src="/logo/logo.svg"
             alt="Brandfluencer"
@@ -38,7 +37,7 @@ useEffect(() => {
               <div className="w-10 rounded-full">
                 <img
                   alt="Tailwind CSS Navbar component"
-                  src={user?.image ?? ''}
+                  src={user?.image ?? ""}
                 />
               </div>
             </div>
@@ -47,36 +46,30 @@ useEffect(() => {
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
               <li>
-                {
-                  user?.role === "brand" ? (
-                    <Link href="/en/brand/profile">
-                      <p>Profile</p>
-                    </Link>
-                  ) : (
-                    <Link href="/en/brandfluencer/profile">
-                      <p>Profile</p>
-                    </Link>
-                  )
-                }
+                {user?.role === "brand" ? (
+                  <Link href=" /brand/profile">
+                    <p>Profile</p>
+                  </Link>
+                ) : (
+                  <Link href=" /brandfluencer/profile">
+                    <p>Profile</p>
+                  </Link>
+                )}
               </li>
               <li>
-                {
-                  user?.role === "brand" ? (
-                    <Link href="/en/brand/requests">
-                      <p>Requests</p>
-                    </Link>
-                  ) : (
-                    <Link href="/en/brandfluencer/myExperiences">
-                      <p>My Experiences</p>
-                    </Link>
-                  )
-                }
+                {user?.role === "brand" ? (
+                  <Link href=" /brand/requests">
+                    <p>Requests</p>
+                  </Link>
+                ) : (
+                  <Link href=" /brandfluencer/myExperiences">
+                    <p>My Experiences</p>
+                  </Link>
+                )}
               </li>
               <li>
                 <button
-                  onClick={() =>
-                    signOut({ callbackUrl: "/en", redirect: true })
-                  }
+                  onClick={() => signOut({ callbackUrl: "/", redirect: true })}
                 >
                   Logout
                 </button>

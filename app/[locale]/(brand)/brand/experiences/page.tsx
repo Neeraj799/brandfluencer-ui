@@ -52,7 +52,7 @@ const Experiences = () => {
   return (
     <>
       <Title Title={"MY EXPERIENCES"}/>
-      {experiences.length > 0 ? (
+      {experiences?.length > 0 ? (
         <>
           <div className="text-3xl mt-28 underline mb-8 text-center font-bold tracking-wider antialiased text-accent ">
             ACTIVE EXPERIENCES

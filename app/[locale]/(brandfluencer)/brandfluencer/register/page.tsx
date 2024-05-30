@@ -70,7 +70,7 @@ const Register = () => {
             position: "top-center",
           });
         } else if (data.success) {
-          router.push("/en/brandfluencer/login");
+          router.push(" /brandfluencer/login");
           toast.success(data.message, {
             position: "top-center",
           });
@@ -260,7 +260,7 @@ const Register = () => {
 
           <div className="mt-3 text-xs flex justify-between items-center">
             <p>Already a member !?</p>
-            <Link href={"/en/brandfluencer/login"}>
+            <Link href={" /brandfluencer/login"}>
               <p className="hover:scale-105 duration-300 py-2 px-5 bg-white border rounded-xl">
                 Log in
               </p>

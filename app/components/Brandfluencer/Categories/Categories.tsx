@@ -9,9 +9,9 @@ const Categories = () => {
       <div className="grid grid-cols-3 mb-16 cursor-pointer gap-14">
         {categories.map((val, i) => (
           <Link href={val.link}>
-            <div className="card w-80 h-52 bg-base-100 shadow-xl image-full">
+            <div key={i} className="card w-80 h-52 bg-base-300 shadow-xl image-full">
               <figure>
-                <img src={val.image} alt="Shoes" className="w-full h-full object-contain"/>
+                <img src={val.image} alt="Shoes" className="w-full h-full object-fill"/>
               </figure>
               <div className="card-body justify-center items-center">
                 <h2 className="card-title uppercase text-3xl font-bold antialiased tracking-widest [text-shadow:_0_4px_0_rgb(1_1_0_/_90%)]">

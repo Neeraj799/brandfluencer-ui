@@ -57,26 +57,8 @@ const Navbar = () => {
           /> 
           </Link>
         </div>
-        {/* <div className="navbar-center hidden lg:flex">
-          <ul className="menu font-bold tracking-wide menu-horizontal px-1">
-            <li>
-              <a>Our Story</a>
-            </li>
-            <li>
-              <a>Contact Us</a>
-            </li>
-          </ul>
-        </div> */}
         <div className="navbar-end gap-6">
-          {/* <div>
-            <a href="" className="text-xs underline font-light mr-1">EN</a> 
-            <a href="" className="text-xs font-light">BG</a>
-          </div> */}
           <ChangeLanguage />
-          {/* <div className="hidden md:inline-block">
-            <button className="btn glass tracking-wide text-base-300 btn-sm mr-4 antialiased hover:bg-error">BRANDS</button>
-            <button className="btn glass tracking-wide text-base-300 antialiased btn-sm hover:bg-error">INFLUENCERS</button>
-          </div> */}
         </div>
       </div>
     </>

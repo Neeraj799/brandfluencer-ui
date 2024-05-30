@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
-const FirstStep = ({ onNextStep }) => {
+const FirstStep = ({ onNextStep }: { onNextStep: () => void }) => {
   const [loading, setLoading] = useState<Boolean>(false);
   const [image, setImage] = useState<File | null>(null);
   const [selectedImage, setselectedImage] = useState<String>("");
@@ -237,7 +237,7 @@ const FirstStep = ({ onNextStep }) => {
                           Pick a Category
                         </option>
                         {categories.map((category) => (
-                          <option>{category.name}</option>
+                          <option key={category.name.toLowerCase()} value={category.name.toLowerCase()}>{category.name}</option>
                         ))}
                       </select>
                       {formik.touched.experienceCategory &&
