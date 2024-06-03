@@ -1,16 +1,17 @@
-import Image from "next/image";
+import { getI18n } from "@locales/server";
 import React from "react";
 
-const Intro = () => {
+const Intro = async () => {
+  const t = await getI18n();
   return (
     <>
-      <h1 className="text-center text-4xl mt-12  text-accent font-extrabold">
-        WHAT IS BRANDFLUENCER ?
+      <h1 className="text-center text-4xl mt-32 text-accent font-extrabold">
+        {t("whatis")}
       </h1>
       <h1 className="text-center text-4xl mt-4 text-error font-bold">|</h1>
       <div className="w-full mb-36 flex justify-center ">
         <div
-          className="border-2 border-error rounded-md mt-10"
+          className="border-2 h-96 border-error rounded-md mt-10"
           style={{ padding: "15.25% 5% 3% 10%", position: "relative" }}
         >
           <iframe

@@ -1,9 +1,10 @@
-import React from "react";
+import React, { Suspense } from "react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../globals.css";
 import Provider from "../components/Provider";
 import { ToastContainer } from "react-toastify";
+import Loading from "./loading";
 
 export const metadata: Metadata = {
   title: "Brandfluencer",
@@ -22,7 +23,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Provider locale={params.locale}>{children}</Provider>
+        <Provider locale={params.locale}>
+          <Suspense fallback={<Loading/>}>
+          <div>{children}</div>
+          </Suspense>
+        </Provider>
       </body>
     </html>
   );

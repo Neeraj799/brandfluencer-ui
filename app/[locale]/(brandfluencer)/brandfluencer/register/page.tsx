@@ -274,7 +274,7 @@ const Register = () => {
           <img
             className="rounded-2xl"
             loading="lazy"
-            src={"https://source.unsplash.com/60GsdOMRFGc"}
+            src={"/Influencers/influ.jpeg"}
             alt=""
           />
         </div>

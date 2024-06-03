@@ -112,7 +112,7 @@ const ConfirmStep = ({ onPreviousStep }: { onPreviousStep: () => void }) => {
         Experience Details
       </span>
       <div className="card md:card-side bg-base-100 w-2/3 shadow-xl">
-        <div className="card-body items-center md:items-start antialiased">
+        <div className="card-body order-2 md:orde-1 items-center md:items-start antialiased">
           <h2 className="card-title">Category</h2>
           <p>{values?.experienceCategory}</p>
           <h2 className="card-title">Title</h2>
@@ -121,16 +121,16 @@ const ConfirmStep = ({ onPreviousStep }: { onPreviousStep: () => void }) => {
           <p>{values?.description}</p>
           <div className="flex gap-6">
             <span>
-              <h2 className="card-title">Start Date</h2>
+              <h2 className="card-title">Start</h2>
               <p>{values?.startDate}</p>
             </span>
             <span>
-              <h2 className="card-title">End Date</h2>
+              <h2 className="card-title">End</h2>
               <p>{values?.endDate}</p>
             </span>
           </div>
         </div>
-        <figure className="flex justify-center items-center">
+        <figure className="flex order-1 md:order-2 rounded-md justify-center items-center">
           <img
             src={values?.image}
             alt="Image Missing"

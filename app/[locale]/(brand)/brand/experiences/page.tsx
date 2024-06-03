@@ -40,9 +40,15 @@ const Experiences = () => {
         );
         const data = await res.json();
         setExperiences(data?.experiences);
-        setApprovedExperiences(data?.experiences.filter((e: any) => e.status === 'Approved'));
-        setPendingExperiences(data?.experiences.filter((e: any) => e.status === 'Pending'));
-        setClosedExperiences(data?.experiences.filter((e: any) => e.status === 'Closed'));
+        setApprovedExperiences(
+          data?.experiences.filter((e: any) => e.status === "Approved")
+        );
+        setPendingExperiences(
+          data?.experiences.filter((e: any) => e.status === "Pending")
+        );
+        setClosedExperiences(
+          data?.experiences.filter((e: any) => e.status === "Closed")
+        );
       } catch (error) {
         console.error(error);
       }
@@ -50,24 +56,36 @@ const Experiences = () => {
   }, [token]);
   return (
     <>
-      <Title Title={"MY EXPERIENCES"}/>
+      <Title Title={"MY EXPERIENCES"} />
       {experiences?.length > 0 ? (
         <>
-          <div className="text-3xl mt-28 underline mb-8 text-center font-bold tracking-wider antialiased text-accent ">
-            ACTIVE EXPERIENCES
-          </div>
-          <ExperienceHero experiences={approvedExperiences} />
-          <div className="text-3xl mt-28 underline mb-8 text-center font-bold tracking-wider antialiased text-neutral-content ">
-            PENDING EXPERIENCES
-          </div>
-          <ExperienceHero experiences={pendingExperiences} />
-          <div className="text-3xl mt-28 underline mb-8 text-center font-bold tracking-wider antialiased text-error ">
-            INACTIVE/CLOSED EXPERIENCES
-          </div>
-          <ExperienceHero experiences={closedExperiences} />
+          {approvedExperiences.length > 0 && (
+            <div>
+              <div className="sm:text-xl md:text-2xl lg:text-3xl mt-20 underline mb-8 text-center font-bold tracking-wider antialiased text-accent ">
+                ACTIVE EXPERIENCES
+              </div>
+              <ExperienceHero experiences={approvedExperiences} />
+            </div>
+          )}
+          {pendingExperiences.length > 0 && (
+            <div>
+              <div className="sm:text-xl md:text-2xl lg:text-3xl mt-28 underline mb-8 text-center font-bold tracking-wider antialiased text-neutral-content ">
+                PENDING EXPERIENCES
+              </div>
+              <ExperienceHero experiences={pendingExperiences} />
+            </div>
+          )}
+          {closedExperiences.length > 0 && (
+            <div>
+              <div className="sm:text-xl md:text-2xl lg:text-3xl mt-28 underline mb-8 text-center font-bold tracking-wider antialiased text-error ">
+                INACTIVE/CLOSED EXPERIENCES
+              </div>
+              <ExperienceHero experiences={closedExperiences} />
+            </div>
+          )}
         </>
       ) : (
-        <div className="text-3xl mt-28 mb-8 text-center font-bold tracking-wider antialiased text-accent ">
+        <div className="sm:text-xl md:text-2xl lg:text-3xl mt-28 mb-8 text-center font-bold tracking-wider antialiased text-accent ">
           NO EXPERIENCES
         </div>
       )}

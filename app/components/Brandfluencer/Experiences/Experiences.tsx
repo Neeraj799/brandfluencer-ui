@@ -25,38 +25,38 @@ const Experience = ({}) => {
     }
   }, [session, token]);
 
-useEffect(() => {
-  if (!token) return;
+  useEffect(() => {
+    if (!token) return;
 
-  (async () => {
-    try {
-      const res1 = await fetch(
-        `${process.env.NEXT_PUBLIC_URL}/api/brandfluencer/request/experience?category=${category}`,
-        {
-          headers: headers,
-        }
-      );
-      const data1 = await res1.json();
-      setExperiences(data1.experiences);
+    (async () => {
+      try {
+        const res1 = await fetch(
+          `${process.env.NEXT_PUBLIC_URL}/api/brandfluencer/request/experience?category=${category}`,
+          {
+            headers: headers,
+          }
+        );
+        const data1 = await res1.json();
+        setExperiences(data1.experiences);
 
-      const res2 = await fetch(
-        `${process.env.NEXT_PUBLIC_URL}/api/brandfluencer/request/list-requests`,
-        {
-          headers: headers,
+        const res2 = await fetch(
+          `${process.env.NEXT_PUBLIC_URL}/api/brandfluencer/request/list-requests`,
+          {
+            headers: headers,
+          }
+        );
+        if (!res2.ok) {
+          throw new Error(`HTTP error! status: ${res2.status}`);
         }
-      );
-      if (!res2.ok) {
-        throw new Error(`HTTP error! status: ${res2.status}`);
+
+        const data2 = await res2.json();
+        const ids = data2?.map((item: any) => item.experience._id);
+        setRequests(ids);
+      } catch (error) {
+        console.error(error);
       }
-
-      const data2 = await res2.json();
-      const ids = data2?.map((item: any) => item.experience._id);
-      setRequests(ids);
-    } catch (error) {
-      console.error(error);
-    }
-  })();
-}, [token, refresh]);
+    })();
+  }, [token, refresh]);
 
   const handleRequest = async (id: string) => {
     try {
@@ -64,31 +64,48 @@ useEffect(() => {
         "Content-Type": "application/json",
         authorization: `${token}`,
       };
-      const res = await fetch(
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "oklch(var(--a))",
+        cancelButtonColor: "oklch(var(--er))",
+        confirmButtonText: "Yes",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const res = await fetch(
         `${process.env.NEXT_PUBLIC_URL}/api/brandfluencer/request/create-request/${id}`,
         {
           method: "POST",
           headers: headers,
         }
-      );
-      const data: { error?: string } = await res.json();
-      if (data.error) {
+          );
+          const data: { error?: string } = await res.json();
+          if (data.error) {
         console.error(data.error);
-      } else {
+          } else {
         setrefresh(!refresh);
         Swal.fire({
           title: "Request Created Succesfully",
           icon: "success",
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
+          confirmButtonColor: "oklch(var(--a))",
+          cancelButtonColor: "oklch(var(--er))",
           confirmButtonText: "Ok",
         });
-      }
+          }
+        }
+      });
     } catch (error) {
       console.error(error);
+      Swal.fire({
+        title: "Something went Wrong",
+        text: "Try again or Contact our team.",
+        icon: "error",
+      });
     }
   };
-  
+
   return (
     <>
       <div
@@ -131,7 +148,7 @@ useEffect(() => {
                       <button
                         onClick={() => handleRequest(expData?._id)}
                         className="btn btn-accent text-white btn-sm"
-                      > 
+                      >
                         Request
                       </button>
                     )}

@@ -1,11 +1,13 @@
+import { getI18n } from "@locales/server";
 import Image from "next/image";
 import React from "react";
 
-const SocialMedia = () => {
+const SocialMedia = async() => {
+  const t = await getI18n();
   return (
     <>
       <h1 className="text-center text-4xl mt-20 text-error font-extrabold antialiased">
-        CONNECT WITH US
+        {t('connect')}
       </h1>
       <div className="flex mb-36 flex-wrap w-full justify-center gap-8 mt-8 items-center">
         <Image

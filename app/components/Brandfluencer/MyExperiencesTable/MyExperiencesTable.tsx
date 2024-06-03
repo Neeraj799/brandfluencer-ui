@@ -38,8 +38,8 @@ const MyExperiencesTable = () => {
         text: "You won't be able to revert this!",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
+        confirmButtonColor: "oklch(var(--a))",
+        cancelButtonColor: "oklch(var(--er))",
         confirmButtonText: "Yes, Completed",
       }).then(async (result) => {
         if (result.isConfirmed) {
@@ -126,7 +126,7 @@ const MyExperiencesTable = () => {
                         onClick={() => handleComplete(val?._id)}
                         className={`${
                           val?.status !== "Approved" ? `btn-disabled ` : ""
-                        }btn mr-3 btn-success text-white btn-sm`}                      >
+                        }btn mr-3 btn-success text-white btn-sm`}>
                         Mark Completed
                       </button>
                     </td>

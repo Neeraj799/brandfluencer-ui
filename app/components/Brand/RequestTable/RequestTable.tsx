@@ -7,7 +7,7 @@ const RequestTable = () => {
   const [myRequest, setRequests] = useState([]);
   const { data: session, status } = useSession();
   const [token, setToken] = useState<string | null>(null);
-  const [refresh, setRefresh] = useState<Boolean>(false)
+  const [refresh, setRefresh] = useState<Boolean>(false);
   const headers: any = {
     "Content-Type": "application/json",
     authorization: `${token}`,
@@ -16,7 +16,7 @@ const RequestTable = () => {
     if (session && session.user && session.token) {
       setToken(session.token);
     }
-  }, [session,refresh]);
+  }, [session, refresh]);
   useEffect(() => {
     if (!token) return;
     (async () => {
@@ -58,7 +58,7 @@ const RequestTable = () => {
             text: "Successfully Approved the Request.",
             icon: "success",
           });
-          setRefresh(!refresh)
+          setRefresh(!refresh);
         }
       });
     } catch (error) {
@@ -152,8 +152,8 @@ const RequestTable = () => {
                       <button
                         onClick={() => handleComplete(val?._id)}
                         className={`${
-                          val?.status !== "Pending" ? `btn-disabled ` : ""
-                        }btn mr-3 btn-success text-white btn-sm`}
+                          val?.status !== "Pending" ? `btn-disabled  ` : ""
+                        }btn mr-3 btn-success text-white btn-xs md:btn-sm`}
                       >
                         Accept
                       </button>
@@ -161,7 +161,7 @@ const RequestTable = () => {
                         onClick={() => handleReject(val?._id)}
                         className={`${
                           val?.status !== "Pending" ? `btn-disabled ` : ""
-                        }btn mr-3 btn-error text-white btn-sm`}
+                        }btn mr-3 btn-error text-white btn-xs md:btn-sm`}
                       >
                         Reject
                       </button>

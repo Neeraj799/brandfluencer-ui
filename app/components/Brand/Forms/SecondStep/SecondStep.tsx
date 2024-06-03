@@ -4,7 +4,13 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { ExperienceData } from "../types";
 
-const SecondStep = ({ onNextStep, onPreviousStep }: { onNextStep: () => void, onPreviousStep: () => void }) => {
+const SecondStep = ({
+  onNextStep,
+  onPreviousStep,
+}: {
+  onNextStep: () => void;
+  onPreviousStep: () => void;
+}) => {
   const [loading, setLoading] = useState<Boolean>(false);
   const [experience, setExperience] = useState<ExperienceData>();
 
@@ -19,9 +25,9 @@ const SecondStep = ({ onNextStep, onPreviousStep }: { onNextStep: () => void, on
     initialValues: {
       offerDescription: experience?.offerDescription || "",
       contentDescription: experience?.contentDescription || "",
-      welcomeMessage:experience?.welcomeMessage ||  "",
-      preferredGender:experience?.preferredGender || "",
-      minimumFollowers:experience?.minimumFollowers || "",
+      welcomeMessage: experience?.welcomeMessage || "",
+      preferredGender: experience?.preferredGender || "",
+      minimumFollowers: experience?.minimumFollowers || "",
     },
     validationSchema: secondStepSchema,
 
@@ -128,21 +134,21 @@ const SecondStep = ({ onNextStep, onPreviousStep }: { onNextStep: () => void, on
                     </div>
                   )}
               </div>
-              <div className="w-full flex-row flex justify-evenly mb-4">
+              <div className="w-full gap-3 flex-row flex justify-evenly mb-4">
                 <label
                   className="block uppercase text-xs font-bold my-auto"
                   htmlFor="grid-password"
                 >
-                  Preferred brandfluencers gender
+                  Preferred gender
                 </label>
-                <div className="border border-accent w-48 h-10 rounded-md justify-center flex items-center gap-1">
+                <div className="border border-accent w-32 h-10 rounded-md justify-center flex items-center gap-1">
                   <input
                     type="radio"
                     name="preferredGender"
                     value="All"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    className={`radio radio-xs ${
+                    className={`sm:radio sm:radio-xs md:radio md:radio-sm lg:radio lg:radio-md ${
                       formik.touched.preferredGender &&
                       formik.errors.preferredGender
                         ? "border-red-500"
@@ -151,35 +157,34 @@ const SecondStep = ({ onNextStep, onPreviousStep }: { onNextStep: () => void, on
                   />
                   <label htmlFor="gender">All</label>
                 </div>
-                <div className="border border-accent w-48 h-10 rounded-md justify-center flex items-center gap-1">
+                <div className="border border-accent w-32 h-10 rounded-md justify-center flex items-center gap-1">
                   <input
                     type="radio"
                     name="preferredGender"
                     value="Male"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    className="radio radio-xs"
+                    className="sm:radio sm:radio-xs md:radio md:radio-sm lg:radio lg:radio-md"
                   />
                   <label htmlFor="gender">Male</label>
                 </div>
-                <div className="border border-accent w-48 h-10 rounded-md justify-center flex items-center gap-1">
+                <div className="border border-accent w-32 h-10 px-2 rounded-md justify-center flex items-center gap-1">
                   <input
                     type="radio"
                     name="preferredGender"
                     value="Female"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    className="radio radio-xs"
+                    className="sm:radio sm:radio-xs md:radio md:radio-sm lg:radio lg:radio-md"
                     required
                   />
                   <label htmlFor="gender">Female</label>
                 </div>
-                {
-                  formik.errors.preferredGender && (
-                    <div className="text-red-500 text-xs">
-                      {formik.errors.preferredGender}
-                    </div>
-                  )}
+                {formik.errors.preferredGender && (
+                  <div className="text-red-500 text-xs">
+                    {formik.errors.preferredGender}
+                  </div>
+                )}
               </div>
               {/* <div className="w-full px-4">
                 <div className="relative w-full mb-3">
@@ -229,7 +234,7 @@ const SecondStep = ({ onNextStep, onPreviousStep }: { onNextStep: () => void, on
                 </div>
               </div>
               <div className=" text-center ">
-              <button
+                <button
                   type="submit"
                   className="btn btn-sm btn-accent text-white mt-6 mr-5"
                   onClick={onPreviousStep}

@@ -10,7 +10,7 @@ const Banner = async () => {
 
   return (
     <>
-      <div className="flex flex-col w-full h-full mb-96 items-center mt-52  ">
+      <div className="flex flex-col w-full h-full mb-96 items-center mt-52">
         <div className="w-4/6  ">
           <div className="flex flex-wrap h-36 ml-36 mb-16 z-10 items-center">
             <Image height={340} width={543} src={t('revolu')} alt="text"></Image>

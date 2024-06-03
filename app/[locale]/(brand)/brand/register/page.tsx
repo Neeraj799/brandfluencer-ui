@@ -263,7 +263,7 @@ const Register = () => {
           <img
             className="rounded-2xl"
             loading="lazy"
-            src={"https://source.unsplash.com/42gFAgdIUC8"}
+            src={"/brand/brand.jpeg"}
             alt=""
           />
         </div>
