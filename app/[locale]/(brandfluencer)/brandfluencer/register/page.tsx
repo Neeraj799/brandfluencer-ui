@@ -90,7 +90,7 @@ const Register = () => {
     const file = event.target.files?.[0];
     formik.setFieldError("image", "");
 
-    const isValidImages = isValidFileUploaded(file);
+    const isValidImages = isValidFileUploaded(file as File);
     const image = file ? URL.createObjectURL(file) : "";
     setselectedImage(image);
     if (!isValidImages) {

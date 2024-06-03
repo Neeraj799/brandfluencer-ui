@@ -89,7 +89,7 @@ const BrandModal = ({ profile }: { profile: Profile }) => {
     const file = event.target.files?.[0] ?? null;
     formik.setFieldError("image", " ");
 
-    const isValidImages = isValidFileUploaded(file);
+    const isValidImages = isValidFileUploaded(file as File);
     const image = file ? URL.createObjectURL(file) : "";
     setselectedImage(image);
     if (!isValidImages) {

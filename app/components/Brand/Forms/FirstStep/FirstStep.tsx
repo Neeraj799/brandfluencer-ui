@@ -43,7 +43,7 @@ const FirstStep = ({ onNextStep }: { onNextStep: () => void }) => {
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     formik.setFieldError("image", " ");
     const file = event.target.files?.[0] ?? null;
-    const isValidImages = isValidFileUploaded(file);
+    const isValidImages = isValidFileUploaded(file as File);
     if (!isValidImages) {
       formik.setFieldError(
         "image",
