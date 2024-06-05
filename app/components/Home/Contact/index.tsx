@@ -39,7 +39,7 @@ const Contact = async () => {
       </div>
       <div className="grid lg:grid-cols-3 items-center gap-4 p-4 shadow-lg rounded-xl mt-6">
         <div className="bg-[#011c2b] rounded-lg p-6 max-lg:text-center">
-          <h2 className="text-xl font-bold text-white">Let's Talk</h2>
+          <h2 className="text-xl font-bold text-white">Let&apos;s Talk</h2>
           <p className="text-sm text-gray-400 mt-3">
             Have some big idea or brand to develop and need help?
           </p>

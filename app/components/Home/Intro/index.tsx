@@ -1,4 +1,5 @@
 import { getI18n } from "@locales/server";
+import Script from "next/script";
 import React from "react";
 
 const Intro = async () => {
@@ -27,7 +28,7 @@ const Intro = async () => {
             allow="fullscreen;"
             allowFullScreen
           ></iframe>
-          <script src="https://player.vimeo.com/api/player.js"></script>
+          <Script src="https://player.vimeo.com/api/player.js"></Script>
           <p>
             <a href="https://vimeo.com/721092324">Brandfluencer Bulgaria</a>{" "}
             from <a href="https://vimeo.com/brandfluencer">Brandfluencer</a> on{" "}
