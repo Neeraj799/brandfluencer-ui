@@ -8,7 +8,7 @@ const Categories = () => {
     <div>
       <div className="grid grid-cols-1 md:grid-cols-3 mb-16 cursor-pointer gap-14">
         {categories.map((val, i) => (
-          <Link href={val.link}>
+          <Link key={i} href={val.link}>
             <div key={i} className="card w-80 h-52 bg-base-300 shadow-xl image-full">
               <figure>
                 <img src={val.image} alt="Shoes" className="w-full h-full object-fill"/>
