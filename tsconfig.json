@@ -18,9 +18,21 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./app/*"],
+      "@components/*": [
+        "./app/components/*"
+      ],
+      "@locales/*": [
+        "./locales/*"
+      ],
+      "@utils/*": [
+        "./utils/*"
+      ],
+      "@helpers/*": [
+        "./helpers/*"
+      ],
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/components/Brand/ExperienceHero"],
   "exclude": ["node_modules"]
 }
