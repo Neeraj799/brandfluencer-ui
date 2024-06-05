@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import React, { useState } from "react";
 
-const page = () => {
+const Page = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const { data: session, status } = useSession();
 
@@ -72,4 +72,4 @@ const page = () => {
   return <div className="flex justify-center flex-col">{StepComponent}</div>;
 };
 
-export default page;
+export default Page;
