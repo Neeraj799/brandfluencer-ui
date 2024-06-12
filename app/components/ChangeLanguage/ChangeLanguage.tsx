@@ -8,19 +8,21 @@ export default function Page() {
 
   return (
     <>
-      <div>
-        <a
-          onClick={() => changeLocale("en")}
-          className={`text-xs cursor-pointer font-light mr-1 ${locale === "en" ? "underline" : ""}`}
-        >
-          EN
-        </a>
-        <a
-          onClick={() => changeLocale("bg")}
-          className={`text-xs cursor-pointer font-light ${locale === "bg" ? "underline" : ""}`}
-        >
-          BG
-        </a>
+      <div className="flex gap-4">
+        <button onClick={() => changeLocale("en")}>
+          <span
+            className={`cursor-pointer ${locale === "en" ? "shadow-error shadow-lg" : ""}`}
+          >
+            🇬🇧
+          </span>
+        </button>
+        <button onClick={() => changeLocale("bg")}>
+          <span
+            className={`cursor-pointer ${locale === "bg" ? "shadow-accent shadow-lg" : ""}`}
+          >
+            🇧🇬
+          </span>
+        </button>
       </div>
     </>
   );

@@ -1,8 +1,6 @@
 import React from "react";
 import styles from "./styles.module.css";
 import Image from "next/image";
-import revolu from "../../../../public/home/BannerText/english/revolu.png";
-import tion from "../../../../public/home/BannerText/english/tion.png";
 import { getI18n } from "@locales/server";
 
 const Banner = async () => {
@@ -34,8 +32,8 @@ const Banner = async () => {
           </div>
         </div>
         <div className="flex flex-col w-1/2">
-          <h1 className="text-4xl font-medium mb-2">
-            Of <span className="line-through  text-error">Influencer</span><span className="text-accent ml-2">Brandfluencer</span> 
+          <h1 className="text-4xl font-medium mb-2 text-pretty">
+            Of <span className="line-through text-error">Influencer</span><span className="text-accent ml-2">Brandfluencer</span> 
           </h1>
           <p className="w-96 text-slate-500 antialiased">
             {t('desc')}
