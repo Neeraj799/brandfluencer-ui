@@ -10,7 +10,7 @@ const NewBanner = async () => {
       <section>
         <div className="text-white py-14 md:py-20 mb-2 md:mb-40">
           <div className="container mx-auto flex flex-col md:flex-row items-center  md:my-24">
-            <div className="flex flex-col w-full lg:w-1/3 order-2 md:order-1 justify-center items-start p-8">
+            <div className="flex flex-col w-full lg:w-1/3 order-2 md:order-1 justify-center items-start p-5">
               <div className="flex flex-wrap flex-col h-24 md:h-32 z-10 items-center justify-center">
                 <img
                   className="h-20 sm:h-24 md:h-32 lg:h-32 xl:h-40 animate-in slide-in-from-left-72 delay-800 duration-700"
@@ -47,7 +47,7 @@ const NewBanner = async () => {
                 </p>
               </div>
             </div>
-            <div className="p-8 mt-12 mb-6 md:mb-0 md:mt-0 order-1 md:order-2 md:ml-96 lg:w-2/3  justify-center">
+            <div className="p-8 mt-5 mb-16 md:mb-0 md:mt-0 order-1 md:order-2 md:ml-96 lg:w-2/3  justify-center">
               <div className="h-48 flex flex-wrap content-center">
                 {/* <div>
                   <img

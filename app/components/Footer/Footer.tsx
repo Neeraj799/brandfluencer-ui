@@ -6,7 +6,7 @@ const Footer = () => {
     <div className="mt-auto w-screen">
       <footer className=" footer gap-20 footer-center p-10 bg-accent-content text-gray-700">
         <aside className="gap-5">
-          <img className="h-16" src="/logo/logo.svg" alt="" />
+          <img className="h-10" src="/logo/logo.svg" alt="" />
           <p className="font-bold text-2xl">
             Contact Us
             <br />
