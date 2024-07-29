@@ -113,11 +113,42 @@ const forgotPasswordValidationSchema = Yup.object({
     .required("Confirm Password is Required"),
 });
 
+const contactSchema = Yup.object({
+  name: Yup.string()
+    .max(15, "Must be 15 characters or less")
+    .required("Required"),
+  phone: Yup.number()
+    .typeError("That doesn't look like a phone number")
+    .positive("A phone number can't start with a minus")
+    .integer("A phone number can't include a decimal point")
+    .required('Required'),
+  email: Yup.string().email("Invalid email address").required("Required"),
+  message: Yup.string()
+    .max(200, "Must be 200 characters or less")
+    .required("Required"),
+});
+
+const contactSchema = Yup.object({
+  name: Yup.string()
+    .max(15, "Must be 15 characters or less")
+    .required("Required"),
+  phone: Yup.number()
+    .typeError("That doesn't look like a phone number")
+    .positive("A phone number can't start with a minus")
+    .integer("A phone number can't include a decimal point")
+    .required('Required'),
+  email: Yup.string().email("Invalid email address").required("Required"),
+  message: Yup.string()
+    .max(200, "Must be 200 characters or less")
+    .required("Required"),
+});
+
 export {
   loginValidationSchema,
   signupSchema,
   signupSchemaInfluencer,
   firstStepSchema,
   secondStepSchema,
+  contactSchema,
   forgotPasswordValidationSchema,
 };

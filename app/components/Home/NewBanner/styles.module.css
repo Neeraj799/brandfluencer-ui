@@ -1,0 +1,14 @@
+.circle {
+  position: absolute;
+  top: -280px;
+  right: -200px;
+  z-index: -25;
+}
+
+/* Adjustments for screens smaller than 600px */
+@media (max-width: 600px) {
+  .circle {
+    top: -140px; /* Adjust top position for mobile */
+    right: -100px; /* Adjust right position for mobile */
+  }
+}

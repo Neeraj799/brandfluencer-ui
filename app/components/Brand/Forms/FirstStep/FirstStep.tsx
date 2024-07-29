@@ -83,7 +83,7 @@ const FirstStep = ({ onNextStep }: { onNextStep: () => void }) => {
                 <div className="w-full mb-4 px-4">
                   <div className="relative w-full mb-3">
                     <label
-                      className="block uppercase text-xs font-bold mb-2"
+                      className="block text-xs font-bold mb-2"
                       htmlFor="grid-password"
                     >
                       Experience Name
@@ -110,7 +110,7 @@ const FirstStep = ({ onNextStep }: { onNextStep: () => void }) => {
                       )}
                   </div>
                   <label
-                    className="block uppercase text-xs font-bold mb-2"
+                    className="block text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
                     Description
@@ -137,7 +137,7 @@ const FirstStep = ({ onNextStep }: { onNextStep: () => void }) => {
                   <div className="w-full lg:w-6/12 mb-4 px-4">
                     <div className="relative w-full mb-3">
                       <label
-                        className="block uppercase text-xs font-bold mb-2"
+                        className="block text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
                         Start Date
@@ -163,7 +163,7 @@ const FirstStep = ({ onNextStep }: { onNextStep: () => void }) => {
                   <div className="w-full lg:w-6/12 px-4">
                     <div className="relative w-full mb-3">
                       <label
-                        className="block uppercase text-xs font-bold mb-2"
+                        className="block text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
                         End Date
@@ -189,7 +189,7 @@ const FirstStep = ({ onNextStep }: { onNextStep: () => void }) => {
                   <div className="w-full lg:w-6/12 px-4">
                     <div className="relative w-full mb-3">
                       <label
-                        className="block uppercase text-xs font-bold mb-2"
+                        className="block text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
                         Link (Optional)
@@ -216,7 +216,7 @@ const FirstStep = ({ onNextStep }: { onNextStep: () => void }) => {
                   <div className="w-full lg:w-6/12 px-4">
                     <div className="relative w-full mb-3">
                       <label
-                        className="block uppercase text-xs font-bold mb-2"
+                        className="block text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
                         Experience Category
@@ -256,7 +256,7 @@ const FirstStep = ({ onNextStep }: { onNextStep: () => void }) => {
                 <div className="w-full px-4">
                   <div className="relative w-full mb-3">
                     <label
-                      className="block uppercase text-xs font-bold mb-2"
+                      className="block text-xs font-bold mb-2"
                       htmlFor="searchTags"
                     >
                       Tags, hashtags, handles and mentions

@@ -3,10 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import logo from "/public/logo/logo.svg";
-const Navbar = () => {
+import { getI18n } from "@locales/server";
+const Navbar = async () => {
+  const t = await getI18n();
   return (
-    <>
-      <div className="navbar p-3 px-5 bg-transparent uppercase">
+    <div className="container lg:flex lg:justify-center lg:mx-20">
+      <div className="navbar bg-transparent uppercase justify-around ">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -48,16 +50,20 @@ const Navbar = () => {
         <div className="navbar-end gap-10 mr-5">
           <ChangeLanguage />
           <div className="hidden lg:flex gap-6">
-            <button className="btn btn-sm btn-outline btn-accent text-white">
-              Brand
+            <Link href={'/brand/login'}>
+            <button className="btn btn-sm btn-outline text-white">
+              {t("brand")}
             </button>
-            <button className="btn btn-sm btn-outline btn-error text-white">
-              Brandfluencer
-            </button>{" "}
+            </Link>
+            <Link href={'/brandfluencer/login'}>
+            <button className="btn btn-sm btn-outline text-white">
+              {t("brandfluencer")}
+            </button>
+            </Link>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

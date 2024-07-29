@@ -1,11 +1,32 @@
-"use client"
+"use client";
 import { useI18n } from "@locales/client";
+import { contactSchema } from "@utils/validationSchema";
 import { useFormik } from "formik";
-import React from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
-const Contact = async () => {
-  const t =  useI18n();
+const Contact = () => {
+  const t = useI18n();
+  const [loading, setLoading] = useState<Boolean>(false);
+  const router = useRouter();
+  const [token, setToken] = useState<string | null>(null);
+  const { data: session, status } = useSession();
+  const [refresh, setRefresh] = useState<boolean>(false);
 
+  useEffect(() => {
+    try {
+      if (session && session.user && session.token) {
+        setToken(session.token);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }, [session]);
+  const headers: any = {
+    authorization: `${token}`,
+  };
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -13,24 +34,45 @@ const Contact = async () => {
       email: "",
       message: "",
     },
-    // validationSchema: Yup.object({
-    //   firstName: Yup.string()
-    //     .max(15, "Must be 15 characters or less")
-    //     .required("Required"),
-    //   phone: Yup.number()
-    //     .typeError("That doesn't look like a phone number")
-    //     .positive("A phone number can't start with a minus")
-    //     .integer("A phone number can't include a decimal point")
-    //     .required('A phone number is required'),
-    //   email: Yup.string().email("Invalid email address").required("Required"),
-    //   message: Yup.string()
-    //     .max(200, "Must be 200 characters or less")
-    //     .required("Required"),
-    // }),
-    onSubmit: (values) => {
-      console.log(values);
+    validationSchema: contactSchema,
+    onSubmit: async (values) => {
+      try {
+        setLoading(true);
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_URL}/api/brand/experience/update-profile`,
+          {
+            method: "POST",
+            body: JSON.stringify(values),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        const data = await res.json();
+
+        if (data.error) {
+          toast.error(data.error, {
+            position: "top-center",
+          });
+        } else if (data.success) {
+          router.push(" /brand/profile");
+          setRefresh(!refresh);
+          toast.success(data.message, {
+            position: "top-center",
+          });
+        }
+      } catch (error) {
+        toast.error("Internal Server Error", {
+          position: "top-center",
+        });
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
     },
   });
+
   return (
     <div className="max-w-6xl mx-auto bg-white rounded-lg mt-20 mb-36  font-[sans-serif] text-[#011c2b]">
       <div className="text-center px-6">
@@ -64,48 +106,71 @@ const Contact = async () => {
               <div className="relative flex items-center col-span-full">
                 <input
                   type="text"
-                  placeholder="First Name"
+                  placeholder={t("fullname")}
                   className="px-2 py-3 bg-white w-full text-sm border-b-2 focus:border-[#011c2b] outline-none"
                   onChange={formik.handleChange}
+                  onBlur={formik.handleBlur} // Add this to track field touch status
                   value={formik.values.name}
                   name="name"
                 />
+                {formik.touched.name && formik.errors.name ? (
+                  <div className="text-red-500 text-xs">
+                    {formik.errors.name}
+                  </div>
+                ) : null}
               </div>
               <div className="relative flex items-center">
                 <input
                   type="number"
-                  placeholder="Phone No."
+                  placeholder={t("mobile")}
                   className="px-2 py-3 bg-white text-black w-full text-sm border-b-2 focus:border-[#011c2b] outline-none"
                   onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                   value={formik.values.phone}
                   name="phone"
                 />
+                {formik.touched.phone && formik.errors.phone ? (
+                  <div className="text-red-500 text-xs">
+                    {formik.errors.phone}
+                  </div>
+                ) : null}
               </div>
               <div className="relative flex items-center">
                 <input
                   type="email"
-                  placeholder="Email"
+                  placeholder={t("email")}
                   className="px-2 py-3 bg-white text-black w-full text-sm border-b-2 focus:border-[#011c2b] outline-none"
                   onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                   value={formik.values.email}
                   name="email"
                 />
+                {formik.touched.email && formik.errors.email ? (
+                  <div className="text-red-500 text-xs">
+                    {formik.errors.email}
+                  </div>
+                ) : null}
               </div>
-
               <div className="col-span-full">
                 <textarea
-                  placeholder="Write Message"
+                  placeholder={t("message")}
                   className="px-2 pt-3 bg-white text-black w-full text-sm border-b-2 focus:border-[#011c2b] outline-none"
                   onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                   value={formik.values.message}
                   name="message"
                 ></textarea>
+                {formik.touched.message && formik.errors.message ? (
+                  <div className="text-red-500 text-xs">
+                    {formik.errors.message}
+                  </div>
+                ) : null}
               </div>
               <button
                 type="submit"
                 className="mt-12 flex items-center justify-center text-sm lg:ml-auto max-lg:w-full rounded-lg px-4 py-2.5 font-semibold bg-accent text-white "
               >
-                Send Message
+                {t("send")}
               </button>
             </div>
           </form>
