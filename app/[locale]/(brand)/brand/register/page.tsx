@@ -96,9 +96,9 @@ const Register = () => {
   return (
     <section className="bg-gray-50 min-h-screen flex items-center p-8 justify-center">
       <div className="bg-gray-100 flex rounded-2xl shadow-lg max-w-5xl p-6 items-center">
-        <div className="md:w-1/2  px-16">
-          <h2 className="font-bold text-3xl text-[#002D74]">Register Here..</h2>
-          <p className="text-sm mt-4 text-[#002D74]">
+        <div className="px-20 py-10">
+          <h2 className="font-bold text-3xl text-accent">Register Here..</h2>
+          <p className="text-sm mt-4 text-accent">
             Lets Start Your Journey!
           </p>
           <form onSubmit={formik.handleSubmit} className="flex flex-col gap-2">
@@ -242,7 +242,7 @@ const Register = () => {
               </button>
             ) : (
               <button
-                className="bg-[#002D74] font-semibold rounded-xl py-2  text-white"
+                className="bg-accent font-semibold rounded-xl py-2  text-white"
                 type="submit"
               >
                 Register
@@ -259,14 +259,14 @@ const Register = () => {
             </Link>
           </div>
         </div>
-        <div className="w-1/2 h-fit md:block hidden">
+        {/* <div className="w-1/2 h-fit md:block hidden">
           <img
             className="rounded-2xl"
             loading="lazy"
             src={"/brand/brand.jpeg"}
             alt=""
           />
-        </div>
+        </div> */}
       </div>
     </section>
   );

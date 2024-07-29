@@ -1,14 +1,17 @@
+import { getI18n } from "@locales/server";
 import Image from "next/image";
 import React from "react";
 
-const Footer = () => {
+const Footer = async () => {
+  const t = await getI18n();
+
   return (
     <div className="mt-auto w-screen">
       <footer className=" footer gap-20 footer-center p-10 bg-accent-content text-gray-700">
         <aside className="gap-5">
           <img className="h-10" src="/logo/logo.svg" alt="" />
           <p className="font-bold text-2xl">
-            Contact Us
+            {t("contact")}
             <br />
           </p>
           <nav>

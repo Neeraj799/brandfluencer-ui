@@ -20,7 +20,7 @@ const Login = () => {
       router.push(" /brandfluencer/categories");
     }
   }, [session]);
-  
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -38,6 +38,8 @@ const Login = () => {
           role: "brandfluencer",
           redirect: false,
         });
+        console.log(res, "jhjsdh");
+
         if (!res?.ok && res?.error) {
           toast.error(res.error, {
             position: "top-center",
@@ -66,9 +68,9 @@ const Login = () => {
       <section className="bg-gray-50 min-h-screen flex items-center justify-center">
         <div className="bg-gray-100 flex rounded-2xl min-h-96 shadow-lg max-w-3xl p-8 items-center">
           {/* <span className='self-center'> <Link href={'/'}> <ArrowLeft size={22} /></Link></span> */}
-          <div className="md:w-1/2 px-14">
-            <h2 className="font-bold text-3xl text-[#002D74]">Login</h2>
-            <p className="text-sm mt-4 text-[#002D74]">
+          <div className="px-14 ">
+            <h2 className="font-bold text-3xl text-accent text-center">Login</h2>
+            <p className="text-sm mt-4 text-accent text-center">
               Welcome Back BrandFluencer!
             </p>
 
@@ -121,7 +123,7 @@ const Login = () => {
                 </button>
               ) : (
                 <button
-                  className="bg-[#002D74] rounded-xl font-semibold py-2 mt-2 text-white"
+                  className="bg-accent rounded-xl font-semibold py-2 mt-2 text-white"
                   type="submit"
                 >
                   Log in
@@ -172,14 +174,14 @@ const Login = () => {
             </div>
           </div>
 
-          <div className="w-1/2 md:block hidden">
+          {/* <div className="w-1/2 md:block hidden">
             <img
               className="rounded-2xl"
               loading="lazy"
               src="/home/influencersBanner.png"
               alt="image"
             />
-          </div>
+          </div> */}
         </div>
       </section>
     </>

@@ -2,25 +2,25 @@
 
 import { useChangeLocale, useCurrentLocale } from "@locales/client";
 
-export default function Page() {
+export default function ChangeLanguage() {
   const changeLocale = useChangeLocale();
   const locale = useCurrentLocale();
 
   return (
     <>
-      <div className="flex gap-4">
+      <div className="flex gap-2">
         <button onClick={() => changeLocale("en")}>
           <span
-            className={`cursor-pointer ${locale === "en" ? "shadow-error shadow-lg" : ""}`}
+            className={`cursor-pointer text-sm ${locale === "en" ? "underline underline-offset-4" : ""}`}
           >
-            🇬🇧
+            EN
           </span>
         </button>
         <button onClick={() => changeLocale("bg")}>
           <span
-            className={`cursor-pointer ${locale === "bg" ? "shadow-accent shadow-lg" : ""}`}
+            className={`cursor-pointer text-sm ${locale === "bg" ? "underline underline-offset-4" : ""}`}
           >
-            🇧🇬
+            BG
           </span>
         </button>
       </div>

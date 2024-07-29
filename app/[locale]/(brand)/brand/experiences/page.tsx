@@ -14,11 +14,16 @@ const Experiences = () => {
   const { data: session, status } = useSession();
   const [token, setToken] = useState<string | null>(null);
 
+  if(!session){
+    redirect(" /brand/login");
+  }
+  
   useEffect(() => {
     try {
       if (session && session.user && session.token) {
         setToken(session.token);
-      }
+      }        
+     
     } catch (error) {
       console.error(error);
     }
