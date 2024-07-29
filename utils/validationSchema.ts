@@ -88,7 +88,29 @@ const secondStepSchema = Yup.object().shape({
     .matches(/^\d+$/, "Must be a number")
     .min(1, "Must be at least 1")
     .required("Minimum number of followers required"),
+});
 
+const forgotPasswordValidationSchema = Yup.object({
+  email: Yup.string()
+    .trim()
+    .email("Invalid email address")
+    .required("Email is required"),
+  otp: Yup.string()
+  .trim()
+  .length(6, "OTP must be exactly 6 digits")
+  .matches(/^\d+$/, "OTP must be a number")
+  .required("OTP is required"),
+  newPassword: Yup.string()
+    .trim()
+    .min(8, "password must be at least 8 charecters")
+    .required("Password is required")
+    .matches(
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+      "Must contain at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character"
+    ),
+    confirmPassword: Yup.string()
+    .oneOf([Yup.ref("newPassword")], "Passwords must match")
+    .required("Confirm Password is Required"),
 });
 
 export {
@@ -96,5 +118,6 @@ export {
   signupSchema,
   signupSchemaInfluencer,
   firstStepSchema,
-  secondStepSchema
+  secondStepSchema,
+  forgotPasswordValidationSchema,
 };

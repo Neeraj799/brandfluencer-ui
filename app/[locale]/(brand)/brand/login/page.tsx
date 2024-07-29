@@ -124,11 +124,15 @@ const Login = () => {
                   Log in
                 </button>
               )}
-              {/* <p className=" text-xs text-end mb-5 cursor-pointer">
-                Forget your password
-              </p> */}
+              
             </form>
 
+            <Link href={"/brand/forgotPassword"}>
+                <p className="mt-5 text-xs border-b py-4">
+                  Forgot your password ?
+                </p>
+              </Link>
+              
             <div className="mt-3 text-xs border-t pt-2 flex justify-between items-center">
               <p>Not a member yet !?</p>
               <Link href={" /brand/register"}>
