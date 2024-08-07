@@ -1,3 +1,4 @@
+"use client"
 import RequestTable from "@/components/Brand/RequestTable/RequestTable";
 import Title from "@/components/Brand/Title/Title";
 import { useSession } from "next-auth/react";

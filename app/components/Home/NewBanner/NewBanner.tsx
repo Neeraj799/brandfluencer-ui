@@ -9,7 +9,7 @@ const NewBanner = async () => {
   return (
     <div>
       <section>
-        <div className="text-white py-14 lg:py-20 mb-2 lg:mb-40 overflow-hidden bg-cover bg-center" style={{ backgroundImage: `url('/doodle.png')` }}>
+        <div className="text-white py-14 lg:py-20 mb-2 lg:mb-40 overflow-hidden bg-cover bg-center">
           {/* <div className="overflow-x-hidden">
             <Image
               height={1400}

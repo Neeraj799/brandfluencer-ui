@@ -17,7 +17,7 @@ export default {
   "our story": "OUR STORY",
   story: `Founded in 2020, we aim to help our clients thrive in a changing omni-channel world and
    leverage their unique strengths to build a personalized roadmap to success. We’re here to make your life easier — talk to us about how we can help.`,
-  connect: "CONNECT WITH US",
+  connect: "SOCIAL MEDIA CHANNELS COVERED",
   contact: "Contact Us",
   brandfluencerImg: "/home/Categories/en/brandfluencer.png",
   brandImg: "/home/Categories/en/brands.png",

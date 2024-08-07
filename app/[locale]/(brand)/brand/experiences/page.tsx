@@ -5,32 +5,33 @@ import Title from "@/components/Brand/Title/Title";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { ref } from "yup";
 
 const Experiences = () => {
-  const [experiences, setExperiences] = useState([] || null);
+  const [experiences, setExperiences] = useState([]);
   const [approvedExperiences, setApprovedExperiences] = useState([]);
   const [pendingExperiences, setPendingExperiences] = useState([]);
   const [closedExperiences, setClosedExperiences] = useState([]);
   const { data: session, status } = useSession();
   const [token, setToken] = useState<string | null>(null);
+  const [refresh, setRefresh] = useState(false);
 
-  if(!session){
+  if (!session) {
     redirect(" /brand/login");
   }
-  
+
   useEffect(() => {
     try {
       if (session && session.user && session.token) {
         setToken(session.token);
-      }        
-     
+      }
     } catch (error) {
       console.error(error);
     }
   }, [session]);
 
   useEffect(() => {
-    if (!token) return;
+    if (!token) return;    
     (async () => {
       try {
         const headers: any = {
@@ -44,6 +45,8 @@ const Experiences = () => {
           }
         );
         const data = await res.json();
+        console.log(data);
+        
         setExperiences(data?.experiences);
         setApprovedExperiences(
           data?.experiences.filter((e: any) => e.status === "Approved")
@@ -58,7 +61,7 @@ const Experiences = () => {
         console.error(error);
       }
     })();
-  }, [token]);
+  }, [token, refresh]);
   return (
     <>
       <Title Title={"MY EXPERIENCES"} />
@@ -77,7 +80,12 @@ const Experiences = () => {
               <div className="sm:text-xl md:text-2xl lg:text-3xl mt-28 underline mb-8 text-center font-bold tracking-wider antialiased text-neutral-content ">
                 PENDING EXPERIENCES
               </div>
-              <ExperienceHero experiences={pendingExperiences} />
+              <ExperienceHero
+                token={token}
+                setRefresh={setRefresh}
+                refresh={refresh}
+                experiences={pendingExperiences}
+              />
             </div>
           )}
           {closedExperiences.length > 0 && (

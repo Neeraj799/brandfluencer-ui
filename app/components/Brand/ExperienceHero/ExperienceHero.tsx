@@ -3,8 +3,9 @@
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
-const ExperienceHero = ({ experiences }: any) => {
+const ExperienceHero = ({ experiences, token, setRefresh, refresh}: any) => {
   const [isOpen, setIsOpen] = useState(false);
+
   const toggleModal = (expData: any) => {
     Swal.fire({
       title: `<h2 style="color: #333; text-align: center;">${expData.experienceName}</h2>`,
@@ -34,6 +35,52 @@ const ExperienceHero = ({ experiences }: any) => {
         confirmButton: "btn btn-accent text-white btn-sm",
       },
     });
+  };
+
+  const handleEnd = async (id: string) => {
+    try {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const headers: any = {
+            "Content-Type": "application/json",
+            authorization: `${token}`,
+          };
+          const res = await fetch(
+            `${process.env.NEXT_PUBLIC_URL}/api/brand/experience/decline-experience/${id}`,
+            {
+              headers: headers,
+              method: "POST",
+            }
+          );
+          const data = await res.json();
+          if (data.success) {
+            setRefresh(!refresh);
+            Swal.fire({
+              title: "Completed",
+              text: "Successfully Ended the Experience.",
+              icon: "success",
+            });
+          } else {
+            Swal.fire({
+              title: "Failed",
+              text: "Failed to End the Experience.",
+              icon: "error",
+            });
+          }
+          console.log(data);
+        }
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <>
@@ -67,7 +114,12 @@ const ExperienceHero = ({ experiences }: any) => {
                 <button className="btn btn-accent text-white btn-sm">
                   Archive
                 </button>*/}
-                <button className="btn btn-error text-white btn-sm">End</button>
+                <button
+                  onClick={() => handleEnd(expData?._id)}
+                  className="btn btn-error text-white btn-sm"
+                >
+                  End
+                </button>
               </div>
             </div>
           </div>
