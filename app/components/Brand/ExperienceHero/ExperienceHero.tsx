@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
-const ExperienceHero = ({ experiences, token, setRefresh, refresh}: any) => {
+const ExperienceHero = ({ experiences, token, setRefresh, refresh }: any) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleModal = (expData: any) => {
@@ -93,7 +93,7 @@ const ExperienceHero = ({ experiences, token, setRefresh, refresh}: any) => {
               loading="lazy"
               className="max-w-xs h-64 w-72 rounded-lg drop-shadow-2xl"
             />
-            <div className="drop-shadow-xl ml-4 rounded-xl bg-base-100 p-16">
+            <div className="drop-shadow-xl ml-4 rounded-xl bg-base-100 w-80 md:w-96 p-16">
               <span>
                 <p className="text-2xl font-bold">{expData.experienceName} </p>{" "}
                 <p className="py-6 italic">{expData.description}</p>
@@ -114,12 +114,15 @@ const ExperienceHero = ({ experiences, token, setRefresh, refresh}: any) => {
                 <button className="btn btn-accent text-white btn-sm">
                   Archive
                 </button>*/}
-                <button
-                  onClick={() => handleEnd(expData?._id)}
-                  className="btn btn-error text-white btn-sm"
-                >
-                  End
-                </button>
+
+                {expData.experienceStatus !=="Closed" && (
+                  <button
+                    onClick={() => handleEnd(expData?._id)}
+                    className="btn btn-error text-white btn-sm"
+                  >
+                    End
+                  </button>
+                )}
               </div>
             </div>
           </div>

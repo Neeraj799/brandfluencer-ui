@@ -31,7 +31,7 @@ const Experiences = () => {
   }, [session]);
 
   useEffect(() => {
-    if (!token) return;    
+    if (!token) return;
     (async () => {
       try {
         const headers: any = {
@@ -46,16 +46,18 @@ const Experiences = () => {
         );
         const data = await res.json();
         console.log(data);
-        
+
         setExperiences(data?.experiences);
         setApprovedExperiences(
-          data?.experiences.filter((e: any) => e.status === "Approved")
+          data?.experiences.filter(
+            (e: any) => e.experienceStatus === "Approved"
+          )
         );
         setPendingExperiences(
-          data?.experiences.filter((e: any) => e.status === "Pending")
+          data?.experiences.filter((e: any) => e.experienceStatus === "Pending")
         );
         setClosedExperiences(
-          data?.experiences.filter((e: any) => e.status === "Closed")
+          data?.experiences.filter((e: any) => e.experienceStatus === "Closed")
         );
       } catch (error) {
         console.error(error);
@@ -72,7 +74,11 @@ const Experiences = () => {
               <div className="sm:text-xl md:text-2xl lg:text-3xl mt-20 underline mb-8 text-center font-bold tracking-wider antialiased text-accent ">
                 ACTIVE EXPERIENCES
               </div>
-              <ExperienceHero experiences={approvedExperiences} />
+              <ExperienceHero
+                setRefresh={setRefresh}
+                refresh={refresh}
+                experiences={approvedExperiences}
+              />
             </div>
           )}
           {pendingExperiences.length > 0 && (
@@ -93,7 +99,11 @@ const Experiences = () => {
               <div className="sm:text-xl md:text-2xl lg:text-3xl mt-28 underline mb-8 text-center font-bold tracking-wider antialiased text-error ">
                 INACTIVE/CLOSED EXPERIENCES
               </div>
-              <ExperienceHero experiences={closedExperiences} />
+              <ExperienceHero
+                setRefresh={setRefresh}
+                refresh={refresh}
+                experiences={closedExperiences}
+              />
             </div>
           )}
         </>
