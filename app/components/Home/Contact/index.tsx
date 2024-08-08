@@ -77,13 +77,13 @@ const Contact = () => {
   });
 
   return (
-    <div className="max-w-6xl mx-auto bg-white rounded-lg mt-20 mb-36  font-[sans-serif] text-[#011c2b]">
+    <div id="contact" className="max-w-6xl mx-auto bg-white rounded-lg mt-20 mb-36  font-[sans-serif] text-[#011c2b]">
       <div className="text-center px-6">
         <h2 className="text-3xl font-extrabold pt-4"> {t("contact")}</h2>
         <p className="text-sm text-gray-400 mt-3">{t("brandNeeds")}</p>
       </div>
-      <div className="grid lg:grid-cols-3 items-center gap-4 p-4 shadow-lg rounded-xl mt-6">
-        <div className="bg-[#011c2b] rounded-lg p-6 max-lg:text-center">
+      <div className="grid lg:grid-cols-2 items-center gap-4 p-4 shadow-lg rounded-xl mt-6">
+        {/* <div className="bg-[#011c2b] rounded-lg p-6 max-lg:text-center">
           <h2 className="text-xl font-bold text-white">Let&apos;s Talk</h2>
           <p className="text-smtalk text-gray-400 mt-3">
             Have some big idea or brand to develop and need help?
@@ -102,7 +102,7 @@ const Contact = () => {
               </a>
             </li>
           </ul>
-        </div>
+        </div> */}
         <div className="p-6 rounded-xl lg:col-span-2">
           <form onSubmit={formik.handleSubmit}>
             <div className="grid sm:grid-cols-2 gap-8">

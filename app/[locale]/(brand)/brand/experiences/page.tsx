@@ -6,26 +6,27 @@ import { useI18n } from "@locales/client";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { ref } from "yup";
 
 const Experiences = () => {
-  const [experiences, setExperiences] = useState([] || null);
+  const [experiences, setExperiences] = useState([]);
   const [approvedExperiences, setApprovedExperiences] = useState([]);
   const [pendingExperiences, setPendingExperiences] = useState([]);
   const [closedExperiences, setClosedExperiences] = useState([]);
   const { data: session, status } = useSession();
   const [token, setToken] = useState<string | null>(null);
+  const [refresh, setRefresh] = useState(false);
   const t = useI18n();
 
-  if(!session){
+  if (!session) {
     redirect(" /brand/login");
   }
-  
+
   useEffect(() => {
     try {
       if (session && session.user && session.token) {
         setToken(session.token);
-      }        
-     
+      }
     } catch (error) {
       console.error(error);
     }
@@ -46,21 +47,25 @@ const Experiences = () => {
           }
         );
         const data = await res.json();
+        console.log(data);
+
         setExperiences(data?.experiences);
         setApprovedExperiences(
-          data?.experiences.filter((e: any) => e.status === "Approved")
+          data?.experiences.filter(
+            (e: any) => e.experienceStatus === "Approved"
+          )
         );
         setPendingExperiences(
-          data?.experiences.filter((e: any) => e.status === "Pending")
+          data?.experiences.filter((e: any) => e.experienceStatus === "Pending")
         );
         setClosedExperiences(
-          data?.experiences.filter((e: any) => e.status === "Closed")
+          data?.experiences.filter((e: any) => e.experienceStatus === "Closed")
         );
       } catch (error) {
         console.error(error);
       }
     })();
-  }, [token]);
+  }, [token, refresh]);
   return (
     <>
       <Title Title={t("myExperiences")} />
@@ -71,7 +76,11 @@ const Experiences = () => {
               <div className="sm:text-xl md:text-2xl lg:text-3xl mt-20 underline mb-8 text-center font-bold tracking-wider antialiased text-accent ">
                 ACTIVE EXPERIENCES
               </div>
-              <ExperienceHero experiences={approvedExperiences} />
+              <ExperienceHero
+                setRefresh={setRefresh}
+                refresh={refresh}
+                experiences={approvedExperiences}
+              />
             </div>
           )}
           {pendingExperiences.length > 0 && (
@@ -79,7 +88,12 @@ const Experiences = () => {
               <div className="sm:text-xl md:text-2xl lg:text-3xl mt-28 underline mb-8 text-center font-bold tracking-wider antialiased text-neutral-content ">
                 PENDING EXPERIENCES
               </div>
-              <ExperienceHero experiences={pendingExperiences} />
+              <ExperienceHero
+                token={token}
+                setRefresh={setRefresh}
+                refresh={refresh}
+                experiences={pendingExperiences}
+              />
             </div>
           )}
           {closedExperiences.length > 0 && (
@@ -87,7 +101,11 @@ const Experiences = () => {
               <div className="sm:text-xl md:text-2xl lg:text-3xl mt-28 underline mb-8 text-center font-bold tracking-wider antialiased text-error ">
                 INACTIVE/CLOSED EXPERIENCES
               </div>
-              <ExperienceHero experiences={closedExperiences} />
+              <ExperienceHero
+                setRefresh={setRefresh}
+                refresh={refresh}
+                experiences={closedExperiences}
+              />
             </div>
           )}
         </>

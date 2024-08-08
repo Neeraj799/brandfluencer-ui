@@ -102,7 +102,7 @@ const RequestTable = () => {
 
   return (
     <div className="flex justify-center items-center w-full">
-      <div className="card shadow-2xl  mt-16 mb-56 w-3/4">
+      <div className="card shadow-2xl bg-base-100 mt-16 mb-56 w-3/4">
         <div className="overflow-x-auto m-10">
           <table className="table text-base">
             <thead>
