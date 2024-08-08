@@ -1,6 +1,7 @@
 "use client";
 import { Profile } from "@/components/Profile/types";
 import { isValidFileUploaded } from "@helpers/imageValidation";
+import { useI18n } from "@locales/client";
 import { useFormik } from "formik";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -17,6 +18,7 @@ const BrandModal = ({ profile }: { profile: Profile }) => {
   const [token, setToken] = useState<string | null>(null);
   const { data: session, status } = useSession();
   const [refresh, setRefresh] = useState<boolean>(false);
+  const t = useI18n();
 
   useEffect(() => {
     try {
@@ -119,7 +121,7 @@ const BrandModal = ({ profile }: { profile: Profile }) => {
                 className="p-2 mt-8 rounded-xl border"
                 type="text"
                 name="brand"
-                placeholder="Brand name"
+                placeholder={t("brandName")}
                 id="brand"
                 onChange={formik.handleChange}
                 value={formik?.values?.brand}
@@ -134,7 +136,7 @@ const BrandModal = ({ profile }: { profile: Profile }) => {
                 className="p-2 rounded-xl border"
                 type="email"
                 name="email"
-                placeholder="Email"
+                placeholder={t("email")}
                 id="email"
                 onChange={formik.handleChange}
                 value={formik.values.email}
@@ -147,7 +149,7 @@ const BrandModal = ({ profile }: { profile: Profile }) => {
                 className="p-2 rounded-xl border"
                 type="number"
                 name="mobile"
-                placeholder="Mobile Number"
+                placeholder={t("mobile")}
                 id="mobile"
                 onChange={formik.handleChange}
                 value={formik.values.mobile}
@@ -160,7 +162,7 @@ const BrandModal = ({ profile }: { profile: Profile }) => {
                 className="p-2 rounded-xl border"
                 type="text"
                 name="companyRep"
-                placeholder="Company Representative Name"
+                placeholder={t("companyRepresentativeName")}
                 id="companyRep"
                 onChange={formik.handleChange}
                 value={formik.values.companyRep}

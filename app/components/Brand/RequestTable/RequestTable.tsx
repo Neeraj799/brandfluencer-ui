@@ -2,6 +2,7 @@
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import { useI18n } from "@locales/client";
 
 const RequestTable = () => {
   const [myRequest, setRequests] = useState([]);
@@ -12,6 +13,7 @@ const RequestTable = () => {
     "Content-Type": "application/json",
     authorization: `${token}`,
   };
+  const t = useI18n();
   useEffect(() => {
     if (session && session.user && session.token) {
       setToken(session.token);
@@ -106,10 +108,10 @@ const RequestTable = () => {
             <thead>
               <tr className="text-base">
                 <th>Avatar</th>
-                <th>Influencer</th>
-                <th>Experience</th>
+                <th>{t("infleuncers")}</th>
+                <th>{t("experience")}</th>
                 <th>Request Date</th>
-                <th>Status</th>
+                <th>{t("status")}</th>
                 <th className="text-center">Action</th>
                 {/* <th></th> */}
               </tr>

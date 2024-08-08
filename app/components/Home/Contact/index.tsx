@@ -5,32 +5,33 @@ import { useFormik } from "formik";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { BeatLoader } from "react-spinners";
 import { toast } from "react-toastify";
 
 const Contact = () => {
   const t = useI18n();
   const [loading, setLoading] = useState<Boolean>(false);
   const router = useRouter();
-  const [token, setToken] = useState<string | null>(null);
-  const { data: session, status } = useSession();
+  // const [token, setToken] = useState<string | null>(null);
+  // const { data: session, status } = useSession();
   const [refresh, setRefresh] = useState<boolean>(false);
 
-  useEffect(() => {
-    try {
-      if (session && session.user && session.token) {
-        setToken(session.token);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }, [session]);
-  const headers: any = {
-    authorization: `${token}`,
-  };
+  // useEffect(() => {
+  //   try {
+  //     if (session && session.user && session.token) {
+  //       setToken(session.token);
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }, [session]);
+  // const headers: any = {
+  //   authorization: `${token}`,
+  // };
   const formik = useFormik({
     initialValues: {
       name: "",
-      phone: "",
+      mobile: "",
       email: "",
       message: "",
     },
@@ -39,7 +40,7 @@ const Contact = () => {
       try {
         setLoading(true);
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_URL}/api/brand/experience/update-profile`,
+          `${process.env.NEXT_PUBLIC_URL}/api/contact-us`,
           {
             method: "POST",
             body: JSON.stringify(values),
@@ -53,14 +54,14 @@ const Contact = () => {
 
         if (data.error) {
           toast.error(data.error, {
-            position: "top-center",
+            position: "bottom-right",
           });
+          console.log("hello");
         } else if (data.success) {
-          router.push(" /brand/profile");
-          setRefresh(!refresh);
           toast.success(data.message, {
-            position: "top-center",
+            position: "bottom-right",
           });
+          formik.resetForm();
         }
       } catch (error) {
         toast.error("Internal Server Error", {
@@ -68,7 +69,9 @@ const Contact = () => {
         });
         console.log(error);
       } finally {
-        setLoading(false);
+        setTimeout(() => {
+          setLoading(false);
+        }, 2000);
       }
     },
   });
@@ -82,7 +85,7 @@ const Contact = () => {
       <div className="grid lg:grid-cols-3 items-center gap-4 p-4 shadow-lg rounded-xl mt-6">
         <div className="bg-[#011c2b] rounded-lg p-6 max-lg:text-center">
           <h2 className="text-xl font-bold text-white">Let&apos;s Talk</h2>
-          <p className="text-sm text-gray-400 mt-3">
+          <p className="text-smtalk text-gray-400 mt-3">
             Have some big idea or brand to develop and need help?
           </p>
           <ul className="mt-16 space-y-10">
@@ -126,12 +129,12 @@ const Contact = () => {
                   className="px-2 py-3 bg-white text-black w-full text-sm border-b-2 focus:border-[#011c2b] outline-none"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  value={formik.values.phone}
-                  name="phone"
+                  value={formik.values.mobile}
+                  name="mobile"
                 />
-                {formik.touched.phone && formik.errors.phone ? (
+                {formik.touched.mobile && formik.errors.mobile ? (
                   <div className="text-red-500 text-xs">
-                    {formik.errors.phone}
+                    {formik.errors.mobile}
                   </div>
                 ) : null}
               </div>
@@ -166,12 +169,21 @@ const Contact = () => {
                   </div>
                 ) : null}
               </div>
-              <button
-                type="submit"
-                className="mt-12 flex items-center justify-center text-sm lg:ml-auto max-lg:w-full rounded-lg px-4 py-2.5 font-semibold bg-accent text-white "
-              >
-                {t("send")}
-              </button>
+              {loading ? (
+                <button
+                  className="mt-12 flex items-center justify-center text-sm lg:ml-auto max-lg:w-full rounded-lg px-4 py-2.5 bg-[#002D74] text-white"
+                  disabled
+                >
+                  <BeatLoader color="#36d7b7" size={10} />
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  className="mt-12 flex items-center justify-center text-sm lg:ml-auto max-lg:w-full rounded-lg px-4 py-2.5 font-semibold bg-accent text-white "
+                >
+                  {t("send")}
+                </button>
+              )}
             </div>
           </form>
         </div>

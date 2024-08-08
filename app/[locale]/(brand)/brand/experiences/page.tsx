@@ -2,6 +2,7 @@
 import ExperienceHero from "@/components/Brand/ExperienceHero/ExperienceHero";
 import FloatButton from "@/components/Brand/FloatButton/FloatButton";
 import Title from "@/components/Brand/Title/Title";
+import { useI18n } from "@locales/client";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -13,6 +14,7 @@ const Experiences = () => {
   const [closedExperiences, setClosedExperiences] = useState([]);
   const { data: session, status } = useSession();
   const [token, setToken] = useState<string | null>(null);
+  const t = useI18n();
 
   if(!session){
     redirect(" /brand/login");
@@ -61,7 +63,7 @@ const Experiences = () => {
   }, [token]);
   return (
     <>
-      <Title Title={"MY EXPERIENCES"} />
+      <Title Title={t("myExperiences")} />
       {experiences?.length > 0 ? (
         <>
           {approvedExperiences.length > 0 && (

@@ -52,7 +52,7 @@ const Navbar = async () => {
           <div className="hidden lg:flex gap-6">
             <Link href={'/brand/login'}>
             <button className="btn btn-sm btn-outline text-white">
-              {t("brand")}
+              {t("brands")}
             </button>
             </Link>
             <Link href={'/brandfluencer/login'}>

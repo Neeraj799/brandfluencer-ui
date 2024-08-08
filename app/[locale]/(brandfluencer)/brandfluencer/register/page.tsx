@@ -1,5 +1,5 @@
 "use client";
-
+import { useI18n } from "@locales/client";
 import { isValidFileUploaded } from "@helpers/imageValidation";
 import { signupSchemaInfluencer } from "@utils/validationSchema";
 import { useFormik } from "formik";
@@ -29,6 +29,7 @@ const Register = () => {
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
+  const t = useI18n();
 
   const formik = useFormik<FormValues>({
     initialValues: {
@@ -108,16 +109,16 @@ const Register = () => {
       <div className="bg-gray-100 flex rounded-2xl shadow-lg max-w-5xl p-6 items-center">
         {/* <span className='self-center'> <Link href={'/'}> <ArrowUpLeft size={22} /></Link></span> */}
         <div className="px-16 py-5">
-          <h2 className="font-bold text-3xl text-error">Register Here..</h2>
+          <h2 className="font-bold text-3xl text-error">{t("register")}..</h2>
           <p className="text-sm mt-4 text-error">
-            Lets Start Your Journey!
+          Lets Start Your Journey!
           </p>
           <form onSubmit={formik.handleSubmit} className="flex flex-col gap-2">
             <input
               className="p-2 mt-8 rounded-xl border"
               type="text"
               name="name"
-              placeholder="Full Name"
+              placeholder={t("fullname")}
               id="name"
               onChange={formik.handleChange}
               required
@@ -129,7 +130,7 @@ const Register = () => {
               className="p-2 rounded-xl border"
               type="email"
               name="email"
-              placeholder="Email"
+              placeholder={t("email")}
               id="email"
               onChange={formik.handleChange}
               required
@@ -141,7 +142,7 @@ const Register = () => {
               className="p-2 rounded-xl border"
               type="number"
               name="mobile"
-              placeholder="Mobile Number"
+              placeholder={t("contact")}
               id="mobile"
               onChange={formik.handleChange}
               required
@@ -153,7 +154,7 @@ const Register = () => {
               className="p-2 rounded-xl border"
               type="text"
               name="instaID"
-              placeholder="Instagram Profile link"
+              placeholder={t("instaProfileLink")}
               id="instaID"
               onChange={formik.handleChange}
               required
@@ -167,7 +168,7 @@ const Register = () => {
                 type={showPassword ? "text" : "password"}
                 name="password"
                 id="password"
-                placeholder="Password"
+                placeholder={t("password")}
                 onChange={formik.handleChange}
                 required
               />
@@ -189,7 +190,7 @@ const Register = () => {
                 type={showPassword ? "text" : "password"}
                 name="confirmPassword"
                 id="confirmPassword"
-                placeholder="Confirm Password"
+                placeholder={t("confirmPassword")}
                 onChange={formik.handleChange}
                 required
               />
@@ -230,7 +231,7 @@ const Register = () => {
                 />
               </label>
               <span className="font-medium tracking-wide antialiased">
-                Choose an Image{" "}
+                Choose an image
               </span>
             </div>
             <label className="cursor-pointer label mt-3">
@@ -255,7 +256,7 @@ const Register = () => {
                 className="bg-error font-semibold rounded-xl py-2  text-white"
                 type="submit"
               >
-                Register
+                {t("register")}
               </button>
             )}{" "}
           </form>
@@ -264,7 +265,7 @@ const Register = () => {
             <p>Already a member !?</p>
             <Link href={" /brandfluencer/login"}>
               <p className="hover:scale-105 duration-300 py-2 px-5 bg-white border rounded-xl">
-                Log in
+              {t("login")}
               </p>
             </Link>
           </div>

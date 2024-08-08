@@ -14,6 +14,8 @@ const Footer = async () => {
             {t("contact")}
             <br />
           </p>
+          <p>hello@brandfluencer.bg</p>
+          <p>{t("followUs")}</p>
           <nav>
             <div className="grid grid-flow-col gap-4">
               <a>
@@ -43,7 +45,14 @@ const Footer = async () => {
             </div>
           </nav>
         </aside>
-        <p>Copyright © 2024 - All right reserved by Brandfluencer Ltd</p>
+        <div>
+        <div className="flex space-x-4">
+        <span>{t("FAQ")}</span>
+        <span>{t("termsAndConditions")}</span>
+        <span>{t("privacyPolicy")}</span>
+        </div>
+        <p>Copyright © 2024 - {t("allRightsReserved")} by Brandfluencer Ltd</p>
+        </div>
       </footer>
     </div>
   );

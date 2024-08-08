@@ -70,12 +70,12 @@ const Login = () => {
       <section className="bg-gray-50 min-h-screen flex items-center justify-center">
         <div className="bg-gray-100 flex rounded-2xl min-h-96 shadow-lg max-w-3xl p-8 items-center">
           {/* <span className='self-center'> <Link href={'/'}> <ArrowLeft size={22} /></Link></span> */}
-          <div className=" text-center px-14">
-            <h2 className="font-bold text-3xl text-error bg-accent]">
+          <div className="px-14">
+            <h2 className="font-bold text-3xl text-error bg-accent] text-center">
               {t("login")}
             </h2>
-            <p className="text-sm mt-4 text-error bg-accent]">
-              {t("welcome")} Brand!
+            <p className="text-sm mt-4 text-error bg-accent] text-center">
+              {t("welcome")} {t("brand")}!
             </p>
 
             <form
@@ -135,15 +135,15 @@ const Login = () => {
 
             <Link href={"/brand/forgotPassword"}>
                 <p className="mt-5 text-xs border-b py-4">
-                  Forgot your password ?
+                {t("forgotYourPassword")} ?
                 </p>
               </Link>
               
-            <div className="mt-3 text-xs border-t pt-2 flex justify-between items-center">
+            <div className="mt-3 text-xs pt-2 flex justify-between items-center">
               <p>{t("noAccount")} !?</p>
               <Link href={" /brand/register"}>
                 <p className="hover:scale-105 duration-300 py-2 px-5 bg-white border rounded-xl">
-                  {t("register")}
+                {t("register")}
                 </p>
               </Link>
             </div>
@@ -164,3 +164,4 @@ const Login = () => {
 };
 
 export default Login;
+  

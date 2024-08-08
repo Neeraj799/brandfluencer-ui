@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import { forgotPasswordValidationSchema } from "@utils/validationSchema";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { useI18n } from "@locales/client";
 
 interface FormValues {
   email: string;
@@ -16,6 +17,7 @@ const ForgotPassword = () => {
   const [value, setValue] = useState("email");
 
   const router = useRouter();
+  const t = useI18n();
 
   const formik = useFormik<FormValues>({
     initialValues: {
@@ -162,15 +164,15 @@ const ForgotPassword = () => {
             >
               {value === "email" && (
                 <>
-                  <h2 className="font-bold text-3xl text-[#002D74]">
-                    Forgot password
+                  <h2 className="font-medium text-3xl text-center text-red-500">
+                  {t("forgotYourPassword")}
                   </h2>
                   <input
                     type="email"
                     className="input input-md rounded-xl mt-8 w-full max-w-xs"
                     onChange={formik.handleChange}
                     value={formik.values.email}
-                    placeholder="Email"
+                    placeholder={t("email")}
                     id="email"
                     name="email"
                     required
@@ -179,7 +181,7 @@ const ForgotPassword = () => {
                     <div className="text-red-500">{formik.errors.email}</div>
                   )}
                   <button
-                    className="bg-[#002D74] rounded-xl font-semibold py-2 mt-2 text-white"
+                    className="bg-red-500 rounded-xl font-semibold py-2 mt-2 text-white"
                     type="button"
                     onClick={handleEmailSubmit}
                   >
@@ -189,11 +191,11 @@ const ForgotPassword = () => {
               )}
               {value === "otp" && (
                 <>
-                  <h2 className="font-bold text-3xl text-[#002D74]">
+                  <h2 className="font-medium text-3xl text-center text-red-500">
                     Enter your OTP
                   </h2>
                   <input
-                    type="text"
+                    type="number"
                     className="input input-md rounded-xl mt-8 w-full max-w-xs"
                     onChange={formik.handleChange}
                     value={formik.values.otp}
@@ -206,7 +208,7 @@ const ForgotPassword = () => {
                     <div className="text-red-500">{formik.errors.otp}</div>
                   )}
                   <button
-                    className="bg-[#002D74] rounded-xl font-semibold py-2 mt-2 text-white"
+                    className="bg-red-500 rounded-xl font-semibold py-2 mt-2 text-white"
                     type="button"
                     onClick={handleOtpSubmit}
                   >
@@ -216,7 +218,7 @@ const ForgotPassword = () => {
               )}
               {value === "newPassword" && (
                 <>
-                  <h2 className="font-bold text-3xl text-[#002D74]">
+                  <h2 className="font-medium text-3xl text-center text-red-500">
                     Enter new password
                   </h2>
                   <input
@@ -224,7 +226,7 @@ const ForgotPassword = () => {
                     className="input input-md rounded-xl mt-8 w-full max-w-xs"
                     onChange={formik.handleChange}
                     value={formik.values.newPassword}
-                    placeholder="Enter your new password"
+                    placeholder={t("password")}
                     id="newPassword"
                     name="newPassword"
                     required
@@ -240,7 +242,7 @@ const ForgotPassword = () => {
                     className="input input-md rounded-xl mt-8 w-full max-w-xs"
                     onChange={formik.handleChange}
                     value={formik.values.confirmPassword}
-                    placeholder="Enter your new password"
+                    placeholder={t("confirmPassword")}
                     id="confirmPassword"
                     name="confirmPassword"
                     required
@@ -252,7 +254,7 @@ const ForgotPassword = () => {
                       </div>
                     )}
                   <button
-                    className="bg-[#002D74] rounded-xl font-semibold py-2 mt-2 text-white"
+                    className="bg-red-500 rounded-xl font-semibold py-2 mt-2 text-white"
                     type="submit"
                   >
                     Submit

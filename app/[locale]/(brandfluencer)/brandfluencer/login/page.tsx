@@ -1,5 +1,6 @@
 "use client";
 
+import { useI18n } from "@locales/client";
 import { loginValidationSchema } from "@utils/validationSchema";
 import { useFormik } from "formik";
 import { signIn, useSession } from "next-auth/react";
@@ -15,6 +16,7 @@ const Login = () => {
   const [loading, setLoading] = useState<Boolean>(false);
   const router = useRouter();
   const { data: session } = useSession();
+  const t = useI18n();
   useEffect(() => {
     if (session && session.user.role === "brandfluencer") {
       router.push(" /brandfluencer/categories");
@@ -69,9 +71,11 @@ const Login = () => {
         <div className="bg-gray-100 flex rounded-2xl min-h-96 shadow-lg max-w-3xl p-8 items-center">
           {/* <span className='self-center'> <Link href={'/'}> <ArrowLeft size={22} /></Link></span> */}
           <div className="px-14 ">
-            <h2 className="font-bold text-3xl text-accent text-center">Login</h2>
+            <h2 className="font-bold text-3xl text-accent text-center">
+              {t("login")}
+            </h2>
             <p className="text-sm mt-4 text-accent text-center">
-              Welcome Back BrandFluencer!
+              {t("welcome")} {t("name")}!
             </p>
 
             <form
@@ -83,7 +87,7 @@ const Login = () => {
                 className="input input-md rounded-xl mt-8 w-full max-w-xs"
                 onChange={formik.handleChange}
                 name="email"
-                placeholder="Email"
+                placeholder={t("email")}
                 id="email"
                 required
               />
@@ -99,7 +103,7 @@ const Login = () => {
                   type={showPassword ? "text" : "password"}
                   name="password"
                   id="password"
-                  placeholder="Password"
+                  placeholder={t("password")}
                   required
                 />
                 <button type="button" onClick={handleTogglePassword}>
@@ -126,7 +130,7 @@ const Login = () => {
                   className="bg-accent rounded-xl font-semibold py-2 mt-2 text-white"
                   type="submit"
                 >
-                  Log in
+                  {t("login")}
                 </button>
               )}
             </form>
@@ -163,14 +167,16 @@ const Login = () => {
                                 ></path>
                             </svg>Login with Google</button> */}
             <Link href={"/brandfluencer/forgotPassword"}>
-            <p className="mt-5 text-xs border-b py-4">Forgot your password ?</p>
+              <p className="mt-5 text-xs border-b py-4">
+                {t("forgotYourPassword")} ?
+              </p>
             </Link>
 
             <div className="mt-3 text-xs flex justify-between items-center">
-              <p>Not a member yet !?</p>
+              <p>{t("noAccount")} !?</p>
               <Link href={" /brandfluencer/register"}>
                 <p className="hover:scale-105 duration-300 py-2 px-5 bg-white border rounded-xl">
-                  Register
+                  {t("register")}
                 </p>
               </Link>
             </div>
