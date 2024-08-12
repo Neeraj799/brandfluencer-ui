@@ -117,10 +117,10 @@ const Login = () => {
               ) : null}
               {loading ? (
                 <button
-                  className="bg-[#002D74] rounded-xl py-2 mt-2 text-center text-white"
+                  className="bg-error rounded-xl py-2 mt-2 text-center text-white"
                   disabled
                 >
-                  <BeatLoader color="#36d7b7" size={10} />
+                  <BeatLoader color="#ffff" size={10} />
                 </button>
               ) : (
                 <button

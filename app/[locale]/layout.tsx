@@ -4,6 +4,8 @@ import { Poppins } from "next/font/google";
 import "../globals.css";
 import Provider from "../components/Provider";
 import Loading from "./loading";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 export const metadata: Metadata = {
   title: "Brandfluencer",

@@ -31,6 +31,7 @@ const Experiences = () => {
       console.error(error);
     }
   }, [session]);
+  
 
   useEffect(() => {
     if (!token) return;
@@ -79,6 +80,7 @@ const Experiences = () => {
               <ExperienceHero
                 setRefresh={setRefresh}
                 refresh={refresh}
+                token={token}
                 experiences={approvedExperiences}
               />
             </div>
