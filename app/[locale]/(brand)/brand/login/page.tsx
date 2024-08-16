@@ -71,10 +71,10 @@ const Login = () => {
         <div className="bg-gray-100 flex rounded-2xl min-h-96 shadow-lg max-w-3xl p-8 items-center">
           {/* <span className='self-center'> <Link href={'/'}> <ArrowLeft size={22} /></Link></span> */}
           <div className="px-14">
-            <h2 className="font-bold text-3xl text-error bg-accent text-center">
+            <h2 className="font-bold text-3xl text-error accent text-center">
               {t("login")}
             </h2>
-            <p className="text-sm mt-4 text-error bg-accent text-center">
+            <p className="text-sm mt-4 text-error accent text-center">
               {t("welcome")} {t("brand")}!
             </p>
 

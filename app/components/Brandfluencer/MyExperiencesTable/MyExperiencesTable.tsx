@@ -164,7 +164,7 @@ const MyExperiencesTable = () => {
         </div>
       </div>
       {modalVisible && currentRequestId && (
-        <ExperienceModal requestId={currentRequestId} onClose={closeModal} />
+        <ExperienceModal requestId={currentRequestId} isOpen={modalVisible} onClose={closeModal} />
       )}
     </div>
   );

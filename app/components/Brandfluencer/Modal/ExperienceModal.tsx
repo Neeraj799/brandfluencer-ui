@@ -7,7 +7,14 @@ import React, { useState } from "react";
 import { BeatLoader } from "react-spinners";
 import { toast } from "react-toastify";
 
-const ExperienceModal = ({ requestId, onClose }) => {
+
+interface ExperienceModalProps {
+  requestId: string;
+  onClose: () => void;
+  isOpen: boolean;
+}
+
+const ExperienceModal = ({ requestId, onClose, isOpen }: ExperienceModalProps) => {
   const [loading, setLoading] = useState(false);
   const [images, setImages] = useState<File[]>([]);
   const [selectedImages, setSelectedImages] = useState<string[]>([]);
@@ -75,15 +82,15 @@ const ExperienceModal = ({ requestId, onClose }) => {
     },
   });
 
-  const isValidFileUploaded = (file) => {
+  const isValidFileUploaded = (file: File | null) => {
     const validFileTypes = ["image/jpeg", "image/jpg", "image/webp"];
     return file && validFileTypes.includes(file.type);
   };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files || []);
-    const validFiles = [];
-    const imageUrls = [];
+    const validFiles: File[] = [];
+    const imageUrls: string[] = [];
 
     for (const file of files) {
       const isValidImage = isValidFileUploaded(file);
@@ -106,7 +113,9 @@ const ExperienceModal = ({ requestId, onClose }) => {
     setSelectedImages((prevUrls) => prevUrls.filter((url, i) => i !== index));
   };
 
-  return (
+  
+
+  return isOpen ?(
     <div>
       <input
         type="checkbox"
@@ -198,7 +207,7 @@ const ExperienceModal = ({ requestId, onClose }) => {
         </label>
       </div>
     </div>
-  );
+  ): null;
 };
 
 export default ExperienceModal;
