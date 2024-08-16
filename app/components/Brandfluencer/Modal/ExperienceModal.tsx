@@ -46,8 +46,8 @@ const ExperienceModal = ({ requestId, onClose, isOpen }: ExperienceModalProps) =
         const formData = new FormData();
         formData.append("link", values.link);
 
-        images.forEach((file, index) => {
-          formData.append(`image${index + 1}`, file);
+        images.forEach((file) => {
+          formData.append("images", file);
         });
 
         const res = await fetch(
