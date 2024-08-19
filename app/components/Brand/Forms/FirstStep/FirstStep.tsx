@@ -238,7 +238,7 @@ const FirstStep = ({ onNextStep }: { onNextStep: () => void }) => {
                         {categories.map((category) => (
                           <option
                             key={category.name.toLowerCase()}
-                            value={category.name.toLowerCase()}
+                            value={category.value}
                           >
                             {category.name}
                           </option>

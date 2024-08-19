@@ -67,7 +67,7 @@ const Login = () => {
 
   return (
     <>
-      <section className="bg-gray-50 min-h-screen flex items-center justify-center">
+      <section className=" min-h-screen flex items-center justify-center">
         <div className="bg-gray-100 flex rounded-2xl min-h-96 shadow-lg max-w-3xl p-8 items-center">
           {/* <span className='self-center'> <Link href={'/'}> <ArrowLeft size={22} /></Link></span> */}
           <div className="px-14">

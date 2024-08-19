@@ -6,7 +6,6 @@ import { useI18n } from "@locales/client";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { ref } from "yup";
 
 const Experiences = () => {
   const [experiences, setExperiences] = useState([]);
@@ -18,10 +17,7 @@ const Experiences = () => {
   const [refresh, setRefresh] = useState(false);
   const t = useI18n();
 
-  if (!session) {
-    redirect(" /brand/login");
-  }
-
+  
   useEffect(() => {
     try {
       if (session && session.user && session.token) {
@@ -32,6 +28,9 @@ const Experiences = () => {
     }
   }, [session]);
   
+  if (!session) {
+    redirect(" /brand/login");
+  }
 
   useEffect(() => {
     if (!token) return;

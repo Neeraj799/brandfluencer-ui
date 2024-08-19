@@ -7,7 +7,7 @@ import { getI18n } from "@locales/server";
 const Navbar = async () => {
   const t = await getI18n();
   return (
-    <div className="container lg:flex lg:justify-center lg:mx-20">
+    <div className="lg:container lg:flex lg:justify-center lg:mx-20">
       <div className="navbar bg-transparent uppercase justify-around ">
         <div className="navbar-start">
           <div className="dropdown">
@@ -29,8 +29,14 @@ const Navbar = async () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+              className=" menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
+              <li>
+                <Link href="#contact">Contact Us</Link>
+              </li>
+              <li>
+                <Link href="#ourStory">Our Story</Link>
+              </li>
               <li>
                 <Link href={"/brand/login"}>Brand</Link>
               </li>
@@ -57,7 +63,7 @@ const Navbar = async () => {
               </button>
             </Link>
           </div>
-          <div className="dropdown">
+          <div className="lg:dropdown hidden">
             <div
               tabIndex={0}
               role="button"

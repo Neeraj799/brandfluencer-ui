@@ -66,7 +66,7 @@ const Modal = ({ profile }: { profile: Profile }) => {
             position: "top-center",
           });
         } else if (data.success) {
-          update()
+          update({ ...session, user: data.profile });
           toast.success(data.message, {
             position: "top-center",
           });
