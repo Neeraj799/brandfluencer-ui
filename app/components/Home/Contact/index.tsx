@@ -12,22 +12,8 @@ const Contact = () => {
   const t = useI18n();
   const [loading, setLoading] = useState<Boolean>(false);
   const router = useRouter();
-  // const [token, setToken] = useState<string | null>(null);
-  // const { data: session, status } = useSession();
   const [refresh, setRefresh] = useState<boolean>(false);
 
-  // useEffect(() => {
-  //   try {
-  //     if (session && session.user && session.token) {
-  //       setToken(session.token);
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }, [session]);
-  // const headers: any = {
-  //   authorization: `${token}`,
-  // };
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -51,15 +37,13 @@ const Contact = () => {
         );
 
         const data = await res.json();
-
         if (data.error) {
           toast.error(data.error, {
             position: "bottom-right",
           });
-          console.log("hello");
         } else if (data.success) {
           toast.success(data.message, {
-            position: "bottom-right",
+            position: "top-center",
           });
           formik.resetForm();
         }
@@ -77,7 +61,10 @@ const Contact = () => {
   });
 
   return (
-    <div id="contact" className="max-w-6xl mx-auto bg-white rounded-lg mt-20 mb-36  font-[sans-serif] text-[#011c2b]">
+    <div
+      id="contact"
+      className="max-w-6xl mx-auto bg-white rounded-lg mt-20 mb-36  font-[sans-serif] text-[#011c2b]"
+    >
       <div className="text-center px-6">
         <h2 className="text-3xl font-extrabold pt-4"> {t("contact")}</h2>
         <p className="text-sm text-gray-400 mt-3">{t("brandNeeds")}</p>
@@ -169,21 +156,20 @@ const Contact = () => {
                   </div>
                 ) : null}
               </div>
-              {loading ? (
-                <button
-                  className="mt-12 flex items-center justify-center text-sm lg:ml-auto max-lg:w-full rounded-lg px-4 py-2.5 bg-[#002D74] text-white"
-                  disabled
-                >
-                  <BeatLoader color="#36d7b7" size={10} />
-                </button>
-              ) : (
-                <button
-                  type="submit"
-                  className="mt-12 flex items-center justify-center text-sm lg:ml-auto max-lg:w-full rounded-lg px-4 py-2.5 font-semibold bg-accent text-white "
-                >
-                  {t("send")}
-                </button>
-              )}
+            </div>
+            <div className="flex items-center justify-center text-sm w-full">
+              <button
+                type="submit"
+                className="mt-12 w-40 rounded-lg px-4 py-2.5 font-semibold bg-accent text-white "
+              >
+                <span>
+                  {loading ? (
+                    <BeatLoader color="#ffff" size={10} />
+                  ) : (
+                    t("send")
+                  )}
+                </span>
+              </button>
             </div>
           </form>
         </div>

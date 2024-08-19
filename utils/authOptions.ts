@@ -72,7 +72,7 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user, trigger, session }) {
       if (user) return { ...token, ...user };
       if (trigger === "update" && session) {
-        token.name = session.name;
+        token.user = session.user;
       }
       return token;
     },

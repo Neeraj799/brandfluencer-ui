@@ -6,6 +6,9 @@ import Swal from "sweetalert2";
 const ExperienceHero = ({ experiences, token, setRefresh, refresh }: any) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  console.log(token);
+  
+
   const toggleModal = (expData: any) => {
     Swal.fire({
       title: `<h2 style="color: #333; text-align: center;">${expData.experienceName}</h2>`,

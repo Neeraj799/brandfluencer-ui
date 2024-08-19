@@ -67,7 +67,7 @@ const Login = () => {
 
   return (
     <>
-      <section className="bg-gray-50 min-h-screen flex items-center justify-center">
+      <section className=" min-h-screen flex items-center justify-center">
         <div className="bg-gray-100 flex rounded-2xl min-h-96 shadow-lg max-w-3xl p-8 items-center">
           {/* <span className='self-center'> <Link href={'/'}> <ArrowLeft size={22} /></Link></span> */}
           <div className="px-14 ">
@@ -120,10 +120,10 @@ const Login = () => {
               ) : null}
               {loading ? (
                 <button
-                  className="bg-[#002D74] rounded-xl py-2 mt-2 text-center text-white"
+                  className="bg-accent rounded-xl py-2 mt-2 text-center text-white"
                   disabled
                 >
-                  <BeatLoader color="#36d7b7" size={10} />
+                  <BeatLoader color="#ffff" size={10} />
                 </button>
               ) : (
                 <button

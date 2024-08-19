@@ -19,6 +19,7 @@ const BrandModal = ({ profile }: { profile: Profile }) => {
   const { data: session, status } = useSession();
   const [refresh, setRefresh] = useState<boolean>(false);
   const t = useI18n();
+  const { update } = useSession();
 
   useEffect(() => {
     try {
@@ -70,8 +71,7 @@ const BrandModal = ({ profile }: { profile: Profile }) => {
             position: "top-center",
           });
         } else if (data.success) {
-          router.push(" /brand/profile");
-          setRefresh(!refresh)
+          update({ ...session, user: data.profile });
           toast.success(data.message, {
             position: "top-center",
           });

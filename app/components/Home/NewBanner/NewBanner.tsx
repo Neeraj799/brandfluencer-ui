@@ -16,7 +16,7 @@ const NewBanner = async () => {
               width={1150}
               src="/home/circle.png"
               alt="circle"
-              className="absolute top-[-170px] right-[-200px] z-[-25] md:top-[-280px] md:right-[-180px] sm:top-0 sm:right-0 overflow-clip object-cover"
+              className="absolute top-[-170px] right-[-200px] z-[-30] md:top-[-280px] md:right-[-180px] sm:top-0 sm:right-0 overflow-clip object-cover"
               loading="lazy"
             ></Image>
           </div> */}

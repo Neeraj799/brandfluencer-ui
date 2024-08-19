@@ -47,8 +47,8 @@ const Profile = () => {
         <section className="relative block">
           <div>
             <img
-              src="https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2710&amp;q=80"
-              className="w-full h-full top-0"
+              className="w-full h-96 top-0"
+              src="https://images.unsplash.com/photo-1614852207233-e8d771f8e9fc?q=80&w=2710&auto=format&fit=crop"
               alt=""
             />
           </div>
