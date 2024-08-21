@@ -106,7 +106,7 @@ const ExperienceHero = ({ experiences, token, setRefresh, refresh }: any) => {
                   onClick={() => toggleModal(expData)}
                   className="btn btn-accent text-white btn-sm"
                 >
-                  view
+                  View
                 </button>
                 {/* <button className="btn btn-accent text-white btn-sm">
                   Edit

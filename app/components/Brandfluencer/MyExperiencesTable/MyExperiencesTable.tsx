@@ -47,44 +47,7 @@ const MyExperiencesTable = () => {
     setRefresh(!refresh);
   };
 
-  // const handleComplete = async (id: any) => {
-  //   try {
-  //     Swal.fire({
-  //       title: "Are you sure?",
-  //       text: "You won't be able to revert this!",
-  //       icon: "warning",
-  //       showCancelButton: true,
-  //       confirmButtonColor: "oklch(var(--a))",
-  //       cancelButtonColor: "oklch(var(--er))",
-  //       confirmButtonText: "Yes, Completed",
-  //     }).then(async (result) => {
-  //       if (result.isConfirmed) {
-  //         const res = await fetch(
-  //           `${process.env.NEXT_PUBLIC_URL}/api/brandfluencer/request/mark-completed/${id}`,
-  //           {
-  //             method: "POST",
-  //             headers: headers,
-  //             body: JSON.stringify({}),
-  //           }
-  //         );
-  //         const data = await res.json();
-  //         Swal.fire({
-  //           title: "Completed",
-  //           text: "Your experience has been completed.",
-  //           icon: "success",
-  //         });
-  //         setRefresh(!refresh);
-  //       }
-  //     });
-  //   } catch (error) {
-  //     console.error(error);
-  //     Swal.fire({
-  //       title: "Something went Wrong",
-  //       text: "Try again or Contact our team.",
-  //       icon: "error",
-  //     });
-  //   }
-  // };
+
 
   return (
     <div className="flex justify-center items-center w-full">
@@ -164,7 +127,7 @@ const MyExperiencesTable = () => {
         </div>
       </div>
       {modalVisible && currentRequestId && (
-        <ExperienceModal requestId={currentRequestId} isOpen={modalVisible} onClose={closeModal} />
+        <ExperienceModal requestId={currentRequestId} onClose={closeModal} />
       )}
     </div>
   );

@@ -32,7 +32,7 @@ const RequestTable = () => {
 
       setRequests(data.experiences);
     })();
-  }, [token]);
+  }, [token, refresh]);
 
   const handleComplete = async (id: any) => {
     try {

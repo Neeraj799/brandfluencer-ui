@@ -52,7 +52,7 @@ const signupSchemaInfluencer = Yup.object({
     .required("Mobile is required"),
   instaID: Yup.string().required("Insta Profile is required"),
   password: Yup.string()
-    .min(6, "password must be at least 6 charecters")
+    .min(6, "password must be at least 6 characters")
     .required("Password is required")
     .matches(
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,

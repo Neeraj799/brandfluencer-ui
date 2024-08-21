@@ -39,9 +39,9 @@ const Contact = () => {
         const data = await res.json();
         if (data.error) {
           toast.error(data.error, {
-            position: "bottom-right",
+            position: "top-center",
           });
-        } else if (data.success) {
+        } else if (data.message) {
           toast.success(data.message, {
             position: "top-center",
           });

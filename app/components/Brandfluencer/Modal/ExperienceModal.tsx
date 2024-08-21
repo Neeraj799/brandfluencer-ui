@@ -1,4 +1,5 @@
 "use client";
+
 import { experienceModalValidationSchema } from "@utils/validationSchema";
 import { useFormik } from "formik";
 import { useSession } from "next-auth/react";
@@ -11,10 +12,9 @@ import { toast } from "react-toastify";
 interface ExperienceModalProps {
   requestId: string;
   onClose: () => void;
-  isOpen: boolean;
 }
 
-const ExperienceModal = ({ requestId, onClose, isOpen }: ExperienceModalProps) => {
+const ExperienceModal = ({ requestId, onClose }: ExperienceModalProps) => {
   const [loading, setLoading] = useState(false);
   const [images, setImages] = useState<File[]>([]);
   const [selectedImages, setSelectedImages] = useState<string[]>([]);
@@ -68,7 +68,6 @@ const ExperienceModal = ({ requestId, onClose, isOpen }: ExperienceModalProps) =
           toast.success(data.message, {
             position: "top-center",
           });
-          router.refresh();
           onClose();
         }
       } catch (error) {
@@ -83,12 +82,14 @@ const ExperienceModal = ({ requestId, onClose, isOpen }: ExperienceModalProps) =
   });
 
   const isValidFileUploaded = (file: File | null) => {
-    const validFileTypes = ["image/jpeg", "image/jpg", "image/webp"];
+    const validFileTypes = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
     return file && validFileTypes.includes(file.type);
   };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+
     const files = Array.from(event.target.files || []);
+
     const validFiles: File[] = [];
     const imageUrls: string[] = [];
 
@@ -98,9 +99,10 @@ const ExperienceModal = ({ requestId, onClose, isOpen }: ExperienceModalProps) =
         validFiles.push(file);
         imageUrls.push(URL.createObjectURL(file));
       } else {
-        toast.error(`Please upload images of valid types (jpg, jpeg, webp)`, {
-          position: "top-center",
-        });
+        formik.setFieldError(
+          "images",
+          "Please upload images of valid types (jpg, jpeg, webp)."
+        );
       }
     }
 
@@ -115,7 +117,7 @@ const ExperienceModal = ({ requestId, onClose, isOpen }: ExperienceModalProps) =
 
   
 
-  return isOpen ?(
+  return(
     <div>
       <input
         type="checkbox"
@@ -144,7 +146,7 @@ const ExperienceModal = ({ requestId, onClose, isOpen }: ExperienceModalProps) =
             <div className="mt-3 flex flex-col items-center">
               <label
                 htmlFor="file-upload"
-                className="block w-full px-4 py-2 bg-accent text-white rounded cursor-pointer text-center"
+                className="bg-accent w-full py-2 px-5 text-white text-center rounded-xl cursor-pointer"
               >
                 Upload Images
                 <input
@@ -183,14 +185,14 @@ const ExperienceModal = ({ requestId, onClose, isOpen }: ExperienceModalProps) =
             
             {loading ? (
               <button
-                className="bg-[#002D74] rounded-xl py-1 text-center text-white"
+                className="bg-accent py-2 px-5 border rounded-xl text-white"
                 disabled
               >
-                <BeatLoader color="#36d7b7" />
+                <BeatLoader color="#ffff" size={10} />
               </button>
             ) : (
               <button
-               className="hover:scale-105 duration-300 py-2 px-5 bg-accent border rounded-xl text-white"
+               className="bg-accent py-2 px-5 border rounded-xl text-white cursor-pointer"
                 type="submit"
               >
                 Submit
@@ -207,7 +209,7 @@ const ExperienceModal = ({ requestId, onClose, isOpen }: ExperienceModalProps) =
         </label>
       </div>
     </div>
-  ): null;
+  )
 };
 
 export default ExperienceModal;
