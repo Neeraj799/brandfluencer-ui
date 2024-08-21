@@ -63,7 +63,7 @@ const Navbar = async () => {
               </button>
             </Link>
           </div>
-          <div className="lg:dropdown hidden">
+          <div className="lg:dropdown dropdown-end hidden">
             <div
               tabIndex={0}
               role="button"
