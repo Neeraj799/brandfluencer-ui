@@ -75,24 +75,24 @@ const Experience = ({}) => {
       }).then(async (result) => {
         if (result.isConfirmed) {
           const res = await fetch(
-        `${process.env.NEXT_PUBLIC_URL}/api/brandfluencer/request/create-request/${id}`,
-        {
-          method: "POST",
-          headers: headers,
-        }
+            `${process.env.NEXT_PUBLIC_URL}/api/brandfluencer/request/create-request/${id}`,
+            {
+              method: "POST",
+              headers: headers,
+            }
           );
           const data: { error?: string } = await res.json();
           if (data.error) {
-        console.error(data.error);
+            console.error(data.error);
           } else {
-        setrefresh(!refresh);
-        Swal.fire({
-          title: "Request Created Succesfully",
-          icon: "success",
-          confirmButtonColor: "oklch(var(--a))",
-          cancelButtonColor: "oklch(var(--er))",
-          confirmButtonText: "Ok",
-        });
+            setrefresh(!refresh);
+            Swal.fire({
+              title: "Request Created Succesfully",
+              icon: "success",
+              confirmButtonColor: "oklch(var(--a))",
+              cancelButtonColor: "oklch(var(--er))",
+              confirmButtonText: "Ok",
+            });
           }
         }
       });
@@ -134,7 +134,7 @@ const Experience = ({}) => {
                   loading="lazy"
                   className="max-w-xs h-64  w-72 rounded-lg drop-shadow-2xl"
                 />
-                <div className="drop-shadow-xl ml-4 rounded-xl bg-base-100 p-16">
+                <div className="drop-shadow-xl ml-4 rounded-xl bg-base-100 w-80 md:w-96 p-16">
                   <span>
                     <p className="text-2xl font-bold">
                       {expData?.experienceName}{" "}

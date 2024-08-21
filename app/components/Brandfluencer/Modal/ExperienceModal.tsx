@@ -86,30 +86,44 @@ const ExperienceModal = ({ requestId, onClose }: ExperienceModalProps) => {
     return file && validFileTypes.includes(file.type);
   };
 
+  const isValidFileSize = (file: File | null) => {
+    const maxFileSize = 5 * 1024 * 1024; 
+    return file && file.size <= maxFileSize;
+  };
+
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-
     const files = Array.from(event.target.files || []);
-
     const validFiles: File[] = [];
     const imageUrls: string[] = [];
 
+    if (files.length + selectedImages.length > 3) {
+      formik.setFieldError("images", "You can upload a maximum of 3 images.");
+      return;
+    }
+
     for (const file of files) {
-      const isValidImage = isValidFileUploaded(file);
-      if (isValidImage) {
+      const isValidType = isValidFileUploaded(file);
+      const isValidSize = isValidFileSize(file);
+
+      if (isValidType && isValidSize) {
         validFiles.push(file);
         imageUrls.push(URL.createObjectURL(file));
       } else {
-        formik.setFieldError(
-          "images",
-          "Please upload images of valid types (jpg, jpeg, webp)."
-        );
+        let errorMessage = "Please upload images of valid types (jpg, jpeg, webp) and size up to 5MB.";
+        if (!isValidType) {
+          errorMessage = "Invalid file type. Please upload images of types (jpg, jpeg, webp).";
+        } else if (!isValidSize) {
+          errorMessage = "File size too large. Please upload images up to 5MB.";
+        }
+        formik.setFieldError("images", errorMessage);
+        return;
       }
     }
+    formik.setFieldError("images", "");
 
     setImages((prevImages) => [...prevImages, ...validFiles]);
     setSelectedImages((prevUrls) => [...prevUrls, ...imageUrls]);
   };
-
   const removeImage = (index: number) => {
     setImages((prevImages) => prevImages.filter((image, i) => i !== index));
     setSelectedImages((prevUrls) => prevUrls.filter((url, i) => i !== index));
