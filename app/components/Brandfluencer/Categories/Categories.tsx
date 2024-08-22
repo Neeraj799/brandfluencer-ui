@@ -3,7 +3,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { categories } from "./Utils";
 
-const Categories = () => {
+const CategoriesGrid = () => {
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-3 mb-16 cursor-pointer gap-14">
@@ -26,4 +26,4 @@ const Categories = () => {
   );
 };
 
-export default Categories;
+export default CategoriesGrid;

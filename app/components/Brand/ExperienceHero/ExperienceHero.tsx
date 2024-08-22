@@ -3,8 +3,12 @@
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
-const ExperienceHero = ({ experiences }: any) => {
+const ExperienceHero = ({ experiences, token, setRefresh, refresh }: any) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  console.log(token);
+  
+
   const toggleModal = (expData: any) => {
     Swal.fire({
       title: `<h2 style="color: #333; text-align: center;">${expData.experienceName}</h2>`,
@@ -21,7 +25,7 @@ const ExperienceHero = ({ experiences }: any) => {
   <div><strong>Welcome Message:</strong> ${expData.welcomeMessage}</div>
   <div><strong>Preferred Gender:</strong> ${expData.preferredGender}</div>
   <div><strong>Min Followers:</strong> ${expData.minFollowers}</div>
-  <div><strong>Status:</strong> ${expData.status}</div>
+  <div><strong>Status:</strong> ${expData.experienceStatus}</div>
 </div> 
   `,
       imageUrl: expData.image,
@@ -35,6 +39,52 @@ const ExperienceHero = ({ experiences }: any) => {
       },
     });
   };
+
+  const handleEnd = async (id: string) => {
+    try {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const headers: any = {
+            "Content-Type": "application/json",
+            authorization: `${token}`,
+          };
+          const res = await fetch(
+            `${process.env.NEXT_PUBLIC_URL}/api/brand/experience/decline-experience/${id}`,
+            {
+              headers: headers,
+              method: "POST",
+            }
+          );
+          const data = await res.json();
+          if (data.success) {
+            setRefresh(!refresh);
+            Swal.fire({
+              title: "Completed",
+              text: "Successfully Ended the Experience.",
+              icon: "success",
+            });
+          } else {
+            Swal.fire({
+              title: "Failed",
+              text: "Failed to End the Experience.",
+              icon: "error",
+            });
+          }
+          console.log(data);
+        }
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <>
       {experiences?.map((expData: any, index: number) => (
@@ -46,7 +96,7 @@ const ExperienceHero = ({ experiences }: any) => {
               loading="lazy"
               className="max-w-xs h-64 w-72 rounded-lg drop-shadow-2xl"
             />
-            <div className="drop-shadow-xl ml-4 rounded-xl bg-base-100 p-16">
+            <div className="drop-shadow-xl ml-4 rounded-xl bg-base-100 w-80 md:w-96 p-16">
               <span>
                 <p className="text-2xl font-bold">{expData.experienceName} </p>{" "}
                 <p className="py-6 italic">{expData.description}</p>
@@ -56,7 +106,7 @@ const ExperienceHero = ({ experiences }: any) => {
                   onClick={() => toggleModal(expData)}
                   className="btn btn-accent text-white btn-sm"
                 >
-                  view
+                  View
                 </button>
                 {/* <button className="btn btn-accent text-white btn-sm">
                   Edit
@@ -67,7 +117,15 @@ const ExperienceHero = ({ experiences }: any) => {
                 <button className="btn btn-accent text-white btn-sm">
                   Archive
                 </button>*/}
-                <button className="btn btn-error text-white btn-sm">End</button>
+
+                {expData.experienceStatus !=="Closed" && (
+                  <button
+                    onClick={() => handleEnd(expData?._id)}
+                    className="btn btn-error text-white btn-sm"
+                  >
+                    End
+                  </button>
+                )}
               </div>
             </div>
           </div>

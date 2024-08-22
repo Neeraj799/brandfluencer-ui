@@ -1,6 +1,7 @@
 "use client";
 import { Profile } from "@/components/Profile/types";
 import { isValidFileUploaded } from "@helpers/imageValidation";
+import { useI18n } from "@locales/client";
 import { useFormik } from "formik";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -15,6 +16,7 @@ const Modal = ({ profile }: { profile: Profile }) => {
   const router = useRouter();
   const [token, setToken] = useState<string | null>(null);
   const { data: session, status, update } = useSession();
+  const t = useI18n();
 
   useEffect(() => {
     try {
@@ -64,7 +66,7 @@ const Modal = ({ profile }: { profile: Profile }) => {
             position: "top-center",
           });
         } else if (data.success) {
-          update()
+          update({ ...session, user: data.profile });
           toast.success(data.message, {
             position: "top-center",
           });
@@ -104,8 +106,8 @@ const Modal = ({ profile }: { profile: Profile }) => {
       <div className="modal" role="dialog">
         <div className="modal-box">
           <div className="  px-16">
-            <h2 className="font-bold text-3xl text-[#002D74]">Edit Profile</h2>
-            <p className="text-sm mt-4 text-[#002D74]">
+            <h2 className="font-bold text-3xl text-error">Edit Profile</h2>
+            <p className="text-sm mt-4 text-error">
               Update required details
             </p>
             <form
@@ -116,7 +118,7 @@ const Modal = ({ profile }: { profile: Profile }) => {
                 className="p-2 mt-8 rounded-xl border"
                 type="text"
                 name="name"
-                placeholder="Name"
+                placeholder={t("fullname")}
                 id="name"
                 onChange={formik.handleChange}
                 value={formik?.values?.name}
@@ -126,7 +128,7 @@ const Modal = ({ profile }: { profile: Profile }) => {
                 className="p-2 rounded-xl border"
                 type="email"
                 name="email"
-                placeholder="Email"
+                placeholder={t("email")}
                 id="email"
                 onChange={formik.handleChange}
                 value={formik.values.email}
@@ -136,7 +138,7 @@ const Modal = ({ profile }: { profile: Profile }) => {
                 className="p-2 rounded-xl border"
                 type="text"
                 name="instaID"
-                placeholder="Instagram ID"
+                placeholder={t("instaProfileLink")}
                 id="instaID"
                 onChange={formik.handleChange}
                 value={formik.values.instaID}
@@ -146,7 +148,7 @@ const Modal = ({ profile }: { profile: Profile }) => {
                 className="p-2 rounded-xl border"
                 type="number"
                 name="mobile"
-                placeholder="Mobile Number"
+                placeholder={t("mobile")}
                 id="mobile"
                 onChange={formik.handleChange}
                 value={formik.values.mobile}
@@ -188,7 +190,7 @@ const Modal = ({ profile }: { profile: Profile }) => {
                 </button>
               ) : (
                 <button
-                  className="bg-[#002D74] font-semibold rounded-xl py-2  text-white"
+                  className="bg-error font-semibold rounded-xl py-2  text-white"
                   type="submit"
                 >
                   Submit

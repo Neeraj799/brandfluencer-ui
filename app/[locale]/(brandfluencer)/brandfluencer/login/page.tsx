@@ -1,5 +1,6 @@
 "use client";
 
+import { useI18n } from "@locales/client";
 import { loginValidationSchema } from "@utils/validationSchema";
 import { useFormik } from "formik";
 import { signIn, useSession } from "next-auth/react";
@@ -15,12 +16,13 @@ const Login = () => {
   const [loading, setLoading] = useState<Boolean>(false);
   const router = useRouter();
   const { data: session } = useSession();
+  const t = useI18n();
   useEffect(() => {
     if (session && session.user.role === "brandfluencer") {
       router.push(" /brandfluencer/categories");
     }
   }, [session]);
-  
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -38,6 +40,8 @@ const Login = () => {
           role: "brandfluencer",
           redirect: false,
         });
+        console.log(res, "jhjsdh");
+
         if (!res?.ok && res?.error) {
           toast.error(res.error, {
             position: "top-center",
@@ -63,13 +67,15 @@ const Login = () => {
 
   return (
     <>
-      <section className="bg-gray-50 min-h-screen flex items-center justify-center">
+      <section className=" min-h-screen flex items-center justify-center">
         <div className="bg-gray-100 flex rounded-2xl min-h-96 shadow-lg max-w-3xl p-8 items-center">
           {/* <span className='self-center'> <Link href={'/'}> <ArrowLeft size={22} /></Link></span> */}
-          <div className="md:w-1/2 px-14">
-            <h2 className="font-bold text-3xl text-[#002D74]">Login</h2>
-            <p className="text-sm mt-4 text-[#002D74]">
-              Welcome Back BrandFluencer!
+          <div className="px-14 ">
+            <h2 className="font-bold text-3xl text-accent text-center">
+              {t("login")}
+            </h2>
+            <p className="text-sm mt-4 text-accent text-center">
+              {t("welcome")} {t("name")}!
             </p>
 
             <form
@@ -81,32 +87,29 @@ const Login = () => {
                 className="input input-md rounded-xl mt-8 w-full max-w-xs"
                 onChange={formik.handleChange}
                 name="email"
-                placeholder="Email"
+                placeholder={t("email")}
                 id="email"
                 required
               />
-              {/* <input className='p-2 mt-8 rounded-xl border' onChange={formik.handleChange} type="email" name="email" placeholder='Email' id="email" required /> */}
               {formik.touched.email && formik.errors.email ? (
                 <div className="text-red-500">{formik.errors.email}</div>
               ) : null}
-              <div className="relative">
-                {/* <input className='p-2  rounded-xl border w-full' onChange={formik.handleChange} type={showPassword ? 'text' : 'password'} name='password' id='password' placeholder='Password' required /> */}
+                <div className="relative">
                 <input
                   className="input input-md rounded-xl w-full max-w-xs"
                   onChange={formik.handleChange}
                   type={showPassword ? "text" : "password"}
                   name="password"
                   id="password"
-                  placeholder="Password"
+                  placeholder={t("password")}
                   required
                 />
                 <button type="button" onClick={handleTogglePassword}>
-                  {" "}
                   {!showPassword ? (
-                    <Eye className="w-5 absolute top-1 right-3 translate-y-1/2 h-4" />
+                    <Eye className="w-5 absolute top-1 right-6 translate-y-1/2 h-4" />
                   ) : (
-                    <EyeOff className="w-5 absolute top-1 right-3 translate-y-1/2 h-4" />
-                  )}{" "}
+                    <EyeOff className="w-5 absolute top-1 right-6 translate-y-1/2 h-4" />
+                  )}
                 </button>
               </div>
               {formik.touched.password && formik.errors.password ? (
@@ -114,17 +117,17 @@ const Login = () => {
               ) : null}
               {loading ? (
                 <button
-                  className="bg-[#002D74] rounded-xl py-2 mt-2 text-center text-white"
+                  className="bg-accent rounded-xl py-2 mt-2 text-center text-white"
                   disabled
                 >
-                  <BeatLoader color="#36d7b7" size={10} />
+                  <BeatLoader color="#ffff" size={10} />
                 </button>
               ) : (
                 <button
-                  className="bg-[#002D74] rounded-xl font-semibold py-2 mt-2 text-white"
+                  className="bg-accent rounded-xl font-semibold py-2 mt-2 text-white"
                   type="submit"
                 >
-                  Log in
+                  {t("login")}
                 </button>
               )}
             </form>
@@ -160,26 +163,30 @@ const Login = () => {
                                     d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
                                 ></path>
                             </svg>Login with Google</button> */}
-            <p className="mt-5 text-xs border-b py-4">Forget your password</p>
+            <Link href={"/brandfluencer/forgotPassword"}>
+              <p className="mt-5 text-xs border-b py-4">
+                {t("forgotYourPassword")} ?
+              </p>
+            </Link>
 
             <div className="mt-3 text-xs flex justify-between items-center">
-              <p>Not a member yet !?</p>
+              <p>{t("noAccount")} !?</p>
               <Link href={" /brandfluencer/register"}>
                 <p className="hover:scale-105 duration-300 py-2 px-5 bg-white border rounded-xl">
-                  Register
+                  {t("register")}
                 </p>
               </Link>
             </div>
           </div>
 
-          <div className="w-1/2 md:block hidden">
+          {/* <div className="w-1/2 md:block hidden">
             <img
               className="rounded-2xl"
               loading="lazy"
               src="/home/influencersBanner.png"
               alt="image"
             />
-          </div>
+          </div> */}
         </div>
       </section>
     </>

@@ -77,13 +77,13 @@ const FirstStep = ({ onNextStep }: { onNextStep: () => void }) => {
     <>
       <section className="py-1 bg-blueGray-50">
         <div className="w-full lg:w-8/12 px-4 mx-auto ">
-          <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg justify-center border-0">
+          <div className="relative flex flex-col min-w-0 break-words w-full bg-base-100 pt-10 mb-6 shadow-lg rounded-lg justify-center border-0">
             <div className="flex-auto  px-4 lg:px-10 py-10 pt-0">
               <form onSubmit={formik.handleSubmit} className="space-y-4">
                 <div className="w-full mb-4 px-4">
                   <div className="relative w-full mb-3">
                     <label
-                      className="block uppercase text-xs font-bold mb-2"
+                      className="block text-xs font-bold mb-2"
                       htmlFor="grid-password"
                     >
                       Experience Name
@@ -110,7 +110,7 @@ const FirstStep = ({ onNextStep }: { onNextStep: () => void }) => {
                       )}
                   </div>
                   <label
-                    className="block uppercase text-xs font-bold mb-2"
+                    className="block text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
                     Description
@@ -137,7 +137,7 @@ const FirstStep = ({ onNextStep }: { onNextStep: () => void }) => {
                   <div className="w-full lg:w-6/12 mb-4 px-4">
                     <div className="relative w-full mb-3">
                       <label
-                        className="block uppercase text-xs font-bold mb-2"
+                        className="block text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
                         Start Date
@@ -163,7 +163,7 @@ const FirstStep = ({ onNextStep }: { onNextStep: () => void }) => {
                   <div className="w-full lg:w-6/12 px-4">
                     <div className="relative w-full mb-3">
                       <label
-                        className="block uppercase text-xs font-bold mb-2"
+                        className="block text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
                         End Date
@@ -189,7 +189,7 @@ const FirstStep = ({ onNextStep }: { onNextStep: () => void }) => {
                   <div className="w-full lg:w-6/12 px-4">
                     <div className="relative w-full mb-3">
                       <label
-                        className="block uppercase text-xs font-bold mb-2"
+                        className="block text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
                         Link (Optional)
@@ -216,7 +216,7 @@ const FirstStep = ({ onNextStep }: { onNextStep: () => void }) => {
                   <div className="w-full lg:w-6/12 px-4">
                     <div className="relative w-full mb-3">
                       <label
-                        className="block uppercase text-xs font-bold mb-2"
+                        className="block text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
                         Experience Category
@@ -238,7 +238,7 @@ const FirstStep = ({ onNextStep }: { onNextStep: () => void }) => {
                         {categories.map((category) => (
                           <option
                             key={category.name.toLowerCase()}
-                            value={category.name.toLowerCase()}
+                            value={category.value}
                           >
                             {category.name}
                           </option>
@@ -256,7 +256,7 @@ const FirstStep = ({ onNextStep }: { onNextStep: () => void }) => {
                 <div className="w-full px-4">
                   <div className="relative w-full mb-3">
                     <label
-                      className="block uppercase text-xs font-bold mb-2"
+                      className="block text-xs font-bold mb-2"
                       htmlFor="searchTags"
                     >
                       Tags, hashtags, handles and mentions

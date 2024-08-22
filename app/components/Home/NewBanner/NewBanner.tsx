@@ -1,6 +1,7 @@
 import { getI18n } from "@locales/server";
 import Image from "next/image";
 import React from "react";
+import styles from "./styles.module.css";
 
 const NewBanner = async () => {
   const t = await getI18n();
@@ -8,10 +9,20 @@ const NewBanner = async () => {
   return (
     <div>
       <section>
-        <div className="text-white py-14 md:py-20 mb-2 md:mb-40">
-          <div className="container mx-auto flex flex-col md:flex-row items-center  md:my-24">
-            <div className="flex flex-col w-full lg:w-1/3 order-2 md:order-1 justify-center items-start p-5">
-              <div className="flex flex-wrap flex-col h-24 md:h-32 z-10 items-center justify-center">
+        <div className="text-white py-14 lg:py-20 mb-2 lg:mb-40 overflow-hidden bg-cover bg-center">
+          {/* <div className="overflow-x-hidden">
+            <Image
+              height={1400}
+              width={1150}
+              src="/home/circle.png"
+              alt="circle"
+              className="absolute top-[-170px] right-[-200px] z-[-30] md:top-[-280px] md:right-[-180px] sm:top-0 sm:right-0 overflow-clip object-cover"
+              loading="lazy"
+            ></Image>
+          </div> */}
+          <div className="container mx-auto flex flex-col lg:flex-row items-center lg:justify-between lg:my-24">
+            <div className="flex flex-col w-full lg:w-1/3 order-2 lg:order-1 justify-center items-start p-5">
+              <div className="flex flex-wrap flex-col h-24 lg:h-32 z-10 items-center justify-center">
                 <img
                   className="h-20 sm:h-24 md:h-32 lg:h-32 xl:h-40 animate-in slide-in-from-left-72 delay-800 duration-700"
                   src={t("revolu")}
@@ -47,7 +58,7 @@ const NewBanner = async () => {
                 </p>
               </div>
             </div>
-            <div className="p-8 mt-5 mb-16 md:mb-0 md:mt-0 order-1 md:order-2 md:ml-96 lg:w-2/3  justify-center">
+            <div className="p-8 flex mt-20 mb-20  min-[460px]:mt-32 min-[460px]:mb-40 lg:mb-0 lg:mt-0 order-1 lg:ml-72 lg:order-2 justify-center">
               <div className="h-48 flex flex-wrap content-center">
                 {/* <div>
                   <img
@@ -58,7 +69,7 @@ const NewBanner = async () => {
                 </div> */}
                 <div>
                   <img
-                    className="inline-block md:ml-8 md:mt-0 p-8 md:p-0 "
+                    className="lg:ml-8 lg:mt-0 p-8 lg:p-0 sm:h-[600px] max-lg:h-[400px]  xl:h-[500px]"
                     src="/home/homeGirl.png"
                     alt="Image 2"
                   />

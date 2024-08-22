@@ -1,4 +1,5 @@
 "use client";
+import { useI18n } from "@locales/client";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,6 +8,7 @@ import React, { useEffect, useState } from "react";
 const CommonNavbar = () => {
   const { data: session, status } = useSession();
   const [user, setUser] = useState<any>();
+  const t = useI18n();
 
   useEffect(() => {
     if (session && session.user) {
@@ -15,7 +17,7 @@ const CommonNavbar = () => {
   }, [session]);
 
   return (
-    <div className="navbar px-5  bg-base-100">
+    <div className="navbar px-5">
       <div className="flex-1">
         <Link href={" /"}>
           <Image
@@ -47,12 +49,24 @@ const CommonNavbar = () => {
             >
               <li>
                 {user?.role === "brand" ? (
+                  <Link href=" /brand/experiences">
+                    <p>{t("myExperience")}</p>
+                  </Link>
+                ) : (
+                  <Link href=" /brandfluencer/categories">
+                    <p>{t("exploreExperiences")}</p>
+                  </Link>
+                )}
+              </li>
+
+              <li>
+                {user?.role === "brand" ? (
                   <Link href=" /brand/profile">
-                    <p>Profile</p>
+                    <p>{t("profile")}</p>
                   </Link>
                 ) : (
                   <Link href=" /brandfluencer/profile">
-                    <p>Profile</p>
+                    <p>{t("profile")}</p>
                   </Link>
                 )}
               </li>
@@ -63,7 +77,7 @@ const CommonNavbar = () => {
                   </Link>
                 ) : (
                   <Link href=" /brandfluencer/myExperiences">
-                    <p>My Experiences</p>
+                    <p>{t("myExperience")}</p>
                   </Link>
                 )}
               </li>
@@ -71,7 +85,7 @@ const CommonNavbar = () => {
                 <button
                   onClick={() => signOut({ callbackUrl: "/", redirect: true })}
                 >
-                  Logout
+                  {t("logout")}
                 </button>
               </li>
             </ul>

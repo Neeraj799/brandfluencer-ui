@@ -1,5 +1,5 @@
 "use client";
-
+import { useI18n } from "@locales/client";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
@@ -13,6 +13,7 @@ const Profile = () => {
   const { data: session, status } = useSession();
   const [token, setToken] = useState<string | null>(null);
   const [user, setUser] = useState<any>();
+  const t = useI18n();
 
   useEffect(() => {
     if (session && session.user) {
@@ -46,8 +47,8 @@ const Profile = () => {
         <section className="relative block">
           <div>
             <img
-              src="https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2710&amp;q=80"
-              className="w-full h-full top-0"
+              className="w-full h-96 top-0"
+              src="https://images.unsplash.com/photo-1614852207233-e8d771f8e9fc?q=80&w=2710&auto=format&fit=crop"
               alt=""
             />
           </div>
@@ -131,23 +132,27 @@ const Profile = () => {
                   <h3 className="text-4xl font-semibold leading-normal text-blueGray-700 md:mb-2">
                     {user?.brand || user?.name}
                   </h3>
-                  <div className="text-sm leading-normal mt-0 mb-2 text-gray-600 font-bold uppercase">
+                  
+                  {user?.companyRep && (
+                    <div className="text-sm leading-normal mt-0 mb-2 text-gray-600 font-bold uppercase">
                     <i className="fas fa-map-marker-alt mr-2 text-lg text-gray-400"></i>
-                    {user?.companyRep || " "}
+                    {t("companyRepresentativeName")} - {user?.companyRep || " "}
                   </div>
+                  )}
+                  
                   {user?.instaID && (
                     <div className="mb-2 text-blueGray-600 mt-8">
                       <i className="fas fa-briefcase mr-2 text-lg"></i>
-                      Instagram - {user?.instaID}
+                      {t("instaProfileLink")} - {user?.instaID}
                     </div>
                   )}
                   <div className="mb-2 text-blueGray-600">
                     <i className="fas fa-briefcase mr-2 text-lg"></i>
-                    Email - {user?.email}
+                    {t("email")} - {user?.email}
                   </div>
                   <div className="mb-2 text-blueGray-600">
                     <i className="fas fa-university mr-2 text-lg text-blueGray-400"></i>
-                    Mobile - {user?.mobile}
+                    {t("mobile")} - {user?.mobile}
                   </div>
                 </div>
                 <div className="mt-10 py-10 border-t border-blueGray-200 text-center">

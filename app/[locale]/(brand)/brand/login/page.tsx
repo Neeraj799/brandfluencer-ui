@@ -1,5 +1,6 @@
 "use client";
 
+import { useI18n } from "@locales/client";
 import { loginValidationSchema } from "@utils/validationSchema";
 import { useFormik } from "formik";
 import { signIn, useSession } from "next-auth/react";
@@ -15,6 +16,7 @@ const Login = () => {
   const [loading, setLoading] = useState<Boolean>(false);
   const router = useRouter();
   const { data: session, status } = useSession();
+  const t = useI18n();
 
   useEffect(() => {
     if (session && session.user.role === "brand") {
@@ -65,12 +67,16 @@ const Login = () => {
 
   return (
     <>
-      <section className="bg-gray-50 min-h-screen flex items-center justify-center">
+      <section className=" min-h-screen flex items-center justify-center">
         <div className="bg-gray-100 flex rounded-2xl min-h-96 shadow-lg max-w-3xl p-8 items-center">
           {/* <span className='self-center'> <Link href={'/'}> <ArrowLeft size={22} /></Link></span> */}
-          <div className="md:w-1/2 px-14">
-            <h2 className="font-bold text-3xl text-[#002D74]">Login</h2>
-            <p className="text-sm mt-4 text-[#002D74]">Welcome Back Brand!</p>
+          <div className="px-14">
+            <h2 className="font-bold text-3xl text-error accent text-center">
+              {t("login")}
+            </h2>
+            <p className="text-sm mt-4 text-error accent text-center">
+              {t("welcome")} {t("brand")}!
+            </p>
 
             <form
               onSubmit={formik.handleSubmit}
@@ -81,7 +87,7 @@ const Login = () => {
                 className="input input-md rounded-xl mt-8 w-full max-w-xs"
                 onChange={formik.handleChange}
                 name="email"
-                placeholder="Email"
+                placeholder={t("email")}
                 id="email"
                 required
               />
@@ -95,7 +101,7 @@ const Login = () => {
                   type={showPassword ? "text" : "password"}
                   name="password"
                   id="password"
-                  placeholder="Password"
+                  placeholder={t("password")}
                   required
                 />
                 <button type="button" onClick={handleTogglePassword}>
@@ -111,42 +117,46 @@ const Login = () => {
               ) : null}
               {loading ? (
                 <button
-                  className="bg-[#002D74] rounded-xl py-2 mt-2 text-center text-white"
+                  className="bg-error rounded-xl py-2 mt-2 text-center text-white"
                   disabled
                 >
-                  <BeatLoader color="#36d7b7" size={10} />
+                  <BeatLoader color="#ffff" size={10} />
                 </button>
               ) : (
                 <button
-                  className="bg-[#002D74] rounded-xl font-semibold py-2 mt-2 text-white"
+                  className="bg-error rounded-xl font-semibold py-2 mt-2 text-white"
                   type="submit"
                 >
-                  Log in
+                  {t("login")}
                 </button>
               )}
-              {/* <p className=" text-xs text-end mb-5 cursor-pointer">
-                Forget your password
-              </p> */}
+              
             </form>
 
-            <div className="mt-3 text-xs border-t pt-2 flex justify-between items-center">
-              <p>Not a member yet !?</p>
+            <Link href={"/brand/forgotPassword"}>
+                <p className="mt-5 text-xs border-b py-4">
+                {t("forgotYourPassword")} ?
+                </p>
+              </Link>
+              
+            <div className="mt-3 text-xs pt-2 flex justify-between items-center">
+              <p>{t("noAccount")} !?</p>
               <Link href={" /brand/register"}>
                 <p className="hover:scale-105 duration-300 py-2 px-5 bg-white border rounded-xl">
-                  Register
+                {t("register")}
                 </p>
               </Link>
             </div>
           </div>
 
-          <div className="w-1/2 md:block hidden">
+          {/* <div className="w-1/2 md:block hidden">
             <img
               className="rounded-2xl"
               loading="lazy"
               src="/brandLogin.jpg"
               alt="image"
             />
-          </div>
+          </div> */}
         </div>
       </section>
     </>
@@ -154,3 +164,4 @@ const Login = () => {
 };
 
 export default Login;
+  

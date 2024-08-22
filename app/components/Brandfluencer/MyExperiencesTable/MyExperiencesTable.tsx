@@ -1,17 +1,22 @@
 "use client";
+import { useI18n } from "@locales/client";
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
-import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
+import ExperienceModal from "../Modal/ExperienceModal";
 
 const MyExperiencesTable = () => {
   const [myExperiences, setExperiences] = useState([]);
   const { data: session, status } = useSession();
   const [token, setToken] = useState<string | null>(null);
   const [refresh, setRefresh] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [currentRequestId, setCurrentRequestedId] = useState<string | null>(null);
   const headers: any = {
     "Content-Type": "application/json",
     authorization: `${token}`,
   };
+  const t = useI18n();
   useEffect(() => {
     if (session && session.user && session.token) {
       setToken(session.token);
@@ -29,46 +34,20 @@ const MyExperiencesTable = () => {
       const data = await res.json();
       setExperiences(data);
     })();
-  }, [token,refresh]);
+  }, [token, refresh]);
 
-  const handleComplete = async (id: any) => {
-    try {
-      Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "oklch(var(--a))",
-        cancelButtonColor: "oklch(var(--er))",
-        confirmButtonText: "Yes, Completed",
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          const res = await fetch(
-            `${process.env.NEXT_PUBLIC_URL}/api/brandfluencer/request/mark-completed/${id}`,
-            {
-              method: "POST",
-              headers: headers,
-              body: JSON.stringify({}),
-            }
-          );
-          const data = await res.json();
-          Swal.fire({
-            title: "Completed",
-            text: "Your experience has been completed.",
-            icon: "success",
-          });
-          setRefresh(!refresh);
-        }
-      });
-    } catch (error) {
-      console.error(error);
-      Swal.fire({
-        title: "Something went Wrong",
-        text: "Try again or Contact our team.",
-        icon: "error",
-      });
-    }
+  const handleMarkComplete = (id: string) => {
+    setCurrentRequestedId(id);
+    setModalVisible(true);
   };
+
+  const closeModal = () => {
+    setModalVisible(false);
+    setCurrentRequestedId(null);
+    setRefresh(!refresh);
+  };
+
+
 
   return (
     <div className="flex justify-center items-center w-full">
@@ -78,10 +57,10 @@ const MyExperiencesTable = () => {
             <thead>
               <tr className="text-base">
                 <th>Avatar</th>
-                <th>Brand</th>
-                <th>Experience</th>
+                <th>{t("brand")}</th>
+                <th>{t("experience")}</th>
                 <th>Request Date</th>
-                <th>Status</th>
+                <th>{t("status")}</th>
                 <th className="text-center">Action</th>
                 {/* <th></th> */}
               </tr>
@@ -123,10 +102,11 @@ const MyExperiencesTable = () => {
                     <td>{val?.status}</td>
                     <td className="text-center">
                       <button
-                        onClick={() => handleComplete(val?._id)}
+                        onClick={() => handleMarkComplete(val?._id)}
                         className={`${
                           val?.status !== "Approved" ? `btn-disabled ` : ""
-                        }btn mr-3 btn-success text-white btn-sm`}>
+                        }btn mr-3 btn-success text-white btn-sm`}
+                      >
                         Mark Completed
                       </button>
                     </td>
@@ -146,6 +126,9 @@ const MyExperiencesTable = () => {
           </table>
         </div>
       </div>
+      {modalVisible && currentRequestId && (
+        <ExperienceModal requestId={currentRequestId} onClose={closeModal} />
+      )}
     </div>
   );
 };
