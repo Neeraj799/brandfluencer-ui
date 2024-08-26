@@ -90,9 +90,10 @@ const RequestTable = () => {
           const data = await res.json();
           Swal.fire({
             title: "Completed",
-            text: "Successfully Approved the Request.",
+            text: "Successfully Rejected the Request.",
             icon: "success",
           });
+          setRefresh(!refresh);
         }
       });
     } catch (error) {
