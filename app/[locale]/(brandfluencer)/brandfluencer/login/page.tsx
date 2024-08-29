@@ -18,7 +18,7 @@ const Login = () => {
   const { data: session } = useSession();
   const t = useI18n();
   useEffect(() => {
-    if (session && session.user.role === "brandfluencer") {
+    if (session && session?.user?.role === "brandfluencer") {
       router.push(" /brandfluencer/categories");
     }
   }, [session]);
@@ -91,12 +91,10 @@ const Login = () => {
                 id="email"
                 required
               />
-              {/* <input className='p-2 mt-8 rounded-xl border' onChange={formik.handleChange} type="email" name="email" placeholder='Email' id="email" required /> */}
               {formik.touched.email && formik.errors.email ? (
                 <div className="text-red-500">{formik.errors.email}</div>
               ) : null}
-              <div className="relative">
-                {/* <input className='p-2  rounded-xl border w-full' onChange={formik.handleChange} type={showPassword ? 'text' : 'password'} name='password' id='password' placeholder='Password' required /> */}
+                <div className="relative">
                 <input
                   className="input input-md rounded-xl w-full max-w-xs"
                   onChange={formik.handleChange}
@@ -107,12 +105,11 @@ const Login = () => {
                   required
                 />
                 <button type="button" onClick={handleTogglePassword}>
-                  {" "}
                   {!showPassword ? (
-                    <Eye className="w-5 absolute top-1 right-3 translate-y-1/2 h-4" />
+                    <Eye className="w-5 absolute top-1 right-6 translate-y-1/2 h-4" />
                   ) : (
-                    <EyeOff className="w-5 absolute top-1 right-3 translate-y-1/2 h-4" />
-                  )}{" "}
+                    <EyeOff className="w-5 absolute top-1 right-6 translate-y-1/2 h-4" />
+                  )}
                 </button>
               </div>
               {formik.touched.password && formik.errors.password ? (

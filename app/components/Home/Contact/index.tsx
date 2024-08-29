@@ -37,11 +37,13 @@ const Contact = () => {
         );
 
         const data = await res.json();
+        console.log(data, "data");
+        
         if (data.error) {
           toast.error(data.error, {
             position: "top-center",
           });
-        } else if (data.message) {
+        } else if (data.success) {
           toast.success(data.message, {
             position: "top-center",
           });

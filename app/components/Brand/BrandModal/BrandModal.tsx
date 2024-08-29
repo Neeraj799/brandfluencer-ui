@@ -9,6 +9,7 @@ import React, { useEffect, useState } from "react";
 import { BeatLoader } from "react-spinners";
 import { toast } from "react-toastify";
 
+
 const BrandModal = ({ profile }: { profile: Profile }) => {
   const [showPassword, setShowPassword] = useState<Boolean>(false);
   const [loading, setLoading] = useState<Boolean>(false);
@@ -197,6 +198,9 @@ const BrandModal = ({ profile }: { profile: Profile }) => {
                 <span className="font-medium tracking-wide antialiased">
                   Choose an Image
                 </span>
+                {formik.errors.image && (
+                <p className="text-red-500">{formik.errors.image}</p>
+              )}
               </div>
               {loading ? (
                 <button

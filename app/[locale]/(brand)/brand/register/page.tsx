@@ -10,6 +10,16 @@ import { ArrowUpLeft, Eye, EyeOff } from "react-feather";
 import { BeatLoader } from "react-spinners";
 import { toast } from "react-toastify";
 
+interface FormValues {
+  brand: string;
+  email: string;
+  companyRep: string;
+  mobile: string;
+  password: string;
+  confirmPassword: string;
+  image?: File;
+}
+
 const Register = () => {
   const [showPassword, setShowPassword] = useState<Boolean>(false);
   const [loading, setLoading] = useState<Boolean>(false);
@@ -21,7 +31,7 @@ const Register = () => {
   };
   const t = useI18n();
 
-  const formik = useFormik({
+  const formik = useFormik<FormValues>({
     initialValues: {
       brand: "",
       email: "",
@@ -29,7 +39,6 @@ const Register = () => {
       mobile: "",
       password: "",
       confirmPassword: "",
-      image: null,
     },
 
     validationSchema: signupSchema,
@@ -86,12 +95,8 @@ const Register = () => {
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] ?? null;
 
-  
-      //  formik.setFieldError("image", "Please upload image");
-  
-  
-    
-    
+    formik.setFieldError("image", "");
+      
     const isValidImages = isValidFileUploaded(file);
     const image = file ? URL.createObjectURL(file) : "";
     setselectedImage(image);
@@ -104,8 +109,7 @@ const Register = () => {
       return;
     }
     setImage(file);
-    
-    formik.setFieldError("image", " ");
+
   };
 
   return (

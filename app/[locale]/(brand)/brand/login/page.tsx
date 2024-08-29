@@ -19,7 +19,7 @@ const Login = () => {
   const t = useI18n();
 
   useEffect(() => {
-    if (session && session.user.role === "brand") {
+    if (session && session?.user?.role === "brand") {
       router.push(" /brand/experiences");
     }
   }, [session]);
