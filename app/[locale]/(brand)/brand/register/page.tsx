@@ -29,12 +29,18 @@ const Register = () => {
       mobile: "",
       password: "",
       confirmPassword: "",
+      image: null,
     },
 
     validationSchema: signupSchema,
 
     onSubmit: async (values) => {
       try {
+
+        if(!image) {
+          formik.setFieldError("image", "Please upload image");
+          return;
+        }
         setLoading(true);
 
         const formData = new FormData();
@@ -79,11 +85,17 @@ const Register = () => {
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] ?? null;
-    formik.setFieldError("image", " ");
 
+  
+      //  formik.setFieldError("image", "Please upload image");
+  
+  
+    
+    
     const isValidImages = isValidFileUploaded(file);
     const image = file ? URL.createObjectURL(file) : "";
     setselectedImage(image);
+    
     if (!isValidImages) {
       formik.setFieldError(
         "image",
@@ -92,6 +104,8 @@ const Register = () => {
       return;
     }
     setImage(file);
+    
+    formik.setFieldError("image", " ");
   };
 
   return (
@@ -99,9 +113,7 @@ const Register = () => {
       <div className="bg-gray-100 flex rounded-2xl shadow-lg max-w-5xl p-6 items-center">
         <div className="px-20 py-10">
           <h2 className="font-bold text-3xl text-accent">{t("register")}..</h2>
-          <p className="text-sm mt-4 text-accent">
-          Lets Start Your Journey!
-          </p>
+          <p className="text-sm mt-4 text-accent">Lets Start Your Journey!</p>
           <form onSubmit={formik.handleSubmit} className="flex flex-col gap-2">
             <input
               className="p-2 mt-8 rounded-xl border"
@@ -204,9 +216,10 @@ const Register = () => {
               <label
                 htmlFor="file-upload"
                 className="block relative w-40 h-40 group bg-gray-200 opacity-60 rounded-full flex justify-center items-center cursor-pointer transition duration-500"
-                style={{ backgroundImage: `url('${selectedImage}')`,
-                backgroundSize: "cover",
-              }}
+                style={{
+                  backgroundImage: `url('${selectedImage}')`,
+                  backgroundSize: "cover",
+                }}
               >
                 <img
                   className=" group-hover:block w-12"
@@ -218,11 +231,15 @@ const Register = () => {
                   type="file"
                   onChange={handleImageChange}
                   className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                  accept=".jpg, .jpeg, .png, .webp"
                 />
               </label>
               <span className="font-medium tracking-wide antialiased">
-              Choose an image
+                Choose an image
               </span>
+              {formik.errors.image && (
+                <p className="text-red-500">{formik.errors.image}</p>
+              )}
             </div>
             <label className="cursor-pointer label mt-3">
               <span className="label-text">
