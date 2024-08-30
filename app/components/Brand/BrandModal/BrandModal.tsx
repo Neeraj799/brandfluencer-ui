@@ -9,7 +9,6 @@ import React, { useEffect, useState } from "react";
 import { BeatLoader } from "react-spinners";
 import { toast } from "react-toastify";
 
-
 const BrandModal = ({ profile }: { profile: Profile }) => {
   const [showPassword, setShowPassword] = useState<Boolean>(false);
   const [loading, setLoading] = useState<Boolean>(false);
@@ -47,6 +46,11 @@ const BrandModal = ({ profile }: { profile: Profile }) => {
     // validationSchema: signupSchema,
     onSubmit: async (values) => {
       try {
+        if (!image) {
+          formik.setFieldError("image", "Please upload image");
+          return;
+        }
+
         setLoading(true);
 
         const formData = new FormData();
@@ -54,7 +58,7 @@ const BrandModal = ({ profile }: { profile: Profile }) => {
         formData.append("email", values.email);
         formData.append("companyRep", values.companyRep);
         formData.append("mobile", values.mobile);
-        formData.append("image", image as File || values.image);
+        formData.append("image", (image as File) || values.image);
 
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_URL}/api/brand/experience/update-profile`,
@@ -111,9 +115,7 @@ const BrandModal = ({ profile }: { profile: Profile }) => {
         <div className="modal-box">
           <div className="  px-16">
             <h2 className="font-bold text-3xl text-error">Edit Profile</h2>
-            <p className="text-sm mt-4 text-error">
-              Update required details
-            </p>
+            <p className="text-sm mt-4 text-error">Update required details</p>
             <form
               onSubmit={formik.handleSubmit}
               className="flex flex-col gap-2"
@@ -199,8 +201,8 @@ const BrandModal = ({ profile }: { profile: Profile }) => {
                   Choose an Image
                 </span>
                 {formik.errors.image && (
-                <p className="text-red-500">{formik.errors.image}</p>
-              )}
+                  <p className="text-red-500">{formik.errors.image}</p>
+                )}
               </div>
               {loading ? (
                 <button
