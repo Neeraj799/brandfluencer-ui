@@ -7,7 +7,7 @@ import { getI18n } from "@locales/server";
 const Navbar = async () => {
   const t = await getI18n();
   return (
-    <div className="lg:container lg:flex lg:justify-center lg:mx-20">
+    <div className="lg:container lg:flex lg:justify-center md:px-10 lg:mx-20">
       <div className="navbar bg-transparent uppercase justify-around ">
         <div className="navbar-start">
           <div className="dropdown">

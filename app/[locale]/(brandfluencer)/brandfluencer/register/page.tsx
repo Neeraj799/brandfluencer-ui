@@ -256,10 +256,10 @@ const Register = () => {
             </label>
             {loading ? (
               <button
-                className="bg-[#002D74] rounded-xl py-2 text-center text-white"
+                className="bg-error rounded-xl py-2 text-center text-white"
                 disabled
               >
-                <BeatLoader color="#36d7b7" />
+                <BeatLoader color="#ffff" />
               </button>
             ) : (
               <button

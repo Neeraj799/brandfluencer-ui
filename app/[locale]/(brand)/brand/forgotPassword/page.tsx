@@ -59,7 +59,6 @@ const ForgotPassword = () => {
           });
           router.push("/brand/login");
         }
-        
       } catch (error) {
         toast.error("Internal Server Error", {
           position: "top-center",
@@ -69,10 +68,7 @@ const ForgotPassword = () => {
     },
   });
 
-
-
   const handleEmailSubmit = async () => {
-
     const errors = await formik.validateForm();
     if (errors.email) {
       formik.setTouched({ email: true });
@@ -112,7 +108,6 @@ const ForgotPassword = () => {
   };
 
   const handleOtpSubmit = async () => {
-    
     const errors = await formik.validateForm();
     if (errors.otp) {
       formik.setTouched({ otp: true });
@@ -165,7 +160,7 @@ const ForgotPassword = () => {
               {value === "email" && (
                 <>
                   <h2 className="font-medium text-3xl text-center text-red-500">
-                  {t("forgotYourPassword")}
+                    {t("forgotYourPassword")}
                   </h2>
                   <input
                     type="email"

@@ -156,7 +156,7 @@ const RequestTable = () => {
                         onClick={() => handleComplete(val?._id)}
                         className={`${
                           val?.status !== "Pending" ? `btn-disabled  ` : ""
-                        }btn mr-3 btn-success text-white btn-xs md:btn-sm`}
+                        }btn mr-3 btn-success text-white btn-xs md:btn-sm mb-1`}
                       >
                         Accept
                       </button>
@@ -164,7 +164,7 @@ const RequestTable = () => {
                         onClick={() => handleReject(val?._id)}
                         className={`${
                           val?.status !== "Pending" ? `btn-disabled ` : ""
-                        }btn sm:mt-0 mr-3 mt-1 btn-error text-white btn-xs md:btn-sm`}
+                        }btn mr-3 btn-error text-white btn-xs md:btn-sm`}
                       >
                         Reject
                       </button>

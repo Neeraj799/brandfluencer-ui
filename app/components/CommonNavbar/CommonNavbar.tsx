@@ -17,7 +17,7 @@ const CommonNavbar = () => {
   }, [session]);
 
   return (
-    <div className="navbar px-5">
+    <div className="navbar px-5 md:px-8">
       <div className="flex-1">
         <Link href={" /"}>
           <Image
