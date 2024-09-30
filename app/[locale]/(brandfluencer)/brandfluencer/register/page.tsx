@@ -45,6 +45,11 @@ const Register = () => {
 
     onSubmit: async (values) => {
       try {
+
+        if(!image) {
+          formik.setFieldError("image", "Please upload image");
+          return;
+        }
         setLoading(true);
 
         const formData = new FormData();
@@ -102,6 +107,7 @@ const Register = () => {
       return;
     }
     setImage(file);
+
   };
 
   return (
@@ -228,11 +234,15 @@ const Register = () => {
                   type="file"
                   onChange={handleImageChange}
                   className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                  accept=".jpg, .jpeg, .png, .webp"
                 />
               </label>
               <span className="font-medium tracking-wide antialiased">
                 Choose an image
               </span>
+              {formik.errors.image && (
+                <p className="text-red-500">{formik.errors.image}</p>
+              )}
             </div>
             <label className="cursor-pointer label mt-3">
               <span className="label-text">
@@ -246,10 +256,10 @@ const Register = () => {
             </label>
             {loading ? (
               <button
-                className="bg-[#002D74] rounded-xl py-2 text-center text-white"
+                className="bg-error rounded-xl py-2 text-center text-white"
                 disabled
               >
-                <BeatLoader color="#36d7b7" />
+                <BeatLoader color="#ffff" />
               </button>
             ) : (
               <button

@@ -94,7 +94,7 @@ const ExperienceHero = ({ experiences, token, setRefresh, refresh }: any) => {
               src={expData.image[0]}
               alt="image"
               loading="lazy"
-              className="max-w-xs h-64 w-72 rounded-lg drop-shadow-2xl"
+              className="sm:w-72 ml-4 max-w-xs h-64 w-78 rounded-lg drop-shadow-2xl"
             />
             <div className="drop-shadow-xl ml-4 rounded-xl bg-base-100 w-80 md:w-96 p-16">
               <span>

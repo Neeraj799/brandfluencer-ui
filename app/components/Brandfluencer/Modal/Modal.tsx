@@ -42,6 +42,11 @@ const Modal = ({ profile }: { profile: Profile }) => {
     enableReinitialize: true,
     onSubmit: async (values) => {
       try {
+        if(!image) {
+          formik.setFieldError("image", "Please upload image");
+          return;
+        }
+
         setLoading(true);
 
         const formData = new FormData();
@@ -180,6 +185,9 @@ const Modal = ({ profile }: { profile: Profile }) => {
                 <span className="font-medium tracking-wide antialiased">
                   Choose an Image
                 </span>
+                {formik.errors.image && (
+                <p className="text-red-500">{formik.errors.image}</p>
+              )}
               </div>
               {loading ? (
                 <button

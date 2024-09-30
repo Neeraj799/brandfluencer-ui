@@ -29,7 +29,7 @@ const NewBanner = async () => {
                   alt="text"
                 ></img>
                 <span className="h-32 sm:h-24 md:h-32 lg:h-36 xl:h-48 flex items-center justify-center animate-in slide-in-from-right-72 delay-800 duration-700">
-                  <p className="text-7xl ml-1 sm:text-7xl md:text-8xl lg:text-9xl xl:text-9xl font-semibold bg-gradient-to-r from-red-500 to-rose-400 bg-clip-text text-transparent">
+                  <p className="text-7xl ml-1 sm:text-7xl md:text-8xl lg:text-8xl xl:text-9xl font-semibold bg-gradient-to-r from-red-500 to-rose-400 bg-clip-text text-transparent">
                     {t("tion")}
                   </p>
                 </span>
@@ -69,7 +69,7 @@ const NewBanner = async () => {
                 </div> */}
                 <div>
                   <img
-                    className="lg:ml-8 lg:mt-0 p-8 lg:p-0 sm:h-[600px] max-lg:h-[400px]  xl:h-[500px]"
+                    className="lg:ml-8 lg:mt-0 p-8 lg:p-0 sm:h-[600px] lg:h-[400px]  xl:h-[500px]"
                     src="/home/homeGirl.png"
                     alt="Image 2"
                   />

@@ -18,7 +18,7 @@ const Login = () => {
   const { data: session } = useSession();
   const t = useI18n();
   useEffect(() => {
-    if (session && session.user.role === "brandfluencer") {
+    if (session && session?.user?.role === "brandfluencer") {
       router.push(" /brandfluencer/categories");
     }
   }, [session]);

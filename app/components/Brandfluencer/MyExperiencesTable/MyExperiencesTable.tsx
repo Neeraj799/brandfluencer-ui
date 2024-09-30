@@ -84,7 +84,7 @@ const MyExperiencesTable = () => {
                     <td>
                       <div>
                         <div className="font-bold">
-                          {val?.experience?.brand.brand}
+                          {val?.experience?.brand?.brand}
                         </div>
                         <div className="text-sm opacity-50">
                           {val?.experience?.brand?.companyRep}

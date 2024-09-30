@@ -97,7 +97,7 @@ const Profile = () => {
                       </label>
                     </div>
                   </div>
-                  <div className="w-full lg:w-4/12 px-4 mt-16 sm:mt-0 lg:order-1">
+                  <div className="w-full lg:w-4/12 px-2 mt-10 sm:mt-0 lg:order-1">
                     <div className="flex py-4 lg:pt-4 pt-4">
                       {/* <div className="mr-4 p-3 text-center">
                         <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
@@ -115,7 +115,7 @@ const Profile = () => {
                           Experiences
                         </span>
                       </div> */}
-                      <div className="lg:mr-4 p-3 text-center">
+                      <div className="lg:mr-4 text-center">
                         <span className="text-xl font-semibold block uppercase tracking-wide text-blueGray-600">
                           {new Date(
                             user?.created_at ?? ""

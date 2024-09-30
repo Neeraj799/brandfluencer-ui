@@ -34,14 +34,12 @@ const ExperienceModal = ({ requestId, onClose }: ExperienceModalProps) => {
     validationSchema: experienceModalValidationSchema,
 
     onSubmit: async (values) => {
+      try {
         if (images.length === 0) {
           formik.setFieldError("images", "Please upload image");
           return;
         }
         
-      
-      
-      try {
         setLoading(true);
         const formData = new FormData();
         formData.append("link", values.link);
@@ -123,6 +121,8 @@ const ExperienceModal = ({ requestId, onClose }: ExperienceModalProps) => {
 
     setImages((prevImages) => [...prevImages, ...validFiles]);
     setSelectedImages((prevUrls) => [...prevUrls, ...imageUrls]);
+
+    formik.setFieldError("images", " ");
   };
   const removeImage = (index: number) => {
     setImages((prevImages) => prevImages.filter((image, i) => i !== index));
@@ -169,7 +169,7 @@ const ExperienceModal = ({ requestId, onClose }: ExperienceModalProps) => {
                   multiple
                   onChange={handleImageChange}
                   className="hidden"
-                  accept=".jpg,.jpeg,.webp"
+                  accept=".jpg, .jpeg, .png, .webp"
                 />
               </label>
               {formik.errors.images && (

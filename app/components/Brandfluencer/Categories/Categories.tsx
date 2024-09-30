@@ -6,7 +6,7 @@ import { categories } from "./Utils";
 const CategoriesGrid = () => {
   return (
     <div>
-      <div className="grid grid-cols-1 md:grid-cols-3 mb-16 cursor-pointer gap-14">
+      <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 md:px-8 mb-16 cursor-pointer gap-14">
         {categories.map((val, i) => (
           <Link key={i} href={val.link}>
             <div key={i} className="card w-80 h-52 bg-base-300 shadow-xl image-full">

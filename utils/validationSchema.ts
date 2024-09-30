@@ -28,7 +28,7 @@ const signupSchema = Yup.object({
     .required("Mobile is required"),
   companyRep: Yup.string().required("Field is required"),
   password: Yup.string()
-    .min(6, "password must be at least 6 charecters")
+    .min(8, "password must be at least 8 characters")
     .required("Password is required")
     .matches(
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
@@ -52,7 +52,7 @@ const signupSchemaInfluencer = Yup.object({
     .required("Mobile is required"),
   instaID: Yup.string().required("Insta Profile is required"),
   password: Yup.string()
-    .min(6, "password must be at least 6 characters")
+    .min(8, "password must be at least 8 characters")
     .required("Password is required")
     .matches(
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
@@ -96,10 +96,10 @@ const forgotPasswordValidationSchema = Yup.object({
     .email("Invalid email address")
     .required("Email is required"),
   otp: Yup.string()
-  .trim()
-  .length(6, "OTP must be exactly 6 digits")
-  .matches(/^\d+$/, "OTP must be a number")
-  .required("OTP is required"),
+    .trim()
+    .length(6, "OTP must be exactly 6 digits")
+    .matches(/^\d+$/, "OTP must be a number")
+    .required("OTP is required"),
   newPassword: Yup.string()
     .trim()
     .min(8, "password must be at least 8 charecters")
@@ -108,7 +108,7 @@ const forgotPasswordValidationSchema = Yup.object({
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
       "Must contain at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character"
     ),
-    confirmPassword: Yup.string()
+  confirmPassword: Yup.string()
     .oneOf([Yup.ref("newPassword")], "Passwords must match")
     .required("Confirm Password is Required"),
 });
@@ -121,7 +121,7 @@ const contactSchema = Yup.object({
     .typeError("That doesn't look like a phone number")
     .positive("A phone number can't start with a minus")
     .integer("A phone number can't include a decimal point")
-    .required('Required'),
+    .required("Required"),
   email: Yup.string().email("Invalid email address").required("Required"),
   message: Yup.string()
     .max(200, "Must be 200 characters or less")
@@ -129,9 +129,7 @@ const contactSchema = Yup.object({
 });
 
 const experienceModalValidationSchema = Yup.object({
-  link: Yup.string()
-  .url("Enter a valid url")
-  .required("Link is required"),
+  link: Yup.string().url("Enter a valid url").required("Link is required"),
 });
 
 export {

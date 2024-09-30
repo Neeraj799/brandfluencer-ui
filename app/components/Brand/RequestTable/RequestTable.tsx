@@ -90,9 +90,10 @@ const RequestTable = () => {
           const data = await res.json();
           Swal.fire({
             title: "Completed",
-            text: "Successfully Approved the Request.",
+            text: "Successfully Rejected the Request.",
             icon: "success",
           });
+          setRefresh(!refresh);
         }
       });
     } catch (error) {
@@ -155,7 +156,7 @@ const RequestTable = () => {
                         onClick={() => handleComplete(val?._id)}
                         className={`${
                           val?.status !== "Pending" ? `btn-disabled  ` : ""
-                        }btn mr-3 btn-success text-white btn-xs md:btn-sm`}
+                        }btn mr-3 btn-success text-white btn-xs md:btn-sm mb-1`}
                       >
                         Accept
                       </button>
