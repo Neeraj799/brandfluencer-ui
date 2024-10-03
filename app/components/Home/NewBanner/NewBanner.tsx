@@ -69,7 +69,7 @@ const NewBanner = async () => {
                 </div> */}
                 <div>
                   <img
-                    className="lg:ml-8 lg:mt-0 p-8 lg:p-0 sm:h-[600px] lg:h-[400px]  xl:h-[500px]"
+                    className=" lg:ml-2 lg:mt-0 p-8 lg:p-0 sm:h-[600px] lg:h-[400px]  xl:h-[500px]"
                     src="/home/homeGirl.png"
                     alt="Image 2"
                   />

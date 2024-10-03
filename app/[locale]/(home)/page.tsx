@@ -5,17 +5,16 @@ import Intro from "@/components/Home/Intro";
 import SocialMedia from "@/components/Home/SocialMedia";
 import NewBanner from "@/components/Home/NewBanner/NewBanner";
 
-
 export default function Home() {
   return (
     <main>
       <div>
-      <NewBanner />
-      <Category />
-      <Intro />
-      <Hero />
-      <SocialMedia />
-      <Contact />
+        <NewBanner />
+        <Category />
+        <Intro />
+        <Hero />
+        <SocialMedia />
+        <Contact />
       </div>
     </main>
   );
