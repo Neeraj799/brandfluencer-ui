@@ -35,14 +35,13 @@ const Profile = () => {
     authorization: `${token}`,
   };
 
-
   return (
     profile && (
       <main className="profile-page  md:m-0 mb-20">
         {session?.user?.role === "brand" ? (
           <BrandModal profile={user} />
         ) : (
-          <Modal profile={user}/>
+          <Modal profile={user} />
         )}
         <section className="relative block">
           <div>
@@ -91,7 +90,7 @@ const Profile = () => {
                       {/* The button to open modal */}
                       <label
                         htmlFor="my_modal_7"
-                        className="btn btn-xs md:btn-sm text-right btn-error text-white px-5 antialiased tracking-wide"
+                        className="btn btn-xs md:btn-sm text-right btn-error text-white px-3 antialiased tracking-wide"
                       >
                         Edit
                       </label>
@@ -132,14 +131,15 @@ const Profile = () => {
                   <h3 className="text-4xl font-semibold leading-normal text-blueGray-700 md:mb-2">
                     {user?.brand || user?.name}
                   </h3>
-                  
+
                   {user?.companyRep && (
                     <div className="text-sm leading-normal mt-0 mb-2 text-gray-600 font-bold uppercase">
-                    <i className="fas fa-map-marker-alt mr-2 text-lg text-gray-400"></i>
-                    {t("companyRepresentativeName")} - {user?.companyRep || " "}
-                  </div>
+                      <i className="fas fa-map-marker-alt mr-2 text-lg text-gray-400"></i>
+                      {t("companyRepresentativeName")} -{" "}
+                      {user?.companyRep || " "}
+                    </div>
                   )}
-                  
+
                   {user?.instaID && (
                     <div className="mb-2 text-blueGray-600 mt-8">
                       <i className="fas fa-briefcase mr-2 text-lg"></i>

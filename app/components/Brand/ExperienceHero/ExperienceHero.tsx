@@ -7,7 +7,6 @@ const ExperienceHero = ({ experiences, token, setRefresh, refresh }: any) => {
   const [isOpen, setIsOpen] = useState(false);
 
   console.log(token);
-  
 
   const toggleModal = (expData: any) => {
     Swal.fire({
@@ -32,7 +31,7 @@ const ExperienceHero = ({ experiences, token, setRefresh, refresh }: any) => {
       imageWidth: 300,
       imageHeight: 200,
       imageAlt: "Custom image",
-      confirmButtonText: "Ok",
+      confirmButtonText: "OK",
       confirmButtonColor: "oklch(var(--a))",
       customClass: {
         confirmButton: "btn btn-accent text-white btn-sm",
@@ -118,7 +117,7 @@ const ExperienceHero = ({ experiences, token, setRefresh, refresh }: any) => {
                   Archive
                 </button>*/}
 
-                {expData.experienceStatus !=="Closed" && (
+                {expData.experienceStatus !== "Closed" && (
                   <button
                     onClick={() => handleEnd(expData?._id)}
                     className="btn btn-error text-white btn-sm"

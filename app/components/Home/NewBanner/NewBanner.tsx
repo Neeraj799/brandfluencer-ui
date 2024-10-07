@@ -36,7 +36,7 @@ const NewBanner = async () => {
               </div>
               <div className="flex flex-col md:mt-4 w-full sm:w-1/2 flex-wrap">
                 <span className="text-2xl text-wrap sm:text-3xl md:text-4xl font-medium mb-2">
-                  <div className="flex flex-row flex-wrap md:flex-nowrap">
+                  <div className="flex flex-row flex-nowrap">
                     <span className="text-gray-400">Of</span>
                     <span className="line-through text-error ml-2">
                       {t("infleuncers")}

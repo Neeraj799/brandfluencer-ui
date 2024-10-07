@@ -1,6 +1,6 @@
 import React from "react";
 
-const Title = ({title}:any) => {
+const Title = ({ title }: any) => {
   return (
     <div className="flex mt-6 justify-center items-center w-full">
       <div
@@ -9,7 +9,7 @@ const Title = ({title}:any) => {
       >
         <span
           className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold antialiased tracking-wider drop-shadow-2xl text-white"
-          style={{ textShadow: "4px 4px #20afaf5a" }}
+          style={{ textShadow: "3px 3px #20afaf5a" }}
         >
           {title}
         </span>

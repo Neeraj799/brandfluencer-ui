@@ -17,7 +17,6 @@ const Experiences = () => {
   const [refresh, setRefresh] = useState(false);
   const t = useI18n();
 
-  
   useEffect(() => {
     try {
       if (session && session.user && session.token) {
@@ -27,7 +26,7 @@ const Experiences = () => {
       console.error(error);
     }
   }, [session]);
-  
+
   if (!session) {
     redirect(" /brand/login");
   }
@@ -72,7 +71,7 @@ const Experiences = () => {
       {experiences?.length > 0 ? (
         <>
           {approvedExperiences.length > 0 && (
-            <div>
+            <div className="mr-4">
               <div className="sm:text-xl md:text-2xl lg:text-3xl mt-20 underline mb-8 text-center font-bold tracking-wider antialiased text-accent ">
                 ACTIVE EXPERIENCES
               </div>

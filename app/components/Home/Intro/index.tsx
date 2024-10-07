@@ -36,7 +36,6 @@ const Intro = async () => {
           </p>
         </div>
       </div>
-     
     </>
   );
 };
