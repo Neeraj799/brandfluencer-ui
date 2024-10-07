@@ -9,7 +9,7 @@ const Title = ({ title }: any) => {
       >
         <span
           className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold antialiased tracking-wider drop-shadow-2xl text-white"
-          style={{ textShadow: "3px 3px #20afaf5a" }}
+          style={{ textShadow: "2px 2px #20afaf5a" }}
         >
           {title}
         </span>
