@@ -7,7 +7,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import CommonNavbar from "@/components/CommonNavbar/CommonNavbar";
 
-
 export default function RootLayout({
   children,
 }: Readonly<{
