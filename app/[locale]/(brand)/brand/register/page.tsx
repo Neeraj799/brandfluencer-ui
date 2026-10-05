@@ -45,8 +45,7 @@ const Register = () => {
 
     onSubmit: async (values) => {
       try {
-
-        if(!image) {
+        if (!image) {
           formik.setFieldError("image", "Please upload image");
           return;
         }
@@ -71,8 +70,8 @@ const Register = () => {
 
         const data = await res.json();
 
-        if (data.error) {
-          toast.error(data.error, {
+        if (data?.error) {
+          toast.error(data?.error, {
             position: "top-center",
           });
         } else if (data.success) {
@@ -96,11 +95,11 @@ const Register = () => {
     const file = event.target.files?.[0] ?? null;
 
     formik.setFieldError("image", "");
-      
+
     const isValidImages = isValidFileUploaded(file);
     const image = file ? URL.createObjectURL(file) : "";
     setselectedImage(image);
-    
+
     if (!isValidImages) {
       formik.setFieldError(
         "image",
@@ -109,7 +108,6 @@ const Register = () => {
       return;
     }
     setImage(file);
-
   };
 
   return (

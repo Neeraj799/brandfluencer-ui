@@ -130,20 +130,19 @@ const Login = () => {
                   {t("login")}
                 </button>
               )}
-              
             </form>
 
             <Link href={"/brand/forgotPassword"}>
-                <p className="mt-5 text-xs border-b py-4">
+              <p className="mt-5 text-xs border-b py-4">
                 {t("forgotYourPassword")} ?
-                </p>
-              </Link>
-              
+              </p>
+            </Link>
+
             <div className="mt-3 text-xs pt-2 flex justify-between items-center">
               <p>{t("noAccount")} !?</p>
               <Link href={" /brand/register"}>
                 <p className="hover:scale-105 duration-300 py-2 px-5 bg-white border rounded-xl">
-                {t("register")}
+                  {t("register")}
                 </p>
               </Link>
             </div>
@@ -164,4 +163,3 @@ const Login = () => {
 };
 
 export default Login;
-  

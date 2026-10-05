@@ -22,7 +22,7 @@ export const authOptions: NextAuthOptions = {
               method: "POST",
               body: JSON.stringify({ email, password }),
               headers: { "Content-Type": "application/json" },
-            }
+            },
           );
 
           if (!res.ok) {
@@ -46,7 +46,7 @@ export const authOptions: NextAuthOptions = {
               method: "POST",
               body: JSON.stringify({ email, password }),
               headers: { "Content-Type": "application/json" },
-            }
+            },
           );
 
           if (!res.ok) {
